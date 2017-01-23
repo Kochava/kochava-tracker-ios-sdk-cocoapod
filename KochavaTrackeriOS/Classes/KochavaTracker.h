@@ -137,7 +137,7 @@ extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
  
  @brief A constant to use for the key when passing the parameter to the tracker to set the log level enum.
  
- @discussion The corresponding value should be an NSUInteger wrapped in an NSNumber matching one of the defined constants for log levels.
+ @discussion The corresponding value should be an NSString matching one of the defined constants for log levels.
  */
 extern NSString * _Nonnull const kKVAParamLogLevelEnumKey;
 
@@ -271,9 +271,9 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @property shared
  
- @brief A singleton shared, for convenience.
+ @brief A singleton shared instance, for convenience.
  
- @discussion This is the preferred way of utilizing a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use an initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
+ @discussion This is the preferred way of utilizing a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use the designated initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
  */
 @property (class, readonly, strong, nonnull) KochavaTracker *shared;
 
@@ -288,7 +288,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @brief The main configuration method for use with the shared instance.  This method configures (or reconfigures) a tracker with a parametersDictionary.  When using the shared this method must be called prior to using the tracker in any meaningful way.
  
- @discussion This method configures the tracker with parameters passed in a parametersDictionary.  It is intended for use with the shared only.  By calling the Kochava Tracker initializer, you have completed the basic integration with the Kochava Tracker.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
+ @discussion This method configures the tracker with parameters passed in a parametersDictionary.  It is intended for use with the shared instance only.  By calling the Kochava Tracker initializer, you have completed the basic integration with the Kochava Tracker.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
 
  @param parametersDictionary a dictionary containing any number of parameters with which to configure the tracker.
  
