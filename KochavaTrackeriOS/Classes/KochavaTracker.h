@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/26/16.
-//  Copyright (c) 2013 - 2016 Kochava, Inc. All rights reserved.
+//  Copyright (c) 2013 - 2017 Kochava, Inc. All rights reserved.
 //
 
 
@@ -258,7 +258,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @author Kochava, Inc.
  
- @copyright 2013 - 2016 Kochava, Inc.
+ @copyright 2013 - 2017 Kochava, Inc.
  */
 @interface KochavaTracker : NSObject
 

@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/13/16.
-//  Copyright © 2016 Kochava, Inc. All rights reserved.
+//  Copyright © 2017 Kochava, Inc. All rights reserved.
 //
 
 
@@ -69,7 +69,7 @@
  
  @author John Bushnell
  
- @copyright 2016 Kochava, Inc.
+ @copyright 2017 Kochava, Inc.
  */
 @interface KochavaEvent : NSObject
 
