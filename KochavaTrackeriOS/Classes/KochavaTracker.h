@@ -160,6 +160,8 @@ extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
  @brief A constant to use for the key when passing the parameter to the tracker to set the retrieve attribution boolean.
  
  @discussion The corresponding value should be a boolean wrapped in an NSNumber.
+ 
+    Important Note:  This should only be done if your app makes use of this information, otherwise it causes needless network communication.  Attribution will performed server-side regardless of the application requesting the results.
  */
 extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
 
@@ -391,6 +393,8 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  @brief A method to queue an Identity Link event to be sent to server.
  
  @param dictionary A dictionary containing key/value pairs to be associated with the app install.  The keys may be any string value.  The values may be any string or numeric value.
+ 
+    Important Note:  When possible, Identity Link information should be provided using the kKVAParamIdentityLinkDictionaryKey when the tracker is being configured, as opposed to using instance method sendIdentityLinkWithDictionary:, to ensure that your identity values are always associated with your install.
  */
 - (void)sendIdentityLinkWithDictionary:(nonnull NSDictionary *)dictionary;
 
