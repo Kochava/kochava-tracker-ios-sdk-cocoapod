@@ -48,6 +48,8 @@
 
 #define TRKWLEventTypeEnumView TRKWL_CLASS(EventTypeEnumView)
 
+#define TRKWLEventTypeEnumAdView TRKWL_CLASS(EventTypeEnumAdView)
+
 
 
 #define TRKWLEvent TRKWL_CLASS(Event)
@@ -196,11 +198,130 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
      @discussion This is an enumerated value which signifies that an item was viewed.  You may use this in any equivalent circumstance.
      */
     KochavaEventTypeEnumView = 110,
+    
+    
+    
+    /*!
+     @brief Ad View
+     
+     @discussion This is an enumerated value which signifies that an ad was viewed.  You may use this in any equivalent circumstance.
+     */
+    KochavaEventTypeEnumAdView = 111,
 };
 
 
 
 #pragma mark - PARAMETERS
+
+
+
+/*!
+ @property adCampaignIdString
+ 
+ @brief A property containing an ad campaign identifier string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad campaign identifier.
+ */
+@property (strong, nonatomic, nullable) NSString *adCampaignIdString;
+
+
+
+/*!
+ @property adCampaignNameString
+ 
+ @brief A property containing an ad campaign name string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad campaign name.
+ */
+@property (strong, nonatomic, nullable) NSString *adCampaignNameString;
+
+
+
+/*!
+ @property adDeviceTypeString
+ 
+ @brief A property containing an ad device type string.
+ 
+ @discussion This is expected to contain a string corresponding to a device type.
+ */
+@property (strong, nonatomic, nullable) NSString *adDeviceTypeString;
+
+
+
+/*!
+ @property adGroupIdString
+ 
+ @brief A property containing an ad group identifier string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad group identifier.
+ */
+@property (strong, nonatomic, nullable) NSString *adGroupIdString;
+
+
+
+/*!
+ @property adGroupNameString
+ 
+ @brief A property containing an ad group name string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad group name.
+ */
+@property (strong, nonatomic, nullable) NSString *adGroupNameString;
+
+
+
+/*!
+ @property adMediationNameString
+ 
+ @brief A property containing an ad mediation network name string.
+ 
+ @discussion This is expected to contain a standardized string corresponding to an advertising network.  It is the name of the network that was used during mediation.
+ */
+@property (strong, nonatomic, nullable) NSString *adMediationNameString;
+
+
+
+/*!
+ @property adNetworkNameString
+ 
+ @brief A property containing an ad network name string.
+ 
+ @discussion This is expected to contain a standardized string corresponding to an advertising network.
+ */
+@property (strong, nonatomic, nullable) NSString *adNetworkNameString;
+
+
+
+/*!
+ @property adPlacementString
+ 
+ @brief A property containing an ad placement string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad placement, ad unit, etc.
+ */
+@property (strong, nonatomic, nullable) NSString *adPlacementString;
+
+
+
+/*!
+ @property adSizeString
+ 
+ @brief A property containing an ad size string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad size.
+ */
+@property (strong, nonatomic, nullable) NSString *adSizeString;
+
+
+
+/*!
+ @property adTypeString
+ 
+ @brief A property containing an ad type string.
+ 
+ @discussion This is expected to contain a string corresponding to an ad type.
+ */
+@property (strong, nonatomic, nullable) NSString *adTypeString;
 
 
 

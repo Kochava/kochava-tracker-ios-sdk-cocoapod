@@ -106,7 +106,7 @@ extern NSString * _Nonnull const kKVAParamAppGUIDStringKey;
  
  @discussion The corresponding value should be a String.
  */
-extern NSString * _Nonnull const kKVAParamCustomIdStringKey;
+extern NSString * _Nonnull const kKVAParamCustomIdStringKey KOCHAVA_DEPRECATED("Please instead use the constant string 'custom_id'");
 
 
 
