@@ -48,6 +48,8 @@
 
 @class KochavaTracker;
 
+@class UIApplication;
+
 
 
 #pragma mark - PROTOCOL
@@ -275,29 +277,29 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @brief A singleton shared instance, for convenience.
  
- @discussion This is the preferred way of utilizing a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use the designated initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
+ @discussion This is the preferred way of using a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use the designated initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared instance prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
  */
 @property (class, readonly, strong, nonnull) KochavaTracker *shared;
 
 
 
-#pragma mark - METHODS (INIT)
+#pragma mark - INSTANCE METHODS (LIFECYCLE)
 
 
 
 /*!
  @method - configureWithParametersDictionary:delegate:
  
- @brief The main configuration method for use with the shared instance.  This method configures (or reconfigures) a tracker with a parametersDictionary.  When using the shared this method must be called prior to using the tracker in any meaningful way.
+ @brief The main configuration method for use with the shared instance.  This method configures (or reconfigures) a tracker with a parametersDictionary.  When using the shared this method must be called prior to using the tracker.
  
- @discussion This method configures the tracker with parameters passed in a parametersDictionary.  It is intended for use with the shared instance only.  By calling the Kochava Tracker initializer, you have completed the basic integration with the Kochava Tracker.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
+ @discussion This method configures the tracker with parameters passed in a parametersDictionary.  It is intended for use with the shared instance only.  By calling the KochavaTracker configuration method, you have completed the basic integration with the KochavaTracker SDK.  The call to the configuration method should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
 
  @param parametersDictionary a dictionary containing any number of parameters with which to configure the tracker.
  
  @param delegate A delegate which can be used to return attribution information along with other information (optional).
  
  @code
- NSMutableDictionary *parametersDictionary = [NSMutableDictionary dictionary];
+ NSMutableDictionary *parametersDictionary = NSMutableDictionary.dictionary;
  parametersDictionary[kKVAParamAppGUIDStringKey] = @"_YOUR_KOCHAVA_APP_GUID_";
  parametersDictionary[kKVAParamLogLevelEnumKey] = kKVALogLevelEnumInfo;
  [KochavaTracker.shared configureWithParametersDictionary:parametersDictionary delegate:self];
@@ -312,7 +314,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @brief The designated initializer for a Kochava Tracker.
  
- @discussion This method initializes a tracker with parameters passed in a parametersDictionary.  By calling the Kochava Tracker initializer, you have completed the basic integration with the Kochava Tracker.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
+ @discussion This method initializes a tracker with parameters passed in a parametersDictionary.  By calling the KochavaTracker initializer, you have completed the basic integration with the KochavaTracker SDK.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
  
  @param parametersDictionary A dictionary containing the tracker's parameters.
  
@@ -321,7 +323,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  @return A tracker, or possibly nil if the dictionary did not contain valid properties to form one.
  
  @code
- NSMutableDictionary *parametersDictionary = [NSMutableDictionary dictionary];
+ NSMutableDictionary *parametersDictionary = NSMutableDictionary.dictionary;
  parametersDictionary[kKVAParamAppGUIDStringKey] = @"_YOUR_KOCHAVA_APP_GUID_";
  parametersDictionary[kKVAParamLogLevelEnumKey] = kKVALogLevelEnumInfo;
  KochavaTracker *kochavaTracker = [[KochavaTracker alloc] initWithParametersDictionary:parametersDictionary delegate:self];
@@ -331,7 +333,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark - METHODS (SDK)
+#pragma mark - INSTANCE METHODS (GENERAL)
 
 
 
@@ -480,6 +482,39 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  @param infoString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
  */
 - (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
+
+
+
+/*!
+ @method - sdkVersionString
+ 
+ @brief A method to return the sdk version string.
+ 
+ @discussion The returned value includes the name of the SDK, followed by its semantic version.
+ */
+- (nullable NSString *)sdkVersionString;
+
+
+
+/*!
+ @method - addRemoteNotificationsDeviceToken:
+ 
+ @brief A method which adds a remote notifications device token.
+ 
+ @param deviceToken The device token as provided in NSData.
+ */
+- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+
+
+
+/*!
+ @method - removeRemoteNotificationsDeviceToken:
+ 
+ @brief A method which removes any assocation for this device with any previously registered remote notifications device token.
+ 
+ @param deviceToken The device token as provided in NSData.
+ */
+- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
 
 
 
