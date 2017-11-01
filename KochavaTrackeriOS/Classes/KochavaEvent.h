@@ -8,7 +8,7 @@
 
 
 
-#if REVEAL_TARGET == 1
+#if WHTLBL_REVEAL_TARGET == 1
 
 #warning KochavaEvent.h: libKochavaTrackeriOS
 
@@ -20,43 +20,43 @@
 
 
 
-#define TRKWLEventTypeEnum TRKWL_CLASS(EventTypeEnum)
+#define WHTLBLEventTypeEnum WHTLBL_CLASS(EventTypeEnum)
 
-#define TRKWLEventTypeEnumUndefined TRKWL_CLASS(EventTypeEnumUndefined)
+#define WHTLBLEventTypeEnumUndefined WHTLBL_CLASS(EventTypeEnumUndefined)
 
-#define TRKWLEventTypeEnumAddToCart TRKWL_CLASS(EventTypeEnumAddToCart)
+#define WHTLBLEventTypeEnumAddToCart WHTLBL_CLASS(EventTypeEnumAddToCart)
 
-#define TRKWLEventTypeEnumAddToWishList TRKWL_CLASS(EventTypeEnumAddToWishList)
+#define WHTLBLEventTypeEnumAddToWishList WHTLBL_CLASS(EventTypeEnumAddToWishList)
 
-#define TRKWLEventTypeEnumAchievement TRKWL_CLASS(EventTypeEnumAchievement)
+#define WHTLBLEventTypeEnumAchievement WHTLBL_CLASS(EventTypeEnumAchievement)
 
-#define TRKWLEventTypeEnumCheckoutStart TRKWL_CLASS(EventTypeEnumCheckoutStart)
+#define WHTLBLEventTypeEnumCheckoutStart WHTLBL_CLASS(EventTypeEnumCheckoutStart)
 
-#define TRKWLEventTypeEnumCustom TRKWL_CLASS(EventTypeEnumCustom)
+#define WHTLBLEventTypeEnumCustom WHTLBL_CLASS(EventTypeEnumCustom)
 
-#define TRKWLEventTypeEnumLevelComplete TRKWL_CLASS(EventTypeEnumLevelComplete)
+#define WHTLBLEventTypeEnumLevelComplete WHTLBL_CLASS(EventTypeEnumLevelComplete)
 
-#define TRKWLEventTypeEnumPurchase TRKWL_CLASS(EventTypeEnumPurchase)
+#define WHTLBLEventTypeEnumPurchase WHTLBL_CLASS(EventTypeEnumPurchase)
 
-#define TRKWLEventTypeEnumRating TRKWL_CLASS(EventTypeEnumRating)
+#define WHTLBLEventTypeEnumRating WHTLBL_CLASS(EventTypeEnumRating)
 
-#define TRKWLEventTypeEnumRegistrationComplete TRKWL_CLASS(EventTypeEnumRegistrationComplete)
+#define WHTLBLEventTypeEnumRegistrationComplete WHTLBL_CLASS(EventTypeEnumRegistrationComplete)
 
-#define TRKWLEventTypeEnumSearch TRKWL_CLASS(EventTypeEnumSearch)
+#define WHTLBLEventTypeEnumSearch WHTLBL_CLASS(EventTypeEnumSearch)
 
-#define TRKWLEventTypeEnumTutorialComplete TRKWL_CLASS(EventTypeEnumTutorialComplete)
+#define WHTLBLEventTypeEnumTutorialComplete WHTLBL_CLASS(EventTypeEnumTutorialComplete)
 
-#define TRKWLEventTypeEnumView TRKWL_CLASS(EventTypeEnumView)
+#define WHTLBLEventTypeEnumView WHTLBL_CLASS(EventTypeEnumView)
 
-#define TRKWLEventTypeEnumAdView TRKWL_CLASS(EventTypeEnumAdView)
+#define WHTLBLEventTypeEnumAdView WHTLBL_CLASS(EventTypeEnumAdView)
 
-#define TRKWLEventTypeEnumPushReceived TRKWL_CLASS(EventTypeEnumPushReceived)
+#define WHTLBLEventTypeEnumPushReceived WHTLBL_CLASS(EventTypeEnumPushReceived)
 
-#define TRKWLEventTypeEnumPushOpened TRKWL_CLASS(EventTypeEnumPushOpened)
+#define WHTLBLEventTypeEnumPushOpened WHTLBL_CLASS(EventTypeEnumPushOpened)
 
 
 
-#define TRKWLEvent TRKWL_CLASS(Event)
+#define WHTLBLEvent WHTLBL_CLASS(Event)
 
 
 
@@ -363,7 +363,7 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  
  @brief A property containing an App Store receipt which has been converted into a base64 encoded string.
  
- @discussion This payload is expected to contain an App Store receipt, which also would contain the host's in-app purchase receipts.   The format of the information is expected to be that which is provided by the main bundle's appStoreReceiptURL method, the data of which being loaded and base-64-string-encoded.   It is expected that this information would be provided (or re-provided) at the time a new in-app purchase has been made, with the expectation that it would be validated.
+ @discussion The format of the information is expected to be that which is provided by the main bundle's appStoreReceiptURL method, the data of which being loaded and base-64-string-encoded.
  */
 @property (strong, nonatomic, nullable) NSString *appStoreReceiptBase64EncodedString;
 
