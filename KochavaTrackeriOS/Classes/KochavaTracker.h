@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/26/16.
-//  Copyright (c) 2013 - 2017 Kochava, Inc. All rights reserved.
+//  Copyright (c) 2013 - 2018 Kochava, Inc. All rights reserved.
 //
 
 
@@ -42,13 +42,15 @@
 
 
 
+#define KVATracker    WHTLBL_CLASS(Tracker)
+
+
+
 #pragma mark - CLASS
 
 
 
 @class KochavaTracker;
-
-@class UIApplication;
 
 
 
@@ -102,6 +104,17 @@ extern NSString * _Nonnull const kKVAParamAppGUIDStringKey;
 
 
 /*!
+ @constant kKVAParamAppLimitAdTrackingBoolKey
+ 
+ @brief A constant to use for the key when passing the parameter to the tracker to set the limit ad tracking boolean.
+ 
+ @discussion The corresponding value should be a boolean wrapped in an NSNumber.
+ */
+extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
+
+
+
+/*!
  @constant kKVAParamCustomIdStringKey
  
  @brief A constant to use for the key when passing the parameter to the tracker to set the custom id string.
@@ -120,17 +133,6 @@ extern NSString * _Nonnull const kKVAParamCustomIdStringKey KOCHAVA_DEPRECATED("
  @discussion The corresponding value should be a dictionary.
  */
 extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
-
-
-
-/*!
- @constant kKVAParamAppLimitAdTrackingBoolKey
- 
- @brief A constant to use for the key when passing the parameter to the tracker to set the limit ad tracking boolean.
- 
- @discussion The corresponding value should be a boolean wrapped in an NSNumber.
- */
-extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
 
 
 
@@ -166,6 +168,17 @@ extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
     Important Note:  This should only be done if your app makes use of this information, otherwise it causes needless network communication.  Attribution will performed server-side regardless of the application requesting the results.
  */
 extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
+
+
+
+/*!
+ @constant kKVAParamStorageIdStringKey
+ 
+ @brief A constant to use for the key when passing the parameter to the tracker to set the storage id string.
+ 
+ @discussion The corresponding value should be a string.  This parameter should be omitted (nil) unless you are making use of multiple instances of KochavaTracker.
+ */
+extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 
@@ -235,6 +248,24 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
+/*!
+ @constant kKVAMessagesAppViewControllerDidBecomeActiveNotificationNameString
+ 
+ @brief A string to use as the name for a notification that a MessagesAppViewController did become active.
+ */
+extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidBecomeActiveNotificationNameString;
+
+
+
+/*!
+ @constant kKVAMessagesAppViewControllerDidResignActiveNotificationNameString
+ 
+ @brief A string to use as the name for a notification that a MessagesAppViewController did resign active.
+ */
+extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNotificationNameString;
+
+
+
 #pragma mark - INTERFACE
 
 
@@ -262,13 +293,14 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @author Kochava, Inc.
  
- @copyright 2013 - 2017 Kochava, Inc.
+ @copyright 2013 - 2018 Kochava, Inc.
  */
 @interface KochavaTracker : NSObject
 
 
 
-#pragma mark - SINGLETON
+#pragma mark - CLASS PROPERTIES
+#pragma mark KochavaTracker.shared (Singleton Shared Instance)
 
 
 
@@ -283,7 +315,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark - INSTANCE METHODS (LIFECYCLE)
+#pragma mark - LIFECYCLE
 
 
 
@@ -333,7 +365,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark - INSTANCE PROPERTIES
+#pragma mark - PROPERTIES
 
 
 
@@ -348,14 +380,14 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark - INSTANCE METHODS (GENERAL)
+#pragma mark - GENERAL
 
 
 
 /*!
  @method - sendEvent:
  
- @brief A method to queue a post-install event with standardized parameters to be sent to the server.
+ @brief A method to queue an event with standardized parameters to be sent to the server.
  
  @param event A KochavaEvent configured with the values you want to associate with the event.
  */
@@ -366,7 +398,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - sendEventWithNameString:infoDictionary:
  
- @brief A method to queue a post-install event with custom parameters to be sent to server.
+ @brief A method to queue an event with custom parameters to be sent to server.
  
  @param nameString String containing event title or key of key/value pair.
  
@@ -379,7 +411,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - sendEventWithNameString:infoString:
  
- @brief A method to queue a post-install event with custom parameters to be sent to server.
+ @brief A method to queue an event with custom parameters to be sent to server.
  
  @param nameString String containing event title or key of key/value pair.
  
@@ -420,7 +452,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @brief A method to return the attribution information previously retrieved from the server (if any).
  
- @discussion The use of this method assumes that the tracker was previously requested to retrieve attribution during its initial initialization.  It is intended that this information be passed automatically back to the parent through delegation.  This method can be used to re-retrieve the same information, but if it is called before attribution information has been retrieved then the result will be nil.
+ @discussion The use of this method assumes that the tracker was previously requested to retrieve attribution during its configuration.  It is intended that this information be passed automatically back to the parent through delegation.  This method can be used to re-retrieve the same information, but if it is called before attribution information has been retrieved then the result will be nil.
  
  @return a dictionary containing attribution information (or nil).
  */
@@ -475,7 +507,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - sendWatchEventWithNameString:infoString:
  
- @brief A method to queue a post-install Apple Watch event to be sent to server.
+ @brief A method to queue an Apple Watch event to be sent to server.
  
  @param nameString String containing event title or key of key/value pair.
  
@@ -547,7 +579,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - trackEvent:value:
  
- @brief A method to queue a post-install event with custom parameters to be sent to server.
+ @brief A method to queue an event with custom parameters to be sent to server.
  
  @param titleString String containing event title or key of key/value pair.
  
@@ -562,7 +594,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - trackEvent:withValue:andReceipt:
  
- @brief A method to queue a post-install event with a receipt to be sent to server.
+ @brief A method to queue an event with a receipt to be sent to server.
  
  @param titleString String containing event title or key of key/value pair.
  
@@ -622,7 +654,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  
  @brief A method to return the attribution information previously retrieved from the server (if any).
  
- @discussion The use of this method assumes that the tracker was previously requested to retrieve attribution during its initial initialization.  It is intended that this information be passed automatically back to the parent through delegation.  This method can be used to re-retrieve the same information, but if it is called before attribution information has been retrieved then the result will be nil.
+ @discussion The use of this method assumes that the tracker was previously requested to retrieve attribution during its configuration.  It is intended that this information be passed automatically back to the parent through delegation.  This method can be used to re-retrieve the same information, but if it is called before attribution information has been retrieved then the result will be nil.
  
  This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use attributionDictionary.
  
@@ -648,7 +680,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - trackWatchEvent:value:
  
- @brief A method to queue a post-install Apple Watch event to be sent to server.
+ @brief A method to queue an Apple Watch event to be sent to server.
  
  @param titleString String containing event title or key of key/value pair.
  
@@ -674,7 +706,7 @@ KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.
 /*!
  @method - sendEventWithEventStandardParameters:
  
- @brief A method to queue a post-install event with standardized parameters to be sent to the server.
+ @brief A method to queue an event with standardized parameters to be sent to the server.
  
  @param eventStandardParameters EventStandardParameters configured with the values you want to associate with the event.
 
@@ -687,7 +719,7 @@ KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.
 /*!
  @method - sendEventWithNameString:infoString:appStoreReceiptBase64EncodedString:
  
- @brief A method to queue a post-install event with a receipt to be sent to server.
+ @brief A method to queue an event with a receipt to be sent to server.
  
  @param nameString String containing event title or key of key/value pair.
  
