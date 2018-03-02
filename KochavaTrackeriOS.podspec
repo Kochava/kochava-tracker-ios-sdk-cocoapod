@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KochavaTrackeriOS'
-  s.version          = '3.4.0'
+  s.version          = '3.4.1'
   s.summary          = 'The KochavaTracker iOS SDK.  Kochava is a leading mobile attribution and analytics platform.'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
 s.description  = <<-DESC
-The KochavaTracker iOS SDK allows advertisers to integrate a single SDK to leverage the hundreds of ad network and publisher partners integrated with Kochava. This limits the number of 3rd party SDKs required to run a successful UA strategy and greatly reduces complexity during update cycles.
+A lightweight and easy to integrate SDK written in Objective-C, providing first-class integration with Kochava’s installation attribution and analytics platform.
 DESC
 
   s.homepage         = 'http://www.kochava.com'

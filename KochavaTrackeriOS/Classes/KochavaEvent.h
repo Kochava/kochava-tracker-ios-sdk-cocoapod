@@ -75,7 +75,7 @@
  
  @author John Bushnell
  
- @copyright 2017 Kochava, Inc.
+ @copyright 2017 - 2018 Kochava, Inc.
  */
 @interface KochavaEvent : NSObject
 
@@ -229,9 +229,6 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
      @discussion This is an enumerated value which signifies that a push notification was opened.
      */
     KochavaEventTypeEnumPushOpened = 113,
-    
-    
-    
 };
 
 

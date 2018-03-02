@@ -231,7 +231,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumInfo;
  
  @brief A LogLevelEnum of Debug.
  
- @discussion The Debug log level expands the logging of the tracker to include details about the internal tasks and network transactions occurring within the tracker.  It is useful for diagnostic purposes.  The Debug log level is higher than is recommended for a released app.
+ @discussion The Debug log level expands the logging of the tracker to include details about the internal tasks and NetTransaction(s) occurring within the tracker.  It is useful for diagnostic purposes.  The Debug log level is higher than is recommended for a released app.
  */
 extern NSString * _Nonnull const kKVALogLevelEnumDebug;
 
