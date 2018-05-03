@@ -54,9 +54,19 @@
 
 #define WHTLBLEventTypeEnumPushOpened WHTLBL_CLASS(EventTypeEnumPushOpened)
 
+#define WHTLBLEventTypeEnumConsentGranted WHTLBL_CLASS(EventTypeEnumConsentGranted)
+
 
 
 #define WHTLBLEvent WHTLBL_CLASS(Event)
+
+
+
+#pragma mark - CLASS
+
+
+
+@class KVAConsent;
 
 
 
@@ -229,6 +239,15 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
      @discussion This is an enumerated value which signifies that a push notification was opened.
      */
     KochavaEventTypeEnumPushOpened = 113,
+
+    
+    
+    /*!
+     @brief Consent Granted
+     
+     @discussion This is an enumerated value which signifies that consent was granted.
+     */
+    KochavaEventTypeEnumConsentGranted = 114,
 };
 
 
@@ -359,6 +378,26 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
+ @property appleWatchBool
+ 
+ @brief A boolean indicating that this event originated from an Apple Watch.
+ */
+@property BOOL appleWatchBool;
+
+
+
+/*!
+ @property appleWatchIdString
+ 
+ @brief A string containing a unique identifer associated with the Apple Watch from which this event originated.
+ 
+ @discussion Optional.  You may set this property in addition to appleWatchBool if you have a unique identifier associated with the watch.
+ */
+@property (strong, nonatomic, nullable) NSString *appleWatchIdString;
+
+
+
+/*!
  @property appStoreReceiptBase64EncodedString
  
  @brief A property containing an App Store receipt which has been converted into a base64 encoded string.
@@ -399,6 +438,26 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  @discussion This is expected to contain a boolean which indicates if something is completed.  This field has a somewhat generic quality, in that it can contain whatever you consider to be fitting value.
  */
 @property (strong, nonatomic, nullable) NSNumber *completedBoolNumber;
+
+
+
+/*!
+ @property consent
+ 
+ @brief An instance of KVAConsent.
+ */
+@property (strong, nonatomic, nullable) KVAConsent *consent;
+
+
+
+/*!
+ @property consentRequiredBool
+ 
+ @brief A property which is a boolean indicating if consent is required for the event.
+ 
+ @discussion The default is NO.  If you want to send an event passing information which requires consent to be kept, persisted, or shared, you may indicate that using this property.  The associated information will only be calculated, kept, persisted, or shared, if that activities may take place as determined by consent.
+ */
+@property BOOL consentRequiredBool;
 
 
 
@@ -520,6 +579,17 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  @discussion This field has a somewhat generic quality, in that it can contain whatever you consider to be fitting value.
  */
 @property (strong, nonatomic, nullable) NSString *endDateString;
+
+
+
+/*!
+ @property eventTypeEnum
+ 
+ @brief An event type.
+ 
+ @discussion Readonly.  This value may be set when an event is constucted.
+ */
+@property (readonly) KochavaEventTypeEnum eventTypeEnum;
 
 
 
@@ -840,20 +910,20 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
- @method - serverEventNameString
+ @method - eventNameString
  
- @brief A method that returns the event name which is suitable to send to the server (internal).
+ @brief A method that returns a string representation of the name of the event.
  */
-- (nonnull NSString *)serverEventNameString;
+- (nonnull NSString *)eventNameString;
 
 
 
 /*!
- @method - serverEventInfoObject
+ @method - eventInfoObject
  
  @brief A method that returns an info object which is suitable to send to the server (internal).
  */
-- (nullable NSObject *)serverEventInfoObject;
+- (nullable NSObject *)eventInfoObject;
 
 
 
