@@ -24,7 +24,7 @@
  
  @param fromObject An object from which to create the instance.  This is expected to be an NSDictionary in most contexts, but for specific implementations may be other classes.  Examples include, but are not limited to, NSString, NSNumber, NSData.  Native class objects are also generally assumed to be supported, returning themselves directly.
  */
-+ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(init(fromObject:));
++ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(fromObject(_:));
 
 
 

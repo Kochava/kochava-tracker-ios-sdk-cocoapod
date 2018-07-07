@@ -8,11 +8,8 @@
 
 
 
-#if WHTLBL_REVEAL_TARGET == 1
-
-#warning KochavaTracker.h: libKochavaTrackeriOS
-
-#endif
+#ifndef KVATracker_h
+#define KVATracker_h
 
 
 
@@ -22,17 +19,23 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_TV
+#import <JavaScriptCore/JavaScriptCore.h>
+#endif
+
+
+
 #import "KVAContext.h"
 
 #import "KVAFromObjectProtocol.h"
 
 #import "KVAAsForContextObjectProtocol.h"
 
-#import "KochavaEvent.h"
-
 #import "KVAConsent.h"
 
 #import "KVAPartner.h"
+
+#import "KochavaEvent.h"
 
 
 
@@ -40,7 +43,7 @@
 
 
 
-#if WHTLBL_REVEAL_TARGET == 1
+#if KVA_REVEAL_TARGET == 1
 
 #define KOCHAVA_DEPRECATED(MSG) /*__attribute__((deprecated(MSG)))*/
 
@@ -52,7 +55,9 @@
 
 
 
-#define KVATracker    WHTLBL_CLASS(Tracker)
+#define KVATracker KochavaTracker
+
+#define KVATrackerDelegate KochavaTrackerDelegate
 
 
 
@@ -99,6 +104,56 @@
 
 
 @end
+
+
+
+#if TARGET_OS_TV
+
+@protocol KochavaTrackerJSExport <JSExport>
+
+@property (class, readonly, strong, nonnull) KochavaTracker *shared;
+
+- (void)configureWithParametersDictionary:(nonnull NSDictionary *)parametersDictionary delegate:(nullable id<KochavaTrackerDelegate>)delegate;
+
+- (nullable id)initWithParametersDictionary:(nonnull NSDictionary *)parametersDictionary delegate:(nullable id<KochavaTrackerDelegate>)delegate;
+
+- (void)invalidate;
+
+- (void)sendEvent:(nonnull KochavaEvent *)event;
+
+- (void)sendEventWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary;
+
+- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
+
+- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString;
+
+- (void)sendIdentityLinkWithDictionary:(nonnull NSDictionary *)dictionary;
+
+- (void)setAppLimitAdTrackingBool:(BOOL)appLimitAdTrackingBool;
+
+- (nullable NSDictionary *)attributionDictionary;
+
+- (void)sendDeepLinkWithOpenURL:(nullable NSURL *)openURL sourceApplicationString:(nullable NSString *)sourceApplicationString;
+
+- (nullable NSString *)deviceIdString;
+
+- (void)handleWatchEvents;
+
+- (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString;
+
+- (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
+
+- (nullable NSString *)sdkVersionString;
+
+- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+
+- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+
+@property BOOL sleepBool;
+
+@end
+
+#endif
 
 
 
@@ -245,7 +300,7 @@ extern NSString * _Nonnull const kKVALogLevelEnumWarn;
  
  @brief A LogLevelEnum of Info (default).
  
- @discussion The Info log level generally only logs key highlights.  Primarily this includes exceptions that occur outside of normal operation, but it also includes a few key moments such as when a tracker is initialized or deallocated.  Beyond that, with the Info log level there will generally be no log entries unless there is something unusual to report, such as an invalid parameter.
+ @discussion The Info log level generally only logs key highlights.  Primarily this includes exceptions that occur outside of normal operation, but it also includes a few key moments such as when an instance of class KVATracker is initialized or deallocated.  Beyond that, with the Info log level there will generally be no log entries unless there is something unusual to report, such as an invalid parameter.
  */
 extern NSString * _Nonnull const kKVALogLevelEnumInfo;
 
@@ -320,7 +375,11 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
  
  @copyright 2013 - 2018 Kochava, Inc.
  */
+#if TARGET_OS_TV
+@interface KochavaTracker : NSObject <KochavaTrackerJSExport>
+#else
 @interface KochavaTracker : NSObject
+#endif
 
 
 
@@ -332,7 +391,7 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @property shared
  
- @brief A singleton shared instance, for convenience.
+ @brief A shared instance, for convenience.
  
  @discussion This is the preferred way of using a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use the designated initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared instance prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
  */
@@ -393,11 +452,11 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @method - invalidate
  
- @brief Invalidates the tracker.
+ @brief Invalidates an instance of class KochavaTracker.
  
- @discussion This is similar to allowing an instance of the tracker deallocate, but it can also be used on the singleton shared instance.  It will additionally signal certain sub-systems to invalidate themselves, which can result in a more immediate halt.  The scope of this invalidation is not absolute.  Certain sub-systems will continue to run for a period of time until they may gracefully complete.  When using this method with the singleton shared instance, you are guaranteed to be re-defaulted a new instance the next time it is referenced, and you may immediately move forward to configure it.
+ @discussion This is similar to allowing an instance of the tracker deallocate, but it can also be used on the shared instance.  It will additionally signal certain sub-systems to invalidate themselves, which can result in a more assured and immediate halt.  The scope of this invalidation is not absolute.  Certain sub-systems will continue to run for a period of time until they may gracefully complete.  When using this method with the shared instance, you are guaranteed to be re-defaulted a new instance the next time it is referenced, and you may immediately move forward to re-configure it.
  
- When you are not using Intelligent Consent Management, this method can be used to signal that the tracker may no longer run following consent having been denied.  When used this way, you may re-configure a tracker if/when consent is granted.  See KVAConsent.intelligentManagementBool.
+ When you are not using Intelligent Consent Management, this method can be used to signal that the tracker may no longer run following consent having been denied.  When used this way, you may re-configure a tracker if/when consent is granted.
  */
 - (void)invalidate;
 
@@ -410,7 +469,9 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @property consent
  
- @brief A property containing consent information.
+ @brief A master instance of class KVAConsent.
+ 
+ @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be calculated or gathered, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
  */
 @property (strong, nonatomic, nonnull, readonly) KVAConsent *consent;
 
@@ -781,6 +842,10 @@ KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.
 
 
 @end
+
+
+
+#endif
 
 
 

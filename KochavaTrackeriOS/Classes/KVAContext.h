@@ -50,7 +50,7 @@
 /*!
  @property + host
  
- @brief A Context which represents the host app.
+ @brief A context which represents the host app.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *host;
 
@@ -59,7 +59,7 @@
 /*!
  @property + log
  
- @brief A Context which represents the log.
+ @brief A context which represents the log.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *log;
 
@@ -68,7 +68,7 @@
 /*!
  @property + persistentStorage
  
- @brief A Context which represents persistentStorage.
+ @brief A context which represents persistentStorage.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *persistentStorage;
 
@@ -77,7 +77,7 @@
 /*!
  @property + sdk
  
- @brief A Context which represents the SDK.
+ @brief A context which represents the SDK.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *sdk;
 
@@ -86,7 +86,7 @@
 /*!
  @property + sdkWrapper
  
- @brief A Context which represents an SDK Wrapper.
+ @brief A context which represents an SDK Wrapper.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *sdkWrapper;
 
@@ -95,7 +95,7 @@
 /*!
  @property + server
  
- @brief A Context which represents the Server.
+ @brief A context which represents the Server.
  */
 @property (class, strong, nonatomic, nonnull, readonly) KVAContext *server;
 
@@ -104,9 +104,9 @@
 /*!
  @property + serverUnrestricted
  
- @brief A Context which represents the Server, and is un-restricted by considerations such as whitelist and blacklist.
+ @brief A context which represents the Server, and is un-restricted by considerations such as whitelist and blacklist.
  
- @discussion This is of particualar relevance with KVANetworkTransactions(s) where whitelist and/or blacklist information may not (or not yet) be known, such as the Tracker.trInitNetTransaction.
+ @discussion This is of particualar relevance with KVANetTransaction(s) where whitelist and/or blacklist information may not (or not yet) be known, such as the Tracker.trInitNetTransaction.
  */
 @property (class,strong, nonatomic, nonnull, readonly) KVAContext *serverUnrestricted;
 
@@ -138,7 +138,7 @@
  
  @return A context.  A value of nil will be returned if the object is not recognized.
  */
-+ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(init(fromObject:));
++ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(fromObject(_:));
 
 
 

@@ -30,6 +30,19 @@
 
 
 
+/*!
+ @class KVAConsent
+ 
+ @brief The class KVAConsent provides a means of managing user consent in relationship to GDPR.
+ 
+ @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be calculated or gathered, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
+ 
+ Inherits from: NSObject
+ 
+ @author John Bushnell
+ 
+ @copyright 2018 Kochava, Inc.
+ */
 @interface KVAConsent : NSObject <NSCopying, KVAFromObjectProtocol, KVAAsForContextObjectProtocol>
 
 
@@ -56,11 +69,11 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @property descriptionString
  
- @brief A description of the partner.
+ @brief A string containing a high level description concerning consent.
  
  @discussion Optional.  This may be presented to the user when prompting for consent.
  
- Example: "Used to do X and Y."
+ Sample Value: "We share information with various partners... we'd like your consent..."
  */
 @property (strong, nonatomic, nullable, readonly) NSString *descriptionString;
 
@@ -91,7 +104,9 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @property partnerArray
  
- @brief An array of KVAPartner(s).
+ @brief An array of instances of class KVAPartner.
+ 
+ @discussion This array of partners can be utilized when prompting for consent.
  
  Swift example:
  @code
@@ -150,7 +165,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A date representing the last time the user did respond concerning consent.
  
- @discussion This value is nil when the user has not provided a response.
+ @discussion This includes both positive and negative responses.  This value is nil when the user has not provided a response.
  */
 @property (strong, nonatomic, nullable, readonly) NSDate *responseDate;
 
@@ -159,7 +174,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @property responseBoolNumber
  
- @brief A boolean indicating the user's response.
+ @brief A boolean indicating the user's response to a prompt for consent.
  
  @discussion A value of true indicates consent was granted.  A value of false indicates consent was denied.  A value of nil exists when the user has not provided a response.
  */
@@ -187,7 +202,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A method to be called when there has been a prompt for consent.
  
- @param didGrantBoolNumber The reponse from the user, as a boolean wrapped in an NSNumber.  A value of true means consent was granted.  A value of false means consent was denied.  A value of nil means the user did not provide a response, and this includes if th user may have dismissed the dialog without indicating one way or another.
+ @param didGrantBoolNumber The response from the user, as a boolean wrapped in an NSNumber.  A value of true means consent was granted.  A value of false means consent was denied.  A value of nil means the user did not provide a response, and this includes if the user may have dismissed the dialog without indicating one way or another.
  */
 - (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber NS_SWIFT_NAME(didPrompt(didGrantBoolNumber:));
 
@@ -196,9 +211,9 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - isGrantedBool
  
- @brief A method returning a boolean indicating if consent is granted.
+ @brief Returns a boolean indicating if consent is granted.
  
- @discussion This considers if the user previously granted consent, as well as the current definition of the Consent which may have changed since consent was last given.  This does not consider whether consent is required.  Compare with mayCalculateBool, mayKeepBool, mayPersistBool, and mayShareBool.
+ @discussion This considers if the user previously granted consent, as well as the current definition of consent- which may have changed since consent was last given.  This does not consider whether consent is required.  Compare with mayCalculateBool, mayKeepBool, mayPersistBool, and mayShareBool.
  */
 - (BOOL)isGrantedBool;
 
@@ -207,7 +222,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - isGrantedBoolNumber
  
- @brief A method returning a boolean indicating if consent is granted (or denied).
+ @brief Returns a boolean indicating if consent is granted, denied, or there is no response.
  
  @discussion This considers if the user previously granted consent, as well as the current definition of the Consent which may have changed since consent was last given.  This does not consider whether consent is required.  See also isGrantedBool.  Compare with mayCalculateBool, mayKeepBool, mayPersistBool, and mayShareBool.
  */
@@ -218,7 +233,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - isGrantedDate
  
- @brief A method returning a date for when consent was granted.
+ @brief Returns a date for when consent was granted.
  
  @discussion If isGrantedBool, then this returns responseDate.  If not, then this returns nil.
  */
@@ -229,7 +244,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - mayCalculateBool
  
- @brief A method returning a boolean indicating if the app may calculate (or gather) data which may be subject to consent.
+ @brief Returns a boolean indicating if the app may calculate (or gather) data which may be subject to consent.
  
  @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayKeepBool, mayPersistBool, and mayShareBool.
  */
@@ -240,7 +255,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - mayKeepBool
  
- @brief A method returning a boolean indicating if the app may keep (or hold in memory) data which may be subject to consent.
+ @brief Returns a boolean indicating if the app may keep (or retain in memory) data which may be subject to consent.
  
  @discussion Returns true if consent is not required or else the user did not otherwise previously deny consent.  This will return true while consent is not known, as long as the previous response did not deny consent.  This includes when the definition for consent has changed and the user previously granted consent.  Compare with mayCalculateBool, mayPersistBool, and mayShareBool.
  */
@@ -251,7 +266,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - mayPersistBool
  
- @brief A method returning a boolean indicating if the app may persist (or retain in persistent storage) data which may be subject to consent.
+ @brief Returns a boolean indicating if the app may persist (or retain in persistent storage) data which may be subject to consent.
  
  @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCalculateBool, mayKeepBool, and mayShareBool.
  */
@@ -262,7 +277,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - mayShareBool
  
- @brief A method returning a boolean indicating if the app may share (internally or externally) data which may be subject to consent.
+ @brief Returns a boolean indicating if the app may share (or export) data which may be subject to consent.
  
  @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCalculateBool, mayKeepBool, and mayPersistBool.
  */
@@ -273,7 +288,9 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - shouldPromptBool
  
- @brief A method returning a boolean indicating if a prompt for consent should be made.
+ @brief Returns a boolean indicating if a prompt for consent should be made.
+ 
+ @discussion You should check this property when a call is made to didUpdateBlock to determine if the user should be prompted for consent.
  */
 - (BOOL)shouldPromptBool;
 
@@ -282,7 +299,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - willPrompt
  
- @brief A method which may be used to notify that a prompt for consent will be made.
+ @brief A method which may be called to notify that a prompt for consent will be made.
  
  @discussion Optional.  This method can be used if you want to ensure that the prompt for consent will not be made again, even when a subsequent call to didPromptWithDidGrantBoolNumber: is never made, such as in the case of an unexpected termination.  If you call didPromptWithDidGrantBoolNumber: whenever the prompt is dismissed, even if the user did not give a response, then this method does not need to be called.
  */
@@ -316,7 +333,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @return An instance of consent.  A value of nil will be returned if the object is not recognized.
  */
-+ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(init(fromObject:));
++ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(fromObject(_:));
 
 
 
