@@ -63,7 +63,7 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		974CE9CC4534767FE489128E /* Pods-KochavaTrackeriOS_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KochavaTrackeriOS_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KochavaTrackeriOS_Tests/Pods-KochavaTrackeriOS_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C33826DD433279463133A001 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		EB4F8E66C9F7DCFDE8FE8C5D /* KochavaTrackeriOS.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KochavaTrackeriOS.podspec; path = ../KochavaTrackeriOS.podspec; sourceTree = "<group>"; };
+		EB4F8E66C9F7DCFDE8FE8C5D /* KochavaTrackeriOS.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KochavaTrackeriOS.podspec; path = ../KochavaTrackeriOS.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FC304F5780C803108764AD93 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

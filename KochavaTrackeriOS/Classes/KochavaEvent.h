@@ -1044,13 +1044,13 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
- @method + fromObject:
+ @method + kva_fromObject:
  
  @brief Creates and returns an instance from another object.
  
  @param fromObject An object from which to create the instance.
  */
-+ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(fromObject(_:));
++ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
 
 
 

@@ -187,13 +187,13 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 
 
 /*!
- @method - asForContextObjectWithContext:
+ @method - kva_asForContextObjectWithContext:
  
  @brief Converts the object for a given target context.
  
  @discussion The returned value will be a nullable NSMutableDictionary.
  */
-- (nullable NSObject *)asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(asForContextObject(withContext:));
+- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
 
 
 
@@ -325,7 +325,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 
 
 /*!
- @method + fromObject:
+ @method + kva_fromObject:
  
  @brief A method to return an instance of consent from another object.
  
@@ -333,7 +333,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @return An instance of consent.  A value of nil will be returned if the object is not recognized.
  */
-+ (nullable instancetype)fromObject:(nullable id)fromObject NS_SWIFT_NAME(fromObject(_:));
++ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
 
 
 

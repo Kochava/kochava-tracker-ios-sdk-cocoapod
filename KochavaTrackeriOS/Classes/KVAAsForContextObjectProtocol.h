@@ -30,13 +30,13 @@
 
 
 /*!
- @method - asForContextObjectWithContext:
+ @method - kva_asForContextObjectWithContext:
  
  @brief Converts the object for a given target context.
  
  @discussion The returned value will be a nullable NSMutableDictionary.
  */
-- (nullable NSObject *)asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(asForContextObject(withContext:));
+- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
 
 
 
