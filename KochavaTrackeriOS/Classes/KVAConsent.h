@@ -102,6 +102,17 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 
 
 /*!
+ @property manualManagedRequirementsBool
+ 
+ @brief A boolean which indicates that the requirements for consent are managed manually (locally).
+ 
+ @discussion Internal.  See kKVAParamConsentManualManagedRequirementsBoolKey.  When intelligent consent management is enabled and configured within your Kochava dashboard, the SDK will indicate when the user should be prompted for consent.  It will also not gather, persist, or transmit data which requires consent unless consent has been granted.
+ */
+@property BOOL manualManagedRequirementsBool;
+
+
+
+/*!
  @property partnerArray
  
  @brief An array of instances of class KVAPartner.
@@ -139,9 +150,9 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A boolean indicating if consent is required.
  
- @discussion This is expected to be true when the user is taken to be under the scope of consent gathering requirements such as GDPR.  This is expected to be the case for EU citizens within EU territory or abroad, and non-EU citizens within EU territory.  When requiredBoolNumber is undefined this will return a default of YES.  It will also overridden to NO when intelligentManagementBool is NO.  See also requiredBoolNumber.
+ @discussion This is expected to be true when the user is taken to be under the scope of consent gathering requirements such as GDPR.  This is expected to be the case for EU citizens within EU territory or abroad, and non-EU citizens within EU territory.  When requiredBoolNumber is undefined this will return a default of YES.  It will also be overridden to NO when intelligentManagementBool is NO.  This variable may also be set when Manual Managed Requirements is turned on.  See also requiredBoolNumber.
  */
-@property (readonly) BOOL requiredBool;
+@property (readwrite) BOOL requiredBool;
 
 
 
@@ -150,9 +161,9 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A boolean indicating if consent is required.
  
- @discussion This is expected to be true when the user is taken to be under the scope of consent gathering requirements such as GDPR.  This is expected to be the case for EU citizens within EU territory or abroad, and non-EU citizens within EU territory.  When it is undefined this will return a default of nil.  See also requiredBool.
+ @discussion This is expected to be true when the user is taken to be under the scope of consent gathering requirements such as GDPR.  This is expected to be the case for EU citizens within EU territory or abroad, and non-EU citizens within EU territory.  When it is undefined this will return a default of nil.  This variable may also be set when Manual Managed Requirements is turned on.  See also requiredBool.
  */
-@property (strong, nonatomic, nullable, readonly) NSNumber *requiredBoolNumber;
+@property (strong, nonatomic, nullable, readwrite) NSNumber *requiredBoolNumber;
 
 
 

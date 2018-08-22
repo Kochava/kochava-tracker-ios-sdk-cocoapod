@@ -164,9 +164,9 @@
 /*!
  @constant kKVAParamAppGUIDStringKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the tracker app id.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a Kochava App GUID (String).
  
- @discussion The corresponding value should be a String.
+ @discussion A valid Kochava App GUID String.  The Kochava Server assigns a globally-unique identifier for each app.  This identifier is used to associate post-install events and other data together.  This parameter is required, and must be provided at the time the tracker is configured.
  */
 extern NSString * _Nonnull const kKVAParamAppGUIDStringKey;
 
@@ -175,11 +175,34 @@ extern NSString * _Nonnull const kKVAParamAppGUIDStringKey;
 /*!
  @constant kKVAParamAppLimitAdTrackingBoolKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the limit ad tracking boolean.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a boolean indicating if advertising tracking should be limited.
  
- @discussion The corresponding value should be a boolean wrapped in an NSNumber.
+ @discussion A boolean which when true will limit advertising tracking.  The default state of this feature is false.  This means that by default there is no limit of advertising tracking from the application.  There may still separately be a limit of ad tracking from the operating system, which is a similar but distinct feature of the operating system.  The associated tracker method, and its associated feature, may be used to supplement the operating system feature with application level support.  The app can present the user with a switch-like user interface to “Limit Ad Tracking” similar to the feature provided by the operating system in privacy settings.  When this switch is changed, this method can be used to report the new state.  The purpose of this feature is not to replace the operating system feature, which is ever-present, but to offer another level of privacy which can be integrated within the app’s user interface.
  */
 extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
+
+
+
+/*!
+ @constant kKVAParamConsentIntelligentManagementBoolKey
+ 
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a boolean, wrapped in an NSNumber, indicating if Intelligent Consent Management is enabled.
+ 
+ @discussion The corresponding value should be a boolean wrapped in an NSNumber.  The default is false.  Intelligent Consent Management (ICM) is a feature whereby the SDK will provide information as to when the the requirements for consent have been updated.  When an update occurs, an instance of class KVAConsent can provide a list of partners, as well as the means to know if the host should prompt the user.
+ */
+extern NSString * _Nonnull const kKVAParamConsentIntelligentManagementBoolKey;
+
+
+
+/*!
+ @constant kKVAParamConsentManualManagedRequirementsBoolKey
+ 
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a boolean, wrapped in an NSNumber, indicating if the Manual Management of Consent Requirements is enabled.
+ 
+ @discussion The corresponding value should be a boolean wrapped in an NSNumber.  The default is false.  This property is optionally used in conjunction with Intelligent Consent Management (ICM).  By default the requirements for consent are determined automatically by Kochava’s servers.  Setting this parameter to true enables you to manage the requirements for consent yourself manually.  When enabled, it is your responsibility to manually manage of the state of var requiredBool, which you would subsequently set to indicate if consent is required for the region in which the device is currently operating.
+
+ */
+extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKey;
 
 
 
@@ -197,31 +220,20 @@ extern NSString * _Nonnull const kKVAParamCustomIdStringKey KOCHAVA_DEPRECATED("
 /*!
  @constant kKVAParamIdentityLinkDictionaryKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the identity link dictionary.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a dictionary providing identity information.
  
- @discussion The corresponding value should be a dictionary.
+ @discussion The corresponding value should be a dictionary containing one or more key/value pairs providing some form of identification.  The key(s) represent a kind of identification and the corresponding value(s) represent an identifying value.  Identity Link provides the opportunity to “link different identities” together.  For example, you may have assigned each user of your app an internal userid which you want to connect to a user’s service identifier.  Using this method, you can send both your internal id and their service identifier and connect them in the Kochava database.  Kochava reports can be output to show additional identity information for devices in the Kochava database so that you can supplement your reports with internal identifiers that are useful to you and your application.
  */
 extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
 
 
 
 /*!
- @constant kKVAParamConsentIntelligentManagementBoolKey
- 
- @brief A constant to use for the key when passing the parameter to the tracker to set the intelligent consent management boolean.
- 
- @discussion The corresponding value should be a boolean wrapped in an NSNumber.  The default is false.
- */
-extern NSString * _Nonnull const kKVAParamConsentIntelligentManagementBoolKey;
-
-
-
-/*!
  @constant kKVAParamLogLevelEnumKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the log level enum.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is an enumeration indicating the types of information to be printed to the log.
  
- @discussion The corresponding value should be an NSString matching one of the defined constants for log levels.
+ @discussion The corresponding value should be an NSString matching one of the defined constants for log levels.  Logging is controlled by two parameters.  The first is kKVAParamLogLevelEnumKey, which specifies the types of information to be printed to the log.  The second is kKVAParamLogMultiLineBoolKey, which specifies whether that information prints in a multi-line or continuous format.
  */
 extern NSString * _Nonnull const kKVAParamLogLevelEnumKey;
 
@@ -230,9 +242,9 @@ extern NSString * _Nonnull const kKVAParamLogLevelEnumKey;
 /*!
  @constant kKVAParamLogMultiLineBoolKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the log multi-line boolean.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a boolean indicating if multi-line printing should be used in log entries.
  
- @discussion The corresponding value should be a boolean wrapped in an NSNumber.
+ @discussion A boolean.  A value of true will print log entries in a multi-line format.  A value of false will print continuously, wrapping to the next line when needed.  The default value is true.  Logging is controlled by two parameters.  The first is kKVAParamLogLevelEnumKey, which specifies the types of information to be printed to the log.  The second is kKVAParamLogMultiLineBoolKey, which specifies whether that information prints in a multi-line or continuous format.
  */
 extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
 
@@ -241,11 +253,9 @@ extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
 /*!
  @constant kKVAParamRetrieveAttributionBoolKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the retrieve attribution boolean.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a boolean indicating if attribution information should be retrieved from the Kochava Server.
  
- @discussion The corresponding value should be a boolean wrapped in an NSNumber.
- 
-    Important Note:  This should only be done if your app makes use of this information, otherwise it causes needless network communication.  Attribution will performed server-side regardless of the application requesting the results.
+ @discussion The corresponding value should be a boolean wrapped in an NSNumber.  When true this will cause the tracker to retrieve attribution information from the Kochava Server.  The default value is false.  Note:  This should only be done if your app makes use of this information, otherwise it causes needless network communication.  Attribution will be performed server-side regardless of the application requesting the results.  The tracker will retrieve attribution information if the kKVAParamRetrieveAttributionBoolKey parameter is passed with a value of true during its configuration.  It does this usually within about 10 seconds from the initial launch, although it is subject to a variety of conditions which can cause this time interval to be longer.  Once attribution information has been retrieved, the result is cached locally.  If the KochavaTrackerDelegate instance method tracker(_:didRetrieveAttributionDictionary:) is implemented, it will then also be called.  The attribution information is passed as a parameter.
  */
 extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
 
@@ -254,9 +264,9 @@ extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
 /*!
  @constant kKVAParamStorageIdStringKey
  
- @brief A constant to use for the key when passing the parameter to the tracker to set the storage id string.
+ @brief A constant to be used as a key in a key/value pair, where the corresponding value is a storage identifier (String).
  
- @discussion The corresponding value should be a string.  This parameter should be omitted (nil) unless you are making use of multiple instances of KochavaTracker.
+ @discussion The corresponding value should be a string containing a storage identifier.  The default value is nil.  Typically this key does not need to be configured, and the tracker will operate within a default (unqualified) storage location.  However, if multiple trackers are desired then you must specify a different storage identification string for each so that they can maintain persisted data independently.  Typically one tracker is sufficient.  One example use-case for having multiple trackers is when there are two different companies developing a product jointly, such as when a software development house develops an app under contract for an established brand.  Each organization may want independent control of their own analytics, reporting to different Kochava Accounts.  The value you provide will be appended to the names of keys stored within NSUserDefaults standard user defaults, so it should be a simple string and not too verbose.  Examples: “Developer”, “Principal”, etc.
  */
 extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
@@ -353,23 +363,15 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @class KochavaTracker
  
- @brief Allows the app developer to collect unique advertising information from the user for the purpose of measuring ad campaign and user performance.
+ @brief The class KochavaTracker provides an interface between a host application and Kochava’s Attribution and Analytics Servers.  A tracker manages the exchange of data between these two entities, along with the associated tasks and network transactions.
+
+ @discussion The class KochavaTracker is the main interface for the KochavaTracker SDK.  If you have not already integrated a KochavaTracker SDK into your project, refer to our KochavaTracker iOS SDK support documentation.
  
- @discussion Customers use information collected from end users on The Kochava Platform to view reports and data to optimize their advertising campaigns. Customers may also use  the information they collect on The Kochava Platform for the following purposes, which include, but are not limited to:
+ You rarely create instances of the KochavaTracker class.  Instead, you configure a provided shared instance using the designated configuration instance method configure(withParametersDictionary:delegate:).
  
- • Measuring the performance of ad campaigns (for example, by comparing the lifetime value of a user against the expenses required to obtain that user);
+ From there, the tracker proceeds to initialize immediately and perform its various tasks.  This is typically done during the earliest phases of the host’s life-cycle, so that installation attribution can be quickly established and post-install events may immediately begin to be queued.
  
- • Measuring the value of particular end users;
- 
- • Measuring the performance of various Partners, including ad networks and publishers;
- 
- • Creating customized performance reports (for example, how well a particular advertisement is performing in a particular geographic region);
- 
- • Determining when end users respond to ads; and
- 
- • Device attribution.
- 
- (lib Kochava)
+ You may alternately create an instance of the KochavaTracker class.  If you do, it is your responsibility to maintain a strong reference.  And if you create multiple instances, it is your responsibility to configure each with a unique storage identifier.
  
  @author Kochava, Inc.
  

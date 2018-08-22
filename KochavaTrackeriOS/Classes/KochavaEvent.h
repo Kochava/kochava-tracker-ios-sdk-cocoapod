@@ -151,6 +151,8 @@
 
 @property (strong, nonatomic, nullable) NSString *searchTermString;
 
+@property (strong, nonatomic, nullable) NSString *sourceString;
+
 @property (strong, nonatomic, nullable) NSNumber *spatialXDoubleNumber;
 
 @property (strong, nonatomic, nullable) NSNumber *spatialYDoubleNumber;
@@ -162,6 +164,8 @@
 @property (strong, nonatomic, nullable) NSString *startDateString;
 
 @property (strong, nonatomic, nullable) NSString *successString;
+
+@property (strong, nonatomic, nullable) NSString *uriString;
 
 @property (strong, nonatomic, nullable) NSString *userIdString;
 
@@ -184,9 +188,15 @@
 /*!
  @class KochavaEvent
  
- @brief A class that stores standardized parameters for an event.
+ @brief The class KochavaEvent provides a means of defining the parameters for a post-install event, providing standardized types and key names.
  
- @discussion This class is used to store and pass standardized parameters when sending an event to the server.  The proper use of this class is to instantiate an object using the designated initializer, and then to assign values to each property that you wish to send.  You may then pass this object as a parameter to sendEvent.
+ @discussion Sending post-install events is not a requirement. To track installation information, you do not need to do anything more than call the constructor for the tracker.  Still, many advertisers want to understand and correlate the relationship between conversion and attribution source information with post-install behaviors.  This can only be done by tracking post-install events.
+ 
+ Once the tracker has been configured, Kochava event tracking methods can be called from anywhere within the application.  Events will be coupled with the information sent by the tracker to report events, based on user device and application information.  Events are not sent immediately to Kochava servers but queued, should the device not have connectivity.
+ 
+ The KochavaEvent class defines an individual post-install event, providing a variety of standardized event names and parameters.  Standard event names may represent a purchase, the completion of a level, an achievement, etc.  Standard parameters may represent a currency, price, level, etc.
+ 
+ The use of standard event names and parameters maximizes parity with external analytics partners and ensures optimal reporting and analytical output via the Kochava platform.  If the data you are sending through post-install events can be sent using standard event names and parameters we recommend you use an instance of class KochavaEvent to do so.
  
  Inherits from: NSObject
  
@@ -364,6 +374,15 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
      @discussion This is an enumerated value which signifies that consent was granted.
      */
     KochavaEventTypeEnumConsentGranted = 114,
+
+    
+    
+    /*!
+     @brief Deep Link
+     
+     @discussion This is an enumerated value which signifies that a deep link ocurred.
+     */
+    KochavaEventTypeEnumDeepLink = 115,
 };
 
 
@@ -912,6 +931,17 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
+ @property sourceString
+ 
+ @brief A property that contains a source string.
+ 
+ @discussion This field has a somewhat generic quality, in that it can contain whatever you consider to be fitting value.
+ */
+@property (strong, nonatomic, nullable) NSString *sourceString;
+
+
+
+/*!
  @property spatialXDoubleNumber
  
  @brief A property that contains a spatial coordinate’s x value.
@@ -985,6 +1015,17 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  @discussion This field has a somewhat generic quality, in that it can contain whatever you consider to be fitting value.
  */
 @property (strong, nonatomic, nullable) NSString *userIdString;
+
+
+
+/*!
+ @property uriString
+ 
+ @brief A property that contains a URI (or URL) string.
+ 
+ @discussion This field has a somewhat generic quality, in that it can contain whatever you consider to be fitting value.
+ */
+@property (strong, nonatomic, nullable) NSString *uriString;
 
 
 
