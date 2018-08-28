@@ -1,5 +1,5 @@
 PODS:
-  - KochavaTrackeriOS (3.6.0)
+  - KochavaTrackeriOS (3.6.1)
 
 DEPENDENCIES:
   - KochavaTrackeriOS (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  KochavaTrackeriOS: 3a066f1e8caffb9fbf7d5252917708fb6e00b661
+  KochavaTrackeriOS: 64757482fd34682053efc73f99b1b29bc4d02592
 
 PODFILE CHECKSUM: 429a6df2f6b5fff3543a831e0fcea7ad052b3a87
 
