@@ -92,17 +92,6 @@
 
 
 
-/*!
- @method - Kochava_attributionResult:
- 
- @brief A method which is called when attribution has been requested and returned to the app.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead implement tracker:didRetrieveAttributionDictionary:.
- */
-- (void)Kochava_attributionResult:(nullable NSDictionary *)attributionResult KOCHAVA_DEPRECATED("Please instead use tracker:didRetrieveAttributionDictionary:");
-
-
-
 @end
 
 
@@ -593,41 +582,6 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 
 
 /*!
- @method - handleWatchEvents
- 
- @brief A method to tell the server that an Apple Watch has been used with this app.
- 
- @discussion If you have a unique identifier to associate with the Apple Watch, you should instead call handleWatchEventsWithWatchIdString:.
- */
-- (void)handleWatchEvents;
-
-
-
-/*!
- @method - handleWatchEventsWithWatchIdString:
- 
- @brief A method to tell the server that a specific, identifiable Apple Watch has been used with this app.
- 
- @param watchIdString The name or identifier of watch used with the app.
- */
-- (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString;
-
-
-
-/*!
- @method - sendWatchEventWithNameString:infoString:
- 
- @brief A method to queue an Apple Watch event to be sent to server.
- 
- @param nameString String containing event title or key of key/value pair.
- 
- @param infoString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
- */
-- (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
-
-
-
-/*!
  @method - sdkVersionString
  
  @brief A method to return the sdk version string.
@@ -665,164 +619,26 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 
 
 /*!
- @brief An initializer for a Kochava Tracker (Constructor).
+ @method - handleWatchEvents
  
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please initialize a tracker either using the shared, or else using initWithParametersDictionary:delegate:.  In Swift: init(parametersDictionary:delegate:)
+ @brief A method to tell the server that an Apple Watch has been used with this app.
+
+ @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
  */
-- (nullable id)initKochavaWithParams:(nonnull NSDictionary *)parametersDictionary KOCHAVA_DEPRECATED("Please initialize a tracker either using the shared, or else using initWithParametersDictionary:delegate:.  In Swift: init(parametersDictionary:delegate:)");
+- (void)handleWatchEvents KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
 
 
 
 /*!
- @method - identityLinkEvent:
- 
- @brief A method to queue an Identity Link event to be sent to server.
- 
- @param dictionary A dictionary containing key/value pairs to be associated with the app install.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendIdentityLinkWithDictionary:.  In Swift: sendIdentityLink(with:)
- */
-- (void)identityLinkEvent:(nonnull NSDictionary *)dictionary KOCHAVA_DEPRECATED("Please instead use sendIdentityLinkWithDictionary:.  In Swift: sendIdentityLink(with:)");
-
-
-
-/*!
- @method - trackEvent:value:
- 
- @brief A method to queue an event with custom parameters to be sent to server.
- 
- @param titleString String containing event title or key of key/value pair.
- 
- @param valueString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendEventWithNameString:infoString:.  In Swift: sendEvent(withNameString:infoString:)
- */
-- (void)trackEvent:(nonnull NSString *)titleString value:(nullable NSString *)valueString KOCHAVA_DEPRECATED("Please instead use sendEventWithNameString:infoString:.  In Swift: sendEvent(withNameString:infoString:)");
-
-
-
-/*!
- @method - trackEvent:withValue:andReceipt:
- 
- @brief A method to queue an event with a receipt to be sent to server.
- 
- @param titleString String containing event title or key of key/value pair.
- 
- @param valueString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
- 
- @param appStoreReceiptBase64EncodedString String containing an App Store base64 encoded receipt.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendEventWithNameString:infoString:appStoreReceiptBase64EncodedString.  In Swift: sendEvent(withNameString:infoString:appStoreReceiptBase64EncodedString:)
- */
-- (void)trackEvent:(nonnull NSString *)titleString withValue:(nullable NSString *)valueString andReceipt:(nonnull NSString *)appStoreReceiptBase64EncodedString KOCHAVA_DEPRECATED("Please instead use sendEventWithNameString:infoString:appStoreReceiptBase64EncodedString.  In Swift: sendEvent(withNameString:infoString:appStoreReceiptBase64EncodedString:)");
-
-
-
-/*!
- @method - setLimitAdTracking:
- 
- @brief A method to limit ad tracking at the application level.
- 
- @discussion This feature is related to the Limit Ad Tracking feature which is typically found on an Apple device under Settings, Privacy, Advertising.  In the same way that you can limit ad tracking through that setting, this feature provides a second and independent means for the host app to limit ad tracking by asking the user directly.  A value of NO (false) from either feature (this or Apple's) will result in the limiting of ad tracking.
- 
- @param limitAdTrackingBool A boolean toggling app level limit ad tracking on (YES) or off (NO).
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use setAppLimitAdTrackingBool:
- */
-- (void)setLimitAdTracking:(BOOL)limitAdTrackingBool KOCHAVA_DEPRECATED("Please instead use setAppLimitAdTrackingBool:");
-
-
-
-/*!
- @method - sendDeepLink:sourceApplication:
- 
- @brief A method to queue a deep-link and its associated data to be sent to server.
- 
- @param url The url received by the openURL application delegate method.
- 
- @param sourceApplication The sourceApplication string received by the openURL application delegate method.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendDeepLinkWithOpenURL:sourceApplicationString:.  In Swift: sendDeepLink(withOpen:sourceApplicationString:)
- */
-- (void)sendDeepLink:(nullable NSURL *)url sourceApplication:(nullable NSString *)sourceApplication KOCHAVA_DEPRECATED("Please instead use sendDeepLinkWithOpenURL:sourceApplicationString:.  In Swift: sendDeepLink(withOpen:sourceApplicationString:)");
-
-
-
-/*!
- @method - getKochavaDeviceId
- 
- @brief A method to return the device ID generated when the tracker was initialized.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use deviceIdString.
- */
-- (nullable NSString *)getKochavaDeviceId KOCHAVA_DEPRECATED("Please instead use deviceIdString");
-
-
-
-/*!
- @method - retrieveAttribution
- 
- @brief A method to return the attribution information previously retrieved from the server (if any).
- 
- @discussion The use of this method assumes that the tracker was previously requested to retrieve attribution during its configuration.  It is intended that this information be passed automatically back to the parent through delegation.  This method can be used to re-retrieve the same information, but if it is called before attribution information has been retrieved then the result will be nil.
- 
- This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use attributionDictionary.
- 
- @return a dictionary containing attribution information (or nil).
- */
-- (nullable id)retrieveAttribution KOCHAVA_DEPRECATED("Please instead use attributionDictionary");
-
-
-
-/*!
- @method - handleWatchEvents:
+ @method - handleWatchEventsWithWatchIdString:
  
  @brief A method to tell the server that a specific, identifiable Apple Watch has been used with this app.
  
  @param watchIdString The name or identifier of watch used with the app.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use handleWatchEventsWithWatchIdString:
+
+ @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
  */
-- (void)handleWatchEvents:(nullable NSString *)watchIdString KOCHAVA_DEPRECATED("Please instead use handleWatchEventsWithWatchIdString:");
-
-
-
-/*!
- @method - trackWatchEvent:value:
- 
- @brief A method to queue an Apple Watch event to be sent to server.
- 
- @param titleString String containing event title or key of key/value pair.
- 
- @param valueString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
- 
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendWatchEventWithNameString:infoString:.  In Swift: sendWatchEvent(withNameString:infoString:)
- */
-- (void)trackWatchEvent:(nonnull NSString *)titleString valueString:(nullable NSString *)valueString KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.  In Swift: sendWatchEvent(withNameString:infoString:)");
-
-
-
-- (void)trackEvent:(nonnull NSString *)titleString :(nullable NSString *)valueString
-KOCHAVA_DEPRECATED("Please instead use sendEventWithNameString:infoString:.  In Swift: sendEvent(withNameString:infoString:)");
-
-- (void)sendDeepLink:(nullable NSURL *)url :(nullable NSString *)sourceApplication
-KOCHAVA_DEPRECATED("Please instead use sendDeepLinkWithOpenURL:sourceApplicationString:.  In Swift: sendDeepLink(withOpen:sourceApplicationString:)");
-
-- (void)trackWatchEvent:(nonnull NSString *)titleString :(nullable NSString *)valueString
-KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.  In Swift: sendWatchEvent(withNameString:infoString:)");
-
-
-
-/*!
- @method - sendEventWithEventStandardParameters:
- 
- @brief A method to queue an event with standardized parameters to be sent to the server.
- 
- @param eventStandardParameters EventStandardParameters configured with the values you want to associate with the event.
-
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendEvent:.  In Swift: send(_ event:)
- */
-- (void)sendEventWithEventStandardParameters:(nonnull KochavaEvent *)eventStandardParameters KOCHAVA_DEPRECATED("The class EventStandardParameters has been renamed to KochavaEvent.  Please instead use sendEvent: , and also rename the class EventStandardParameters to KochavaEvent wherever you have used it.");
+- (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
 
 
 
@@ -836,10 +652,25 @@ KOCHAVA_DEPRECATED("Please instead use sendWatchEventWithNameString:infoString:.
  @param infoString String containing event value or value of key/value pair.  It may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
  
  @param appStoreReceiptBase64EncodedString String containing an App Store base64 encoded receipt.
-
- @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use sendEvent:.  In Swift: send(_ event:)
+ 
+ @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and pass the appStoreReceiptBase64EncodedString using the standard parameter.  You may use KochavaEventTypeEnumPurchase, and set any of the other applicable standard parameters.
  */
-- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString KOCHAVA_DEPRECATED("Please instead use sendEvent:.  In Swift: send(_ event:).  Create a KochavaEvent and pass the appStoreReceiptBase64EncodedString using the standard parameter.  You may use KochavaEventTypeEnumPurchase, and set any of the other applicable standard parameters.");
+- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and pass the appStoreReceiptBase64EncodedString using the standard parameter.  You may use KochavaEventTypeEnumPurchase, and set any of the other applicable standard parameters.");
+
+
+
+/*!
+ @method - sendWatchEventWithNameString:infoString:
+ 
+ @brief A method to queue an Apple Watch event to be sent to server.
+ 
+ @param nameString String containing event title or key of key/value pair.
+ 
+ @param infoString String containing event value or value of key/value pair.  Value may be an unnested (single dimensional) dictionary converted to a JSON formatted string.
+
+ @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
+ */
+- (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
 
 
 

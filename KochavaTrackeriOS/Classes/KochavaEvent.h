@@ -380,9 +380,36 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
     /*!
      @brief Deep Link
      
-     @discussion This is an enumerated value which signifies that a deep link ocurred.
+     @discussion This is an enumerated value which signifies that there was a deep link.
      */
     KochavaEventTypeEnumDeepLink = 115,
+
+    
+    
+    /*!
+     @brief Ad Click
+     
+     @discussion This is an enumerated value which signifies that an ad was clicked.
+     */
+    KochavaEventTypeEnumAdClick = 116,
+
+    
+    
+    /*!
+     @brief Start Trial
+     
+     @discussion This is an enumerated value which signifies that a trial was started.
+     */
+    KochavaEventTypeEnumStartTrial = 117,
+
+    
+    
+    /*!
+     @brief Subscribe
+     
+     @discussion This is an enumerated value which signifies that there was a subscription.
+     */
+    KochavaEventTypeEnumSubscribe = 118,
 };
 
 
