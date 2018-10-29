@@ -188,7 +188,7 @@
 /*!
  @class KochavaEvent
  
- @brief The class KochavaEvent provides a means of defining the parameters for a post-install event, providing standardized types and key names.
+ @brief The class KochavaEvent provides a means of defining a post-install event, providing standardized parameters.
  
  @discussion Sending post-install events is not a requirement.  To track installation information, you do not need to do anything more than call the constructor for the tracker.  Still, many advertisers want to understand and correlate the relationship between conversion and attribution source information with post-install behaviors.  This can only be done by tracking post-install events.
  

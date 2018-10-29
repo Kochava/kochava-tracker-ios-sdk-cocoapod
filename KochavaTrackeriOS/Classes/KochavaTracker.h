@@ -114,8 +114,6 @@
 
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
 
-- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString;
-
 - (void)sendIdentityLinkWithDictionary:(nonnull NSDictionary *)dictionary;
 
 - (void)setAppLimitAdTrackingBool:(BOOL)appLimitAdTrackingBool;
@@ -126,12 +124,6 @@
 
 - (nullable NSString *)deviceIdString;
 
-- (void)handleWatchEvents;
-
-- (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString;
-
-- (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
-
 - (nullable NSString *)sdkVersionString;
 
 - (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
@@ -139,6 +131,16 @@
 - (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
 
 @property BOOL sleepBool;
+
+// -- Deprecated --
+
+- (void)handleWatchEvents;
+
+- (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString;
+
+- (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString;
+
+- (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
 
 @end
 
@@ -419,7 +421,7 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @method - initWithParametersDictionary:delegate:
  
- @brief The designated initializer for a Kochava Tracker.
+ @brief The designated initializer for an instance of class KochavaTracker.
  
  @discussion This method initializes a tracker with parameters passed in a parametersDictionary.  By calling the KochavaTracker initializer, you have completed the basic integration with the KochavaTracker SDK.  The call to the initializer should be located in the logic of your application where things first start up, such as your App Delegate's application:didFinishLaunchingWithOptions: method.
  
@@ -497,7 +499,7 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @method - sendEventWithNameString:infoDictionary:
  
- @brief A method to queue an event with custom parameters to be sent to server.
+ @brief Creates an instance of class KochavaEvent which has a nameString and an optional infoDictionary, and then sends it to the Kochava Server.  A convenience method.
  
  @param nameString String containing event title or key of key/value pair.
  
@@ -510,7 +512,7 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 /*!
  @method - sendEventWithNameString:infoString:
  
- @brief A method to queue an event with custom parameters to be sent to server.
+ @brief Creates an instance of class KochavaEvent which has a nameString and an optional infoString, and then sends it to the Kochava Server.  A convenience method.
  
  @param nameString String containing event title or key of key/value pair.
  

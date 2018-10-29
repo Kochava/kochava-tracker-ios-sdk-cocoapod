@@ -60,7 +60,7 @@
  
  Example: "Used to do X and Y."
  */
-@property (strong, nonatomic, nullable, readonly) NSString *descriptionString;
+@property (strong, atomic, nullable, readonly) NSString *descriptionString;
 
 
 
@@ -73,7 +73,7 @@
  
  Example: "Kochava"
  */
-@property (strong, nonatomic, nullable, readonly) NSString *nameString;
+@property (strong, atomic, nullable, readonly) NSString *nameString;
 
 
 
@@ -88,7 +88,7 @@
  
  @discussion A value of true indicates consent was granted.  A value of false indicates consent was denied.  A value of nil exists when the user has not provided a response.
  */
-@property (strong, nonatomic, nullable, readonly) NSNumber *responseBoolNumber;
+@property (strong, atomic, nullable, readonly) NSNumber *responseBoolNumber;
 
 
 
@@ -99,7 +99,7 @@
  
  @discussion This value is nil when the user has not provided a response.
  */
-@property (strong, nonatomic, nullable, readonly) NSDate *responseDate;
+@property (strong, atomic, nullable, readonly) NSDate *responseDate;
 
 
 
