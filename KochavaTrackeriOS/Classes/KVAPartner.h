@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 3/30/18.
-//  Copyright © 2018 Kochava. All rights reserved.
+//  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -13,7 +13,6 @@
 
 
 #import "KVAAsForContextObjectProtocol.h"
-
 #import "KVAFromObjectProtocol.h"
 
 
@@ -41,7 +40,7 @@
  
  @author John Bushnell
  
- @copyright 2018 Kochava, Inc.
+ @copyright 2018 - 2019 Kochava, Inc.
  */
 @interface KVAPartner : NSObject <KVAFromObjectProtocol, KVAAsForContextObjectProtocol>
 
@@ -151,7 +150,7 @@
  
  @param date The date attributed to the response.
  */
-- (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber date:(nonnull NSDate *)date;
+- (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber date:(nonnull NSDate *)date NS_SWIFT_NAME(didPrompt(didGrantBoolNumber:date:));
 
 
 
@@ -222,17 +221,17 @@
 
 
 /*!
- @method - updateFrom:context:
+ @method - configureWith:context:
  
  @brief Updates the receiver from another instance.
  
  @discussion Internal.
  
- @param fromObject An object from which to update the instance.  This is expected to be a native instance, or else an object which can resolve to a native instance.
+ @param withObject An object from which to update the instance.  This is expected to be a native instance, or else an object which can resolve to a native instance.
  
  @param context Optional.  The context.
  */
-- (void)updateFrom:(nullable id)fromObject context:(nullable KVAContext *)context;
+- (void)configureWith:(nullable id)withObject context:(nullable KVAContext *)context;
 
 
 

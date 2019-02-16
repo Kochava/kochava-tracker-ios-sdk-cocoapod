@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/13/16.
-//  Copyright © 2017 - 2018 Kochava, Inc. All rights reserved.
+//  Copyright © 2017 - 2019 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -21,10 +21,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #endif
 
-
-
 #import "KVAAsForContextObjectProtocol.h"
-
 #import "KVAFromObjectProtocol.h"
 
 
@@ -41,6 +38,7 @@
 
 
 
+@class KochavaEvent;
 @class KVAConsent;
 
 
@@ -49,134 +47,86 @@
 
 
 
-#if TARGET_OS_TV
+@protocol KVASendEventFuncProvider
 
-@protocol KochavaEventJSExport <JSExport>
-
-@property (strong, nonatomic, nullable) NSString *actionString;
-
-@property (strong, nonatomic, nullable) NSString *adCampaignIdString;
-
-@property (strong, nonatomic, nullable) NSString *adCampaignNameString;
-
-@property (strong, nonatomic, nullable) NSString *adDeviceTypeString;
-
-@property (strong, nonatomic, nullable) NSString *adGroupIdString;
-
-@property (strong, nonatomic, nullable) NSString *adGroupNameString;
-
-@property (strong, nonatomic, nullable) NSString *adMediationNameString;
-
-@property (strong, nonatomic, nullable) NSString *adNetworkNameString;
-
-@property (strong, nonatomic, nullable) NSString *adPlacementString;
-
-@property (strong, nonatomic, nullable) NSString *adSizeString;
-
-@property (strong, nonatomic, nullable) NSString *adTypeString;
-
-@property BOOL appleWatchBool;
-
-@property (strong, nonatomic, nullable) NSString *appleWatchIdString;
-
-@property (strong, nonatomic, nullable) NSString *appStoreReceiptBase64EncodedString;
-
-@property (strong, nonatomic, nullable) NSNumber *backgroundBoolNumber;
-
-@property (strong, nonatomic, nullable) NSString *checkoutAsGuestString;
-
-@property (strong, nonatomic, nullable) NSNumber *completedBoolNumber;
-
-@property (strong, nonatomic, nullable) KVAConsent *consent;
-
-@property (strong, nonatomic, nullable) NSString *contentIdString;
-
-@property (strong, nonatomic, nullable) NSString *contentTypeString;
-
-@property (strong, nonatomic, nullable) NSString *currencyString;
-
-@property (strong, nonatomic, nullable) NSString *customEventNameString;
-
-@property (strong, nonatomic, nullable) NSDate *date;
-
-@property (strong, nonatomic, nullable) NSString *dateString;
-
-@property (strong, nonatomic, nullable) NSString *descriptionString;
-
-@property (strong, nonatomic, nullable) NSString *destinationString;
-
-@property (strong, nonatomic, nullable) NSNumber *durationTimeIntervalNumber;
-
-@property (strong, nonatomic, nullable) NSDate *endDate;
-
-@property (strong, nonatomic, nullable) NSString *endDateString;
-
-// @property (readonly) KochavaEventTypeEnum eventTypeEnum;
-
-@property (strong, nonatomic, nullable) NSDictionary *infoDictionary;
-
-@property (strong, nonatomic, nullable) NSString *infoString;
-
-@property (strong, nonatomic, nullable) NSString *itemAddedFromString;
-
-@property (strong, nonatomic, nullable) NSString *levelString;
-
-@property (strong, nonatomic, nullable) NSNumber *maxRatingValueDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSString *nameString;
-
-@property (strong, nonatomic, nullable) NSString *orderIdString;
-
-@property (strong, nonatomic, nullable) NSString *originString;
-
-@property (strong, nonatomic, nullable) NSDictionary *payloadDictionary;
-
-@property (strong, nonatomic, nullable) NSDecimalNumber *priceDecimalNumber;
-
-@property (strong, nonatomic, nullable) NSNumber *priceDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSNumber *quantityDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSNumber *ratingValueDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSString *receiptIdString;
-
-@property (strong, nonatomic, nullable) NSString *referralFromString;
-
-@property (strong, nonatomic, nullable) NSString *registrationMethodString;
-
-@property (strong, nonatomic, nullable) NSString *resultsString;
-
-@property (strong, nonatomic, nullable) NSString *scoreString;
-
-@property (strong, nonatomic, nullable) NSString *searchTermString;
-
-@property (strong, nonatomic, nullable) NSString *sourceString;
-
-@property (strong, nonatomic, nullable) NSNumber *spatialXDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSNumber *spatialYDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSNumber *spatialZDoubleNumber;
-
-@property (strong, nonatomic, nullable) NSDate *startDate;
-
-@property (strong, nonatomic, nullable) NSString *startDateString;
-
-@property (strong, nonatomic, nullable) NSString *successString;
-
-@property (strong, nonatomic, nullable) NSString *uriString;
-
-@property (strong, nonatomic, nullable) NSString *userIdString;
-
-@property (strong, nonatomic, nullable) NSString *userNameString;
-
-@property (strong, nonatomic, nullable) NSString *validatedString;
-
-+ (nullable instancetype)eventWithEventTypeEnumNameString:(nonnull NSString *)eventTypeEnumNameString;
+- (void)sendEvent:(nonnull KochavaEvent *)event;
 
 @end
 
+
+
+@protocol KVASendEventWithoutDispatchFuncProvider
+
+- (void)sendEvent_withoutDispatch:(nonnull KVAEvent *)event;
+
+@end
+
+
+
+#if TARGET_OS_TV
+@protocol KochavaEventJSExport <JSExport>
+@property (strong, nonatomic, nullable) NSString *actionString;
+@property (strong, nonatomic, nullable) NSString *adCampaignIdString;
+@property (strong, nonatomic, nullable) NSString *adCampaignNameString;
+@property (strong, nonatomic, nullable) NSString *adDeviceTypeString;
+@property (strong, nonatomic, nullable) NSString *adGroupIdString;
+@property (strong, nonatomic, nullable) NSString *adGroupNameString;
+@property (strong, nonatomic, nullable) NSString *adMediationNameString;
+@property (strong, nonatomic, nullable) NSString *adNetworkNameString;
+@property (strong, nonatomic, nullable) NSString *adPlacementString;
+@property (strong, nonatomic, nullable) NSString *adSizeString;
+@property (strong, nonatomic, nullable) NSString *adTypeString;
+@property BOOL appleWatchBool;
+@property (strong, nonatomic, nullable) NSString *appleWatchIdString;
+@property (strong, nonatomic, nullable) NSString *appStoreReceiptBase64EncodedString;
+@property (strong, nonatomic, nullable) NSNumber *backgroundBoolNumber;
+@property (strong, nonatomic, nullable) NSString *checkoutAsGuestString;
+@property (strong, nonatomic, nullable) NSNumber *completedBoolNumber;
+@property (copy, nonatomic, nullable) KVAConsent *consent;
+@property (strong, nonatomic, nullable) NSString *contentIdString;
+@property (strong, nonatomic, nullable) NSString *contentTypeString;
+@property (strong, nonatomic, nullable) NSString *currencyString;
+@property (strong, nonatomic, nullable) NSString *customEventNameString;
+@property (strong, nonatomic, nullable) NSDate *date;
+@property (strong, nonatomic, nullable) NSString *dateString;
+@property (strong, nonatomic, nullable) NSString *descriptionString;
+@property (strong, nonatomic, nullable) NSString *destinationString;
+@property (strong, nonatomic, nullable) NSNumber *durationTimeIntervalNumber;
+@property (strong, nonatomic, nullable) NSDate *endDate;
+@property (strong, nonatomic, nullable) NSString *endDateString;
+// @property (readonly) KochavaEventTypeEnum eventTypeEnum;
+@property (strong, nonatomic, nullable) NSDictionary *infoDictionary;
+@property (strong, nonatomic, nullable) NSString *infoString;
+@property (strong, nonatomic, nullable) NSString *itemAddedFromString;
+@property (strong, nonatomic, nullable) NSString *levelString;
+@property (strong, nonatomic, nullable) NSNumber *maxRatingValueDoubleNumber;
+@property (strong, nonatomic, nullable) NSString *nameString;
+@property (strong, nonatomic, nullable) NSString *orderIdString;
+@property (strong, nonatomic, nullable) NSString *originString;
+@property (strong, nonatomic, nullable) NSDictionary *payloadDictionary;
+@property (strong, nonatomic, nullable) NSDecimalNumber *priceDecimalNumber;
+@property (strong, nonatomic, nullable) NSNumber *priceDoubleNumber;
+@property (strong, nonatomic, nullable) NSNumber *quantityDoubleNumber;
+@property (strong, nonatomic, nullable) NSNumber *ratingValueDoubleNumber;
+@property (strong, nonatomic, nullable) NSString *receiptIdString;
+@property (strong, nonatomic, nullable) NSString *referralFromString;
+@property (strong, nonatomic, nullable) NSString *registrationMethodString;
+@property (strong, nonatomic, nullable) NSString *resultsString;
+@property (strong, nonatomic, nullable) NSString *scoreString;
+@property (strong, nonatomic, nullable) NSString *searchTermString;
+@property (strong, nonatomic, nullable) NSString *sourceString;
+@property (strong, nonatomic, nullable) NSNumber *spatialXDoubleNumber;
+@property (strong, nonatomic, nullable) NSNumber *spatialYDoubleNumber;
+@property (strong, nonatomic, nullable) NSNumber *spatialZDoubleNumber;
+@property (strong, nonatomic, nullable) NSDate *startDate;
+@property (strong, nonatomic, nullable) NSString *startDateString;
+@property (strong, nonatomic, nullable) NSString *successString;
+@property (strong, nonatomic, nullable) NSString *uriString;
+@property (strong, nonatomic, nullable) NSString *userIdString;
+@property (strong, nonatomic, nullable) NSString *userNameString;
+@property (strong, nonatomic, nullable) NSString *validatedString;
++ (nullable instancetype)eventWithEventTypeEnumNameString:(nonnull NSString *)eventTypeEnumNameString;
+@end
 #endif
 
 
@@ -202,16 +152,14 @@
  
  @author John Bushnell
  
- @copyright 2017 - 2018 Kochava, Inc.
+ @copyright 2017 - 2019 Kochava, Inc.
  */
 @interface KochavaEvent : NSObject
 <
 #if TARGET_OS_TV
 KochavaEventJSExport,
 #endif
-    
 KVAAsForContextObjectProtocol,
-
 KVAFromObjectProtocol
 >
 
@@ -608,7 +556,7 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  
  @brief An instance of KVAConsent.
  */
-@property (strong, nonatomic, nullable) KVAConsent *consent;
+@property (copy, nonatomic, nullable) KVAConsent *consent;
 
 
 
@@ -1085,7 +1033,7 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 /*!
  @method - eventNameString
  
- @brief Internal.  A method that returns a string representation of the name of the event.  Marked internal beginning in v3.5.1.  This method is scheduled to become private in v4.0 of this SDK.
+ @brief Internal.  A method that returns a string representation of the name of the event.  Marked internal beginning in v3.5.1.  This method is scheduled to become internal in v4.0 of this SDK.
  */
 - (nonnull NSString *)eventNameString;
 
@@ -1096,9 +1044,24 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
+ @method + customEventWithEventNameString:
+ 
+ @brief Creates a KochavaEvent object with event type KochavaEventTypeEnumCustom.
+ 
+ @param customEventNameString A custom event name string.
+ 
+ @discussion A convenience method.
+ */
++ (nullable instancetype)customEventWithEventNameString:(nonnull NSString *)customEventNameString NS_SWIFT_NAME(init(customWithEventNameString:));
+
+
+
+/*!
  @method + eventWithEventTypeEnum:
  
- @brief Create a KochavaEvent object.
+ @brief Creates a KochavaEvent object.
+ 
+ @param eventTypeEnum An event type.
  
  @discussion The designated initializer.
  */

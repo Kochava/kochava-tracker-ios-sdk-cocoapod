@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 2/1/18.
-//  Copyright © 2018 Kochava, Inc. All rights reserved.
+//  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
 //
 
 
