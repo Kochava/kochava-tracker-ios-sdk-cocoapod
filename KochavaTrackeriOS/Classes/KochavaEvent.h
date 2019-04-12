@@ -55,14 +55,6 @@
 
 
 
-@protocol KVASendEventWithoutDispatchFuncProvider
-
-- (void)sendEvent_withoutDispatch:(nonnull KVAEvent *)event;
-
-@end
-
-
-
 #if TARGET_OS_TV
 @protocol KochavaEventJSExport <JSExport>
 @property (strong, nonatomic, nullable) NSString *actionString;

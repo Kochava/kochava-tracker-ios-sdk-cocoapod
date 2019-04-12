@@ -90,10 +90,6 @@
 
 
 
-#pragma mark public protocol KochavaTrackerDelegate (KVATrackerDelegate)
-
-
-
 #define KVATrackerDelegate KochavaTrackerDelegate
 
 
@@ -118,8 +114,6 @@
 - (void)configureWithParametersDictionary:(nonnull NSDictionary *)parametersDictionary delegate:(nullable id<KochavaTrackerDelegate>)delegate;
 - (nullable id)initWithParametersDictionary:(nonnull NSDictionary *)parametersDictionary delegate:(nullable id<KochavaTrackerDelegate>)delegate;
 - (void)invalidate;
-- (nullable NSString *)sdkVersionString;
-@property BOOL sleepBool;
 @end
 #endif
 
@@ -134,10 +128,6 @@
 
 
 
-#pragma mark public const kKVAParamAppGUIDStringKey
-
-
-
 /*!
  @constant kKVAParamAppGUIDStringKey
  
@@ -146,10 +136,6 @@
  @discussion A valid Kochava App GUID String.  The Kochava Server assigns a globally-unique identifier for each app.  This identifier is used to associate post-install events and other data together.  This parameter is required, and must be provided at the time the tracker is configured.
  */
 extern NSString * _Nonnull const kKVAParamAppGUIDStringKey;
-
-
-
-#pragma mark public const kKVAParamCustomIdStringKey
 
 
 
@@ -164,10 +150,6 @@ extern NSString * _Nonnull const kKVAParamCustomIdStringKey KOCHAVA_DEPRECATED("
 
 
 
-#pragma mark public const kKVAParamStorageIdStringKey
-
-
-
 /*!
  @constant kKVAParamStorageIdStringKey
  
@@ -179,10 +161,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 
-#pragma mark public class var shared
-
-
-
 /*!
  @property shared
  
@@ -191,10 +169,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  @discussion This is the preferred way of using a tracker.  To complete the integration you must call configureWithParametersDictionary:delegate:.  You may alternatively use the designated initializer to create your own tracker.  The shared instance provides a few benefits.  First, it simplifies your implementation as you do not need to store an instance to the tracker somewhere in a public location in your own code.  Second, it ensures that if your code unintentionally tries to make use of the shared instance prior to configuration that you can receive a warning in the log from the tracker.  If you use your own property to store the tracker, and it is nil, then this provision would not be automatically available to you.
  */
 @property (class, readonly, strong, nonnull) KochavaTracker *shared;
-
-
-
-#pragma mark public func configure(withParametersDictionary:delegate:)
 
 
 
@@ -217,10 +191,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  @endcode
 */
 - (void)configureWithParametersDictionary:(nonnull NSDictionary *)parametersDictionary delegate:(nullable id<KochavaTrackerDelegate>)delegate;
-
-
-
-#pragma mark public init(withParametersDictionary:delegate:)
 
 
 
@@ -248,10 +218,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 
-#pragma mark public func invalidate()
-
-
-
 /*!
  @method - invalidate
  
@@ -263,35 +229,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  */
 - (void)invalidate;
 
-
-
-#pragma mark public var sleepBool
-
-
-
-/*!
- @property sleepBool
- 
- @brief A boolean which when true (YES) causes the tracker to sleep.
- 
- @discussion The default is false (NO).  When set to true (YES), this causes tasks to effectively be suspended until this condition is lifted.  While this is set to true, tasks are not lost per-say;  however, if a task may have otherwise occurred multiple times, it may be represented only once once the condition is lifted.
- */
-@property BOOL sleepBool;
-
-
-
-#pragma mark public func sdkVersionString() -> String?
-
-
-
-/*!
- @method - sdkVersionString
- 
- @brief A method to return the sdk version string.
- 
- @discussion The returned value includes the name of the SDK, followed by its semantic version.
- */
-- (nullable NSString *)sdkVersionString;
 
 
 @end
@@ -314,15 +251,11 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 #if TARGET_OS_TV
-@interface KVATracker (Events_Public) <KVASendEventWithoutDispatchFuncProvider, KVATrackerEventsJSExport>
+@interface KVATracker (Events_Public) <KVASendEventFuncProvider, KVATrackerEventsJSExport>
 #else
-@interface KVATracker (Events_Public) <KVASendEventWithoutDispatchFuncProvider>
+@interface KVATracker (Events_Public) <KVASendEventFuncProvider>
 #endif
 
-
-
-
-#pragma mark public func sendDeepLink(withOpen:sourceApplicationString:)
 
 
 
@@ -339,10 +272,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 
-#pragma mark public func send(KochavaEvent)
-
-
-
 /*!
  @method - sendEvent:
  
@@ -351,10 +280,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  @param event A KochavaEvent configured with the values you want to associate with the event.
  */
 - (void)sendEvent:(nonnull KochavaEvent *)event;
-
-
-
-#pragma mark public func sendEvent(withNameString:infoDictionary:)
 
 
 
@@ -368,10 +293,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  @param infoDictionary Dictionary (single dimensional) containing any number of values with keys.
  */
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary;
-
-
-
-#pragma mark public func sendEvent(withNameString:infoString:)
 
 
 
@@ -413,10 +334,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 
 
 
-#pragma mark public const kKVAParamAppLimitAdTrackingBoolKey
-
-
-
 /*!
  @constant kKVAParamAppLimitAdTrackingBoolKey
  
@@ -425,10 +342,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
  @discussion A boolean which when true will limit advertising tracking.  The default state of this feature is false.  This means that by default there is no limit of advertising tracking from the application.  There may still separately be a limit of ad tracking from the operating system, which is a similar but distinct feature of the operating system.  The associated tracker method, and its associated feature, may be used to supplement the operating system feature with application level support.  The app can present the user with a switch-like user interface to “Limit Ad Tracking” similar to the feature provided by the operating system in privacy settings.  When this switch is changed, this method can be used to report the new state.  The purpose of this feature is not to replace the operating system feature, which is ever-present, but to offer another level of privacy which can be integrated within the app’s user interface.
  */
 extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
-
-
-
-#pragma mark public func setAppLimitAdTrackingBool(Bool)
 
 
 
@@ -470,10 +383,6 @@ extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
 
 
 
-#pragma mark public const kKVAParamRetrieveAttributionBoolKey
-
-
-
 /*!
  @constant kKVAParamRetrieveAttributionBoolKey
  
@@ -482,10 +391,6 @@ extern NSString * _Nonnull const kKVAParamAppLimitAdTrackingBoolKey;
  @discussion The corresponding value should be a boolean wrapped in an NSNumber.  When true this will cause the tracker to retrieve attribution information from the Kochava Server.  The default value is false.  Note:  This should only be done if your app makes use of this information, otherwise it causes needless network communication.  Attribution will be performed server-side regardless of the application requesting the results.  The tracker will retrieve attribution information if the kKVAParamRetrieveAttributionBoolKey parameter is passed with a value of true during its configuration.  It does this usually within about 10 seconds from the initial launch, although it is subject to a variety of conditions which can cause this time interval to be longer.  Once attribution information has been retrieved, the result is cached locally.  If the KochavaTrackerDelegate instance method tracker(_:didRetrieveAttributionDictionary:) is implemented, it will then also be called.  The attribution information is passed as a parameter.
  */
 extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
-
-
-
-#pragma mark public func attributionDictionary() -> NSDictionary?
 
 
 
@@ -527,10 +432,6 @@ extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
 
 
 
-#pragma mark public const kKVAParamConsentIntelligentManagementBoolKey
-
-
-
 /*!
  @constant kKVAParamConsentIntelligentManagementBoolKey
  
@@ -539,10 +440,6 @@ extern NSString * _Nonnull const kKVAParamRetrieveAttributionBoolKey;
  @discussion The corresponding value should be a boolean wrapped in an NSNumber.  The default is false.  Intelligent Consent Management (ICM) is a feature whereby the SDK will provide information as to when the the requirements for consent have been updated.  When an update occurs, an instance of class KVAConsent can provide a list of partners, as well as the means to know if the host should prompt the user.
  */
 extern NSString * _Nonnull const kKVAParamConsentIntelligentManagementBoolKey;
-
-
-
-#pragma mark public const kKVAParamConsentManualManagedRequirementsBoolKey
 
 
 
@@ -555,10 +452,6 @@ extern NSString * _Nonnull const kKVAParamConsentIntelligentManagementBoolKey;
  
  */
 extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKey;
-
-
-
-#pragma mark public var consent
 
 
 
@@ -598,10 +491,6 @@ extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKe
 
 
 
-#pragma mark public func deviceIdString() -> String?
-
-
-
 /*!
  @method - deviceIdString
  
@@ -636,10 +525,6 @@ extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKe
 
 
 
-#pragma mark public const kKVAParamIdentityLinkDictionaryKey
-
-
-
 /*!
  @constant kKVAParamIdentityLinkDictionaryKey
  
@@ -648,10 +533,6 @@ extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKe
  @discussion The corresponding value should be a dictionary containing one or more key/value pairs providing some form of identification.  The key(s) represent a kind of identification and the corresponding value(s) represent an identifying value.  Identity Link provides the opportunity to “link different identities” together.  For example, you may have assigned each user of your app an internal userid which you want to connect to a user’s service identifier.  Using this method, you can send both your internal id and their service identifier and connect them in the Kochava database.  Kochava reports can be output to show additional identity information for devices in the Kochava database so that you can supplement your reports with internal identifiers that are useful to you and your application.
  */
 extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
-
-
-
-#pragma mark public func sendIdentityLink(with:)
 
 
 
@@ -680,10 +561,6 @@ extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
 
 
 
-#pragma mark public const kKVAParamLogLevelEnumKey
-
-
-
 /*!
  @constant kKVAParamLogLevelEnumKey
  
@@ -692,10 +569,6 @@ extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
  @discussion The corresponding value should be an NSString matching one of the defined constants for log levels.  Logging is controlled by two parameters.  The first is kKVAParamLogLevelEnumKey, which specifies the types of information to be printed to the log.  The second is kKVAParamLogMultiLineBoolKey, which specifies whether that information prints in a multi-line or continuous format.
  */
 extern NSString * _Nonnull const kKVAParamLogLevelEnumKey;
-
-
-
-#pragma mark public const kKVAParamLogMultiLineBoolKey
 
 
 
@@ -710,10 +583,6 @@ extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
 
 
 
-#pragma mark public const kKVALogLevelEnumNone
-
-
-
 /*!
  @constant kKVALogLevelEnumNone
  
@@ -722,10 +591,6 @@ extern NSString * _Nonnull const kKVAParamLogMultiLineBoolKey;
  @discussion The None log level generally logs nothing.  It is intended to be an off switch.
  */
 extern NSString * _Nonnull const kKVALogLevelEnumNone;
-
-
-
-#pragma mark public const kKVALogLevelEnumError
 
 
 
@@ -740,10 +605,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumError;
 
 
 
-#pragma mark public const kKVALogLevelEnumWarn
-
-
-
 /*!
  @constant kKVALogLevelEnumWarn
  
@@ -752,10 +613,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumError;
  @discussion The Warn (Warning) log level generally only logs exceptions that occur outside of normal operation.  With the Warning log level there will be no log entries unless there is something unusual to report, such as an invalid parameter.
  */
 extern NSString * _Nonnull const kKVALogLevelEnumWarn;
-
-
-
-#pragma mark public const kKVALogLevelEnumInfo
 
 
 
@@ -770,10 +627,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumInfo;
 
 
 
-#pragma mark public const kKVALogLevelEnumDebug
-
-
-
 /*!
  @constant kKVALogLevelEnumDebug
  
@@ -782,10 +635,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumInfo;
  @discussion The Debug log level expands the logging of the tracker to include details about the internal tasks and NetTransaction(s) occurring within the tracker.  It is useful for diagnostic purposes.  The Debug log level is higher than is recommended for a released app.
  */
 extern NSString * _Nonnull const kKVALogLevelEnumDebug;
-
-
-
-#pragma mark public const kKVALogLevelEnumTrace
 
 
 
@@ -825,10 +674,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark public func addRemoteNotificationsDeviceToken(NSData)
-
-
-
 /*!
  @method - addRemoteNotificationsDeviceToken:
  
@@ -837,10 +682,6 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
  @param deviceToken The device token as provided in NSData.
  */
 - (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
-
-
-
-#pragma mark public func removeRemoteNotificationsDeviceToken(NSData)
 
 
 
@@ -859,15 +700,46 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
+#pragma mark - feature SDK Version
+
+
+
+#if TARGET_OS_TV
+@protocol KVATrackerSDKVersionJSExport <JSExport>
+- (nullable NSString *)sdkVersionString;
+@end
+#endif
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (SDKVersion_Public) <KVATrackerSDKVersionJSExport>
+#else
+@interface KVATracker (SDKVersion_Public)
+#endif
+
+
+
+/*!
+ @method - sdkVersionString
+ 
+ @brief A method to return the sdk version string.
+ 
+ @discussion The returned value includes the name of the SDK, followed by its semantic version.  When applicable it will be followed by a wrapper SDK version in parentheses.
+ */
+- (nullable NSString *)sdkVersionString;
+
+
+
+@end
+
+
+
 #pragma mark - feature Sessions
 
 
 
 @interface KVATracker (Sessions_Public)
-
-
-
-#pragma mark public const kKVAMessagesAppViewControllerDidBecomeActiveNotificationNameString
 
 
 
@@ -880,16 +752,47 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidBecomeActiveNot
 
 
 
-#pragma mark public const kKVAMessagesAppViewControllerDidResignActiveNotificationNameString
-
-
-
 /*!
  @constant kKVAMessagesAppViewControllerDidResignActiveNotificationNameString
  
  @brief A string to use as the name for a notification that a MessagesAppViewController did resign active.
  */
 extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNotificationNameString;
+
+
+
+@end
+
+
+
+#pragma mark - feature Sleep
+
+
+
+#if TARGET_OS_TV
+@protocol KVATrackerSleepJSExport <JSExport>
+@property BOOL sleepBool;
+@end
+#endif
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (Sleep_Public) <KVATrackerSleepJSExport>
+#else
+@interface KVATracker (Sleep_Public)
+#endif
+
+
+
+/*!
+ @property sleepBool
+ 
+ @brief A boolean which when true causes the tracker to sleep.
+ 
+ @discussion The default is false.  When set to true, this causes tasks to effectively be suspended until this condition is lifted.  While this is set to true, tasks are not lost per-say;  however, if a task may have otherwise occurred multiple times, it may be represented only once once the condition is lifted.
+ */
+@property BOOL sleepBool;
 
 
 
@@ -921,10 +824,6 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 
 
 
-#pragma mark public func handleWatchEvents()
-
-
-
 /*!
  @method - handleWatchEvents
  
@@ -933,10 +832,6 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
  @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
  */
 - (void)handleWatchEvents KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
-
-
-
-#pragma mark public func handleWatchEvents(withWatchIdString:)
 
 
 
@@ -950,10 +845,6 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
  @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
  */
 - (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
-
-
-
-#pragma mark public func sendEvent(withNameString:infoString:appStoreReceiptBase64EncodedString:)
 
 
 
@@ -971,10 +862,6 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
  @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and pass the appStoreReceiptBase64EncodedString using the standard parameter.  You may use KochavaEventTypeEnumPurchase, and set any of the other applicable standard parameters.
  */
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and pass the appStoreReceiptBase64EncodedString using the standard parameter.  You may use KochavaEventTypeEnumPurchase, and set any of the other applicable standard parameters.");
-
-
-
-#pragma mark public func sendWatchEvent(withNameString:infoString:)
 
 
 
