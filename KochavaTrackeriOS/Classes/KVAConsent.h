@@ -1,10 +1,15 @@
 //
 //  KVAConsent.h
-//  KochavaTracker
+//  KochavaCore
 //
 //  Created by John Bushnell on 3/30/18.
 //  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
 //
+
+
+
+#ifndef KVAConsent_h
+#define KVAConsent_h
 
 
 
@@ -358,6 +363,10 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 
 
 @end
+
+
+
+#endif
 
 
 

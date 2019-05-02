@@ -1,10 +1,15 @@
 //
 //  KVAContext.h
-//  KochavaTracker
+//  KochavaCore
 //
 //  Created by John Bushnell on 3/19/18.
 //  Copyright © 2017 - 2019 Kochava, Inc.  All rights reserved.
 //
+
+
+
+#ifndef KVAContext_h
+#define KVAContext_h
 
 
 
@@ -157,6 +162,10 @@
 
 
 @end
+
+
+
+#endif
 
 
 

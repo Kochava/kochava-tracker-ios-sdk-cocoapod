@@ -1,6 +1,6 @@
 //
 //  KochavaEvent.h
-//  KochavaTracker
+//  KochavaCore
 //
 //  Created by John Bushnell on 9/13/16.
 //  Copyright © 2017 - 2019 Kochava, Inc.  All rights reserved.
@@ -40,18 +40,6 @@
 
 @class KochavaEvent;
 @class KVAConsent;
-
-
-
-#pragma mark - PROTOCOL
-
-
-
-@protocol KVASendEventFuncProvider
-
-- (void)sendEvent:(nonnull KochavaEvent *)event;
-
-@end
 
 
 

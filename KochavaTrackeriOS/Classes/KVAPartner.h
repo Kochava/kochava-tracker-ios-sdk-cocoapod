@@ -1,10 +1,15 @@
 //
 //  KVAPartner.h
-//  KochavaTracker
+//  KochavaCore
 //
 //  Created by John Bushnell on 3/30/18.
 //  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
 //
+
+
+
+#ifndef KVAPartner_h
+#define KVAPartner_h
 
 
 
@@ -264,6 +269,10 @@
 
 
 @end
+
+
+
+#endif
 
 
 
