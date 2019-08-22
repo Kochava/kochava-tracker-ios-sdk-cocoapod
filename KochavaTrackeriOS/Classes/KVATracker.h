@@ -559,6 +559,35 @@ extern NSString * _Nonnull const kKVAParamIdentityLinkDictionaryKey;
 
 
 @end
+#if TARGET_OS_IOS
+
+
+
+#pragma mark - feature Location Services
+
+
+
+@class KVALocationServices;
+
+
+
+@interface KVATracker (LocationServices_Public)
+
+
+
+/*!
+ @property locationServices
+ 
+ @brief A master instance of class KVALocationServices.
+ 
+ @discussion A controller for working with location services.
+ */
+@property (strong, nonatomic, nullable, readonly) KVALocationServices *locationServices;
+
+
+
+@end
+#endif
 
 
 
@@ -662,23 +691,23 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 
 
 
-#pragma mark - feature Remote Notifications
+#pragma mark - feature Push Notifications
 
 
 
 #if TARGET_OS_TV
 @protocol KVATrackerRemoteNotificationsJSExport <JSExport>
-- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
-- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceTokenData;
+- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceTokenData;
 @end
 #endif
 
 
 
 #if TARGET_OS_TV
-@interface KVATracker (RemoteNotifications_Public) <KVATrackerRemoteNotificationsJSExport>
+@interface KVATracker (PushNotifications_Public) <KVATrackerRemoteNotificationsJSExport>
 #else
-@interface KVATracker (RemoteNotifications_Public)
+@interface KVATracker (PushNotifications_Public)
 #endif
 
 
@@ -686,22 +715,22 @@ extern NSString * _Nonnull const kKVALogLevelEnumTrace;
 /*!
  @method - addRemoteNotificationsDeviceToken:
  
- @brief A method which adds a remote notifications device token.
+ @brief A method which adds a push notifications device token.
  
- @param deviceToken The device token as provided in NSData.
+ @param deviceTokenData The device token as provided in NSData.
  */
-- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+- (void)addRemoteNotificationsDeviceToken:(nonnull NSData *)deviceTokenData;
 
 
 
 /*!
  @method - removeRemoteNotificationsDeviceToken:
  
- @brief A method which removes any assocation for this device with any previously registered remote notifications device token.
+ @brief A method which removes any assocation for this device with any previously registered push notifications device token.
  
- @param deviceToken The device token as provided in NSData.
+ @param deviceTokenData The device token as provided in NSData.
  */
-- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceToken;
+- (void)removeRemoteNotificationsDeviceToken:(nonnull NSData *)deviceTokenData;
 
 
 

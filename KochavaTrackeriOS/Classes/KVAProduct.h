@@ -18,6 +18,7 @@
 
 
 #import "KVAAsForContextObjectProtocol.h"
+#import "KVAFromObjectProtocol.h"
 
 
 
@@ -38,11 +39,22 @@
  
  @copyright 2017 - 2019 Kochava, Inc.
  */
-@interface KVAProduct : NSObject <KVAAsForContextObjectProtocol>
+@interface KVAProduct : NSObject <KVAAsForContextObjectProtocol, KVAFromObjectProtocol>
 
 
 
 #pragma mark - PROPERTIES
+
+
+
+/*!
+ @property apiVersionString
+ 
+ @brief An API version string.
+ 
+ @discussion This property is used to establish API compatibility between products.  API compatibility is assumed to be assured when the value compares to be equal for all products with the same organizationNameString.
+ */
+@property (strong, nonatomic, nullable, readonly) NSString *apiVersionString;
 
 
 
@@ -103,6 +115,17 @@
 
 
 /*!
+ @property nameWithVersionAndWrapperString
+ 
+ @brief A string containing the name and the version.
+ 
+ @discussion The two are delimited by a space.
+ */
+@property (strong, nonatomic, nonnull, readonly) NSString *nameWithVersionAndWrapperString;
+
+
+
+/*!
  @property organizationNameString
  
  @brief A string containing the name of the organization representing the product.
@@ -135,6 +158,15 @@
 
 
 
+/*!
+ @property wrapperProduct
+ 
+ @brief An optional product which wraps this product.
+ */
+@property (strong, nonatomic, nullable, readwrite) KVAProduct *wrapperProduct NS_SWIFT_NAME(wrapperProduct);
+
+
+
 #pragma mark - GENERAL
 
 
@@ -155,11 +187,11 @@
 
 
 /*!
- @method + productWithBuildDateString:bundleIdentifierString:compilerFlagNameStringArray:compilerFlagPredicateSubstitutionVariablesDictionary:nameString:organizationNameString:reverseDomainNameString:versionString:
+ @method + productWithAPIVersionString:buildDateString:bundleIdentifierString:compilerFlagNameStringArray:compilerFlagPredicateSubstitutionVariablesDictionary:nameString:organizationNameString:reverseDomainNameString:versionString:
  
  @brief Creates and returns a product.
  */
-+ (nonnull instancetype)productWithBuildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
++ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
 
 
 
