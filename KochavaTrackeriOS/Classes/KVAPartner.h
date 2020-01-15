@@ -3,7 +3,7 @@
 //  KochavaCore
 //
 //  Created by John Bushnell on 3/30/18.
-//  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
+//  Copyright © 2018 - 2020 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -18,6 +18,7 @@
 
 
 #import "KVAAsForContextObjectProtocol.h"
+#import "KVAConfigureWithObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
 
 
@@ -45,9 +46,9 @@
  
  @author John Bushnell
  
- @copyright 2018 - 2019 Kochava, Inc.
+ @copyright 2018 - 2020 Kochava, Inc.
  */
-@interface KVAPartner : NSObject <KVAFromObjectProtocol, KVAAsForContextObjectProtocol>
+@interface KVAPartner : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 
 
 
@@ -222,21 +223,6 @@
  @discussion Internal.  Compare with shouldBeIncludedInPromptBool.
  */
 - (BOOL)shouldPromptBool;
-
-
-
-/*!
- @method - configureWith:context:
- 
- @brief Updates the receiver from another instance.
- 
- @discussion Internal.
- 
- @param withObject An object from which to update the instance.  This is expected to be a native instance, or else an object which can resolve to a native instance.
- 
- @param context Optional.  The context.
- */
-- (void)configureWith:(nullable id)withObject context:(nullable KVAContext *)context;
 
 
 

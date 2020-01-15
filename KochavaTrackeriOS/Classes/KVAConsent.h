@@ -3,7 +3,7 @@
 //  KochavaCore
 //
 //  Created by John Bushnell on 3/30/18.
-//  Copyright © 2018 - 2019 Kochava, Inc.  All rights reserved.
+//  Copyright © 2018 - 2020 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -18,6 +18,7 @@
 
 
 #import "KVAAsForContextObjectProtocol.h"
+#import "KVAConfigureWithObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
 
 
@@ -45,9 +46,9 @@
  
  @author John Bushnell
  
- @copyright 2018 - 2019 Kochava, Inc.
+ @copyright 2018 - 2020 Kochava, Inc.
  */
-@interface KVAConsent : NSObject <NSCopying, KVAFromObjectProtocol, KVAAsForContextObjectProtocol>
+@interface KVAConsent : NSObject <NSCopying, KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 
 
 

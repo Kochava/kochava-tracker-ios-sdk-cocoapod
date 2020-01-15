@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/26/16.
-//  Copyright © 2013 - 2019 Kochava, Inc.  All rights reserved.
+//  Copyright © 2013 - 2020 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -36,7 +36,12 @@
 #endif
 #endif
 #else
+#import "KVAAsForContextObjectProtocol.h"
+#import "KVAConfigureWithObjectProtocol.h"
+#import "KVAFromObjectProtocol.h"
 #import "KVASendEventFuncProvider.h"
+#import "KVASharedPropertyProvider.h"
+#import "KVADeeplink.h"  // For KVADeeplinksProcessorPropertyProvider
 #endif
 
 
@@ -80,7 +85,7 @@
  
  @author Kochava, Inc.
  
- @copyright 2013 - 2019 Kochava, Inc.
+ @copyright 2013 - 2020 Kochava, Inc.
  */
 @interface KochavaTracker : NSObject
 
@@ -124,9 +129,9 @@
 
 
 #if TARGET_OS_TV
-@interface KVATracker (General_Public) <KVATrackerGeneralJSExport>
+@interface KVATracker (General_Public) <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol, KVASharedPropertyProvider, KVATrackerGeneralJSExport>
 #else
-@interface KVATracker (General_Public)
+@interface KVATracker (General_Public) <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol, KVASharedPropertyProvider>
 #endif
 
 
@@ -255,7 +260,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 - (void)sendEvent:(nonnull KochavaEvent *)event;
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary;
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
-- (void)sendDeepLinkWithOpenURL:(nullable NSURL *)openURL sourceApplicationString:(nullable NSString *)sourceApplicationString;
 @end
 #endif
 
@@ -266,19 +270,6 @@ extern NSString * _Nonnull const kKVAParamStorageIdStringKey;
 #else
 @interface KVATracker (Events_Public) <KVASendEventFuncProvider>
 #endif
-
-
-
-/*!
- @method - sendDeepLinkWithOpenURL:sourceApplicationString:
- 
- @brief A method to queue a deep-link and its associated data to be sent to server.
- 
- @param openURL The url received by the openURL application delegate method.
- 
- @param sourceApplicationString The sourceApplication string received by the openURL application delegate method.
- */
-- (void)sendDeepLinkWithOpenURL:(nullable NSURL *)openURL sourceApplicationString:(nullable NSString *)sourceApplicationString;
 
 
 
@@ -481,6 +472,26 @@ extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKe
 
 
 
+#pragma mark - feature Deeplinks
+
+
+
+@protocol KVADeeplinksProcessorPropertyProvider;
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (Deeplinks_Public) <KVADeeplinksProcessorPropertyProvider>
+#else
+@interface KVATracker (Deeplinks_Public) <KVADeeplinksProcessorPropertyProvider>
+#endif
+
+
+
+@end
+
+
+
 #pragma mark - feature Device Id
 
 
@@ -504,7 +515,7 @@ extern NSString * _Nonnull const kKVAParamConsentManualManagedRequirementsBoolKe
 /*!
  @method - deviceIdString
  
- @brief A method to return the unique device ID that was generated when the tracker was first initialized on the current device.
+ @brief A method to return the unique device ID that was generated when the tracker was first initialized on the current install.
  */
 - (nullable NSString *)deviceIdString;
 
@@ -846,6 +857,7 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
 @protocol KVATrackerDeprecatedJSExport <JSExport>
 - (void)handleWatchEvents;
 - (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString;
+- (void)sendDeepLinkWithOpenURL:(nullable NSURL *)openURL sourceApplicationString:(nullable NSString *)sourceApplicationString;
 - (void)sendEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString appStoreReceiptBase64EncodedString:(nonnull NSString *)appStoreReceiptBase64EncodedString;
 - (void)sendWatchEventWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString;
 @end
@@ -882,6 +894,19 @@ extern NSString * _Nonnull const kKVAMessagesAppViewControllerDidResignActiveNot
  @discussion This method has been deprecated and is scheduled to be permanently removed in v4.0 of this SDK.  Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.
  */
 - (void)handleWatchEventsWithWatchIdString:(nullable NSString *)watchIdString KOCHAVA_DEPRECATED("Please instead use method sendEvent:.  In Swift: func send(KochavaEvent).  Create an instance of class KochavaEvent and indicate that it originated from an Apple Watch by setting property appleWatchBool to true.  See also property appleWatchIdString.");
+
+
+
+/*!
+ @method - sendDeepLinkWithOpenURL:sourceApplicationString:
+ 
+ @brief A method to queue a deep-link and its associated data to be sent to server.
+ 
+ @param openURL The url received by the openURL application delegate method.
+ 
+ @param sourceApplicationString The sourceApplication string received by the openURL application delegate method.
+ */
+- (void)sendDeepLinkWithOpenURL:(nullable NSURL *)openURL sourceApplicationString:(nullable NSString *)sourceApplicationString KOCHAVA_DEPRECATED("Please instead use method sendEvent: (in Swift func send(KochavaEvent)).  Create an instance of class KochavaEvent and use KochavaEventTypeEnumDeepLink as the event type.  You can pass the openURL using standard parameter uriString.  You may also want to consider the APIs provided by class KVADeeplink, which provides deeplink processing for purposes beyond event tracking.");
 
 
 

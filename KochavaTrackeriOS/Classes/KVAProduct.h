@@ -3,7 +3,7 @@
 //  KochavaCore
 //
 //  Created by John Bushnell on 11/9/17.
-//  Copyright © 2017 - 2019 Kochava, Inc.  All rights reserved.
+//  Copyright © 2017 - 2020 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -37,7 +37,7 @@
  
  @author John Bushnell
  
- @copyright 2017 - 2019 Kochava, Inc.
+ @copyright 2017 - 2020 Kochava, Inc.
  */
 @interface KVAProduct : NSObject <KVAAsForContextObjectProtocol, KVAFromObjectProtocol>
 
@@ -95,9 +95,22 @@
 
 
 /*!
+ @property moduleNameString
+ 
+ @brief The name of the module.
+ 
+ @discussion Example: "KochavaCore".
+ */
+@property (strong, nonatomic, nonnull, readonly) NSString *moduleNameString;
+
+
+
+/*!
  @property nameString
  
  @brief A name string.
+ 
+ @discussion Example: "KochavaCoreiOS".
  */
 @property (strong, nonatomic, nonnull, readonly) NSString *nameString;
 
@@ -115,13 +128,13 @@
 
 
 /*!
- @property nameWithVersionAndWrapperString
+ @property standardVersionInfoString
  
  @brief A string containing the name and the version.
  
  @discussion The two are delimited by a space.
  */
-@property (strong, nonatomic, nonnull, readonly) NSString *nameWithVersionAndWrapperString;
+@property (strong, nonatomic, nonnull, readonly) NSString *standardVersionInfoString;
 
 
 
@@ -191,7 +204,7 @@
  
  @brief Creates and returns a product.
  */
-+ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
++ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
 
 
 
