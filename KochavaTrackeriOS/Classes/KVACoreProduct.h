@@ -19,6 +19,8 @@
 
 #import "KVAProduct.h"
 
+#import "KVASharedPropertyProvider.h"
+
 
 
 #pragma mark - INTERFACE
@@ -38,7 +40,7 @@
  
  @copyright 2017 - 2020 Kochava, Inc.
  */
-@interface KVACoreProduct : KVAProduct
+@interface KVACoreProduct : KVAProduct <KVASharedPropertyProvider>
 
 
 

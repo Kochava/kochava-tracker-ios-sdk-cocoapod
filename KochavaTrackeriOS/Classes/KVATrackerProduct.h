@@ -33,6 +33,7 @@
 #endif
 #else
 #import "KVAProduct.h"
+#import "KVASharedPropertyProvider.h"
 #endif
 
 
@@ -54,7 +55,7 @@
  
  @copyright 2017 - 2020 Kochava, Inc.
  */
-@interface KVATrackerProduct : KVAProduct
+@interface KVATrackerProduct : KVAProduct <KVASharedPropertyProvider>
 
 
 

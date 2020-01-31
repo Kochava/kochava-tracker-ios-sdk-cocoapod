@@ -76,7 +76,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler) (KVADeeplink * _Nonnull dee
  
  @param completionHandler A completion handler to call when processing is complete.
  */
-- (void)processDeeplink:(nonnull KVADeeplink *)deeplink timeoutTimeInterval:(NSTimeInterval)timeoutTimeInterval completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(processDeeplink(_:timeoutTimeInterval:completionHandler:));
+- (void)processDeeplink:(nonnull KVADeeplink *)deeplink timeoutTimeInterval:(NSTimeInterval)timeoutTimeInterval completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(deeplink:timeoutTimeInterval:completionHandler:));
 
 
 

@@ -148,6 +148,15 @@
 
 
 /*!
+ @property userDefaults
+ 
+ @brief The instance of NSUserDefaults which this product uses for persistent storage.
+ */
+@property (strong, nonatomic, nullable, readonly) NSUserDefaults *userDefaults;
+
+
+
+/*!
  @property reverseDomainNameString
  
  @brief A string containing a reverse domain name style representation of the name of the product.
@@ -192,6 +201,19 @@
  @discussion Generally Kochava products automatically register themselves, but there are a few exceptions.  If you're using a product which is optional and weakly linked, this method should be called once, early, to register the product for use.  One such example is the product KochavaLocation.  As a weakly-linked optional product, it would be optimized away by the linker if a call to register it was not explicitly made and if there were no other explicit interactions early with its API.  For products which automtically register themselves calling this method is redundant and will have no effect.  Important Note:  The existence of a product will not be recognized by the SDK until it has been registered.  It is important therefore to register the product before configuring an instance of class KVATracker to ensure that it is recognized by the SDK at the time when it may be needed;  however, that having been said, some products if registered immediately afterward will still be guaranteed to be recognized in time due to architectural considerations designed to avoid a race condition.  You should not assume that registering a product after configuring a tracker is guaranteed to work properly.
  */
 - (void)register;
+
+
+
+/*!
+@method - resetWithDeleteLocalDataBool:
+
+@brief Resets the product.
+
+@discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.
+ 
+ @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
+*/
+- (void)resetWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(reset(deleteLocalDataBool:));
 
 
 
