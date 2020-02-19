@@ -148,15 +148,6 @@
 
 
 /*!
- @property userDefaults
- 
- @brief The instance of NSUserDefaults which this product uses for persistent storage.
- */
-@property (strong, nonatomic, nullable, readonly) NSUserDefaults *userDefaults;
-
-
-
-/*!
  @property reverseDomainNameString
  
  @brief A string containing a reverse domain name style representation of the name of the product.
