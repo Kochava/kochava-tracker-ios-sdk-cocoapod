@@ -5,9 +5,4 @@ platform :ios, '8.0'
 target 'KochavaTrackeriOS_Example' do
   pod 'KochavaTrackeriOS', :path => '../'
 
-  target 'KochavaTrackeriOS_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

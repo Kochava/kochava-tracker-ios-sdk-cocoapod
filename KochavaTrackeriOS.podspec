@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KochavaTrackeriOS'
-  s.version          = '3.15.0'
+  s.version          = '3.16.0'
   s.summary          = 'The KochavaTracker iOS SDK.  Kochava is a leading mobile attribution and analytics platform.'
 
 # This description is used to generate tags and improve search results.
@@ -38,11 +38,12 @@ DESC
 
   s.public_header_files = 'KochavaTrackeriOS/Classes/**/*.h'
   s.frameworks   = 'Foundation', 'UIKit', 'AVFoundation', 'AdSupport', 'CoreGraphics', 'CoreLocation', 'CoreTelephony', 'iAd', 'SystemConfiguration', 'WebKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'KochavaCoreiOS', '~> 3.16'
 
   s.platform     = :ios, '8.0'
   s.vendored_libraries = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
   s.preserve_paths = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
   s.library = 'KochavaTrackeriOS'
 
+  s.swift_versions = '5.0'
 end

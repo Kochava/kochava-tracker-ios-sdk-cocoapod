@@ -26,6 +26,9 @@
     
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"KVACoreProduct.shared = %@", [KVACoreProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
+    NSLog(@"KVATrackerProduct.shared = %@", [KVATrackerProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
+
     // trackerParametersDictionary
     NSMutableDictionary *trackerParametersDictionary = [NSMutableDictionary dictionary];
     trackerParametersDictionary[kKVAParamAppGUIDStringKey] = @"_YOUR_KOCHAVA_APP_GUID_";

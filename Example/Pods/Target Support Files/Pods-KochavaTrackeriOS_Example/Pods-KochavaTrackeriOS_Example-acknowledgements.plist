@@ -14,9 +14,22 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright (c) 2020 Kochava &lt;support@kochava.com&gt;
+
+By using this software you consent to Kochava's Terms of Service found here:  https://www.kochava.com/terms-of-service/
+</string>
+			<key>License</key>
+			<string>Commercial</string>
+			<key>Title</key>
+			<string>KochavaCoreiOS</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2019 - 2020 Kochava &lt;support@kochava.com&gt;
 
-By using this software you consent to Kochava's Terms of Use found here:  https://www.kochava.com/support/terms-of-use/
+By using this software you consent to Kochava's Terms of Use found here:  https://www.kochava.com/terms-of-service/
 </string>
 			<key>License</key>
 			<string>Commercial</string>

@@ -1,0 +1,6 @@
+framework module KochavaCoreiOS {
+  umbrella header "KochavaCoreiOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
