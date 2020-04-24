@@ -1,6 +1,6 @@
 PODS:
   - KochavaCoreiOS (3.16.0)
-  - KochavaTrackeriOS (3.16.0):
+  - KochavaTrackeriOS (3.17.0):
     - KochavaCoreiOS (~> 3.16)
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   KochavaCoreiOS: f4a62a4971f063603b0a29ca564a1e003784f995
-  KochavaTrackeriOS: 31135fb2a86adb8c835f49c22a0b2e4f88ec2cf3
+  KochavaTrackeriOS: 3bc2417dd6b9e7bbe99b8acfee0f83e1447d7469
 
 PODFILE CHECKSUM: 55b0b32cac359dc1334fa3c84141088c57565ff9
 
