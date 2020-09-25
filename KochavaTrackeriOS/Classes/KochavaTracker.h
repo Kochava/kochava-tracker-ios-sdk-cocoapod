@@ -15,7 +15,17 @@
 
 #import "KochavaCore.h"
 
+#import "KVAAppTrackingTransparency.h"
+#import "KVAAttribution.h"
+#import "KVAAttributionResult.h"
+#import "KVACustomIdentifiers.h"
 #import "KVADeeplink.h"
+#import "KVADeeplinks.h"
+#import "KVAEvent+Standard.h"
+#import "KVAEvents.h"
+#import "KVAIdentityLink.h"
+#import "KVAPushNotifications.h"
+#import "KVAPushNotificationsToken.h"
 #import "KVATracker.h"
 #import "KVATrackerProduct.h"
 

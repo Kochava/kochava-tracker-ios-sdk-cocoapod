@@ -17,8 +17,21 @@
 
 
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
+#endif
+
+
+
+#pragma mark - CLASS
+
+
+
+@class KVALogLevel;
 
 
 
@@ -102,6 +115,17 @@
  @brief A dictionary containing substitution variables for use with an NSPredicate containing compiler flags.
  */
 @property (strong, nonatomic, nullable, readonly) NSDictionary *compilerFlagPredicateSubstitutionVariablesDictionary;
+
+
+
+/*!
+ @property logLevel
+ 
+ @brief The log level for the product.
+ 
+ @discussion Default nil.  When set this overrides the log default for log messages generated within the product.
+ */
+@property (strong, atomic, nullable, readwrite) KVALogLevel *logLevel;
 
 
 
@@ -219,6 +243,19 @@
 
 
 
+/*!
+ @method - shutdownWithDeleteLocalDataBool:
+
+ @brief Shuts down the product.
+
+ @discussion This can be regarded as being equivalent to performing a reset, but may also include hints to avoid performing automatic behavior consistent with being freshly initialized. 
+ 
+ @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
+*/
+- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(shutdown(deleteLocalDataBool:));
+
+
+
 #pragma mark - CLASS GENERAL
 
 
@@ -228,7 +265,7 @@
  
  @brief Creates and returns a product.
  */
-+ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString bundleTypeString:(nonnull NSString *)bundleTypeString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
++ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString bundleTypeString:(nullable NSString *)bundleTypeString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
 
 
 

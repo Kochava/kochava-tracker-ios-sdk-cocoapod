@@ -17,9 +17,15 @@
 
 
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAConfigureWithObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAConfigureWithObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
+#endif
 
 
 
@@ -100,7 +106,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A boolean which indicates that intelligent management is enabled.
  
- @discussion Internal.  See kKVAParamConsentIntelligentManagementBoolKey.  When intelligent consent management is enabled and configured within your Kochava dashboard, the SDK will indicate when the user should be prompted for consent.  It will also not gather, persist, or transmit data which requires consent unless consent has been granted.
+ @discussion When intelligent consent management is enabled and configured within your Kochava dashboard, the SDK will indicate when the user should be prompted for consent.  It will also not gather, persist, or transmit data which requires consent unless consent has been granted.
  */
 @property BOOL intelligentManagementBool;
 
@@ -111,7 +117,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief A boolean which indicates that the requirements for consent are managed manually (locally).
  
- @discussion Internal.  See kKVAParamConsentManualManagedRequirementsBoolKey.  When intelligent consent management is enabled and configured within your Kochava dashboard, the SDK will indicate when the user should be prompted for consent.  It will also not gather, persist, or transmit data which requires consent unless consent has been granted.
+ @discussion When intelligent consent management is enabled and configured within your Kochava dashboard, the SDK will indicate when the user should be prompted for consent.  It will also not gather, persist, or transmit data which requires consent unless consent has been granted.
  */
 @property BOOL manualManagedRequirementsBool;
 
@@ -126,7 +132,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  Swift example:
  @code
- let consent = KochavaTracker.shared.consent
+ let consent = KVATracker.shared.consent
  if let partnerArray = consent.partnerArray {
      for partner in partnerArray {
          print("do something with the partner... partner.nameString=\(String(describing: partner.nameString))")
@@ -198,17 +204,6 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 
 
 #pragma mark - GENERAL
-
-
-
-/*!
- @method - kva_asForContextObjectWithContext:
- 
- @brief Converts the object for a given target context.
- 
- @discussion The returned value will be a nullable NSMutableDictionary.
- */
-- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
 
 
 
@@ -319,47 +314,6 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  @discussion Optional.  This method can be used if you want to ensure that the prompt for consent will not be made again, even when a subsequent call to didPromptWithDidGrantBoolNumber: is never made, such as in the case of an unexpected termination.  If you call didPromptWithDidGrantBoolNumber: whenever the prompt is dismissed, even if the user did not give a response, then this method does not need to be called.
  */
 - (void)willPrompt NS_SWIFT_NAME(willPrompt());
-
-
-
-#pragma mark - LIFECYCLE
-
-
-
-/*!
- @method + consentWithMasterBool
- 
- @brief Returns a new instance of KVAConsent.
- 
- @discussion Internal.
- 
- @param masterBool A boolean indicating that this consent object is a master consent object, as opposed to an immutable copy.
- */
-+ (nonnull instancetype)consentWithMasterBool:(BOOL)masterBool NS_SWIFT_NAME(init(masterBool:));
-
-
-
-/*!
- @method + kva_fromObject:
- 
- @brief A method to return an instance of consent from another object.
- 
- @discussion Internal.
- 
- @return An instance of consent.  A value of nil will be returned if the object is not recognized.
- */
-+ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
-
-
-
-/*!
- @method - invalidate
- 
- @brief A method which invalidates the instance.
- 
- @discussion Internal.  This prevents timers from firing and callbacks from being made.  The receiver should not be used following a call to this method.
- */
-- (void)invalidate;
 
 
 

@@ -18,12 +18,14 @@
 
 
 #import <os/log.h>
+
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
-
-
-
-#pragma mark - ENUM
+#endif
 
 
 
@@ -46,7 +48,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
+#pragma mark - ENUMERATED VALUES
 
 
 
@@ -176,37 +178,11 @@
 
 
 /*!
- @method + kva_fromObject:
- 
- @brief A method to return a logLevel from another object.
- 
- @return A logLevel.  A value of nil will be returned if the object is not recognized.
- */
-+ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
-
-
-
-/*!
  @method + logLevel:visibleBoolWithVisibleMaximumLogLevel:
  
  @brief A method to return if a given logLevel is visible with the given visibleMaximumLogLevel.
  */
 + (BOOL)logLevel:(nullable KVALogLevel *)logLevel visibleBoolWithVisibleMaximumLogLevel:(nullable KVALogLevel *)visibleMaximumLogLevel;
-
-
-
-#pragma mark - GENERAL
-
-
-
-/*!
- @method - kva_asForContextObjectWithContext:
- 
- @brief Converts the object for a given target context.
- 
- @discussion The returned value will be a nullable NSMutableDictionary.
- */
-- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
 
 
 

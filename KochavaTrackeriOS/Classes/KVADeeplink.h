@@ -18,19 +18,7 @@
 
 
 #ifdef KOCHAVA_FRAMEWORK
-#if TARGET_OS_TV
-#if TARGET_OS_SIMULATOR
-#import <KochavaCoreTVOSSimulator/KochavaCoreTVOSSimulator.h>
-#else
-#import <KochavaCoreTVOSDevice/KochavaCoreTVOSDevice.h>
-#endif
-#else
-#if TARGET_OS_SIMULATOR
-#import <KochavaCoreiOSSimulator/KochavaCoreiOSSimulator.h>
-#else
-#import <KochavaCoreiOSDevice/KochavaCoreiOSDevice.h>
-#endif
-#endif
+#import <KochavaCore/KochavaCore.h>
 #else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
@@ -65,37 +53,15 @@ typedef void (^ KVADeeplinkProcessCompletionHandler) (KVADeeplink * _Nonnull dee
 
 @protocol KVADeeplinksProcessor <NSObject>
 
-
-
-/*!
- @method - processDeeplink:
- 
- @brief Processes a KVADeeplink.
- 
- @param deeplink An instance of KVADeeplink.
- 
- @param completionHandler A completion handler to call when processing is complete.
- */
 - (void)processDeeplink:(nonnull KVADeeplink *)deeplink timeoutTimeInterval:(NSTimeInterval)timeoutTimeInterval completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(deeplink:timeoutTimeInterval:completionHandler:));
-
-
 
 @end
 
 
 
-@protocol KVADeeplinksProcessorPropertyProvider <NSObject>
+@protocol KVADeeplinksProcessorProvider <NSObject>
 
-
-
-/*!
- @property deeplinks
- 
- @brief An instance which conforms to protocol KVADeeplinksProcessor.
- */
 @property (strong, nonatomic, nullable, readonly) id<KVADeeplinksProcessor> deeplinks;
-
-
 
 @end
 
@@ -174,22 +140,22 @@ typedef void (^ KVADeeplinkProcessCompletionHandler) (KVADeeplink * _Nonnull dee
 
 
 /*!
-@method + processWithURL:deeplinksProcessorPropertyProvider:completionHandler:
+@method + processWithURL:processor:completionHandler:
 
 @brief A method which processes a deep link.
 
 @param url The deep link url as provided.
 
-@param deeplinksProcessorPropertyProvider An array of KVADeeplinksProcessorPropertyProvider to which to add the token.
+@param processor An array of KVADeeplinksProcessorProvider to which to add the token.
 
 @param completionHandler A block to be called when processing is complete.
 */
-+ (void)processWithURL:(nullable NSURL *)url deeplinksProcessorPropertyProvider:(nullable id<KVADeeplinksProcessorPropertyProvider>)deeplinksProcessorPropertyProvider completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(withURL:deeplinksProcessorPropertyProvider:completionHandler:));
++ (void)processWithURL:(nullable NSURL *)url processor:(nullable id<KVADeeplinksProcessorProvider>)processor completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(withURL:processor:completionHandler:));
 
 
 
 /*!
- @method + processWithURL:timeoutTimeInterval:deeplinksProcessorPropertyProvider:completionHandler:
+ @method + processWithURL:timeoutTimeInterval:processor:completionHandler:
  
  @brief A method which processes a deep link.
  
@@ -197,11 +163,11 @@ typedef void (^ KVADeeplinkProcessCompletionHandler) (KVADeeplink * _Nonnull dee
  
  @param timeoutTimeInterval A time interval after which to timeout and return whatever result we have.
 
- @param deeplinksProcessorPropertyProvider An array of KVADeeplinksProcessorPropertyProvider to which to add the token.
+ @param processor An array of KVADeeplinksProcessorProvider to which to add the token.
  
  @param completionHandler A block to be called when processing is complete.
  */
-+ (void)processWithURL:(nullable NSURL *)url timeoutTimeInterval:(NSTimeInterval)timeoutTimeInterval deeplinksProcessorPropertyProvider:(nullable id<KVADeeplinksProcessorPropertyProvider>)deeplinksProcessorPropertyProvider completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(withURL:timeoutTimeInterval:deeplinksProcessorPropertyProvider:completionHandler:));
++ (void)processWithURL:(nullable NSURL *)url timeoutTimeInterval:(NSTimeInterval)timeoutTimeInterval processor:(nullable id<KVADeeplinksProcessorProvider>)processor completionHandler:(nullable KVADeeplinkProcessCompletionHandler)completionHandler NS_SWIFT_NAME(process(withURL:timeoutTimeInterval:processor:completionHandler:));
 
 
 

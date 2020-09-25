@@ -30,15 +30,15 @@
 
 
 /*!
- @method - configureWith:context:
+ @method - kva_configureWith:context:
  
- @brief Updates the receiver from another instance.
+ @brief Configures (updates) the instance from another object.
  
  @param withObject An object from which to update the instance.  This is expected to be a native instance, or else an object which can resolve to a native instance.
  
  @param context Optional.  The context.
  */
-- (void)configureWith:(nullable id)withObject context:(nullable KVAContext *)context NS_SWIFT_NAME(configure(with:context:));
+- (void)kva_configureWith:(nullable id)withObject context:(nullable KVAContext *)context NS_SWIFT_NAME(kva_configure(with:context:));
 
 
 

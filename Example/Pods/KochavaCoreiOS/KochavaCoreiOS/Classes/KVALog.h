@@ -45,8 +45,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
-#pragma mark KVALog.shared (Singleton Shared Instance)
+#pragma mark - SHARED INSTANCE (SINGLETON)
 
 
 
@@ -69,6 +68,17 @@
  @brief The visible maximum log level for log messages.
  */
  @property (strong, atomic, nonnull, readwrite) KVALogLevel *level;
+
+
+
+/*!
+ @property prettyPrintBool
+ 
+ @brief A boolean indicating if log messages should be pretty printed.
+ 
+ @discussion Default true.
+ */
+@property (atomic, readwrite) BOOL prettyPrintBool;
 
 
 

@@ -14,7 +14,7 @@
 
 
 
-@interface KochavaAppDelegate() <KochavaTrackerDelegate>
+@interface KochavaAppDelegate()
     
 @end
 
@@ -26,15 +26,11 @@
     
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"KVACoreProduct.shared = %@", [KVACoreProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
-    NSLog(@"KVATrackerProduct.shared = %@", [KVATrackerProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
-
-    // trackerParametersDictionary
-    NSMutableDictionary *trackerParametersDictionary = [NSMutableDictionary dictionary];
-    trackerParametersDictionary[kKVAParamAppGUIDStringKey] = @"_YOUR_KOCHAVA_APP_GUID_";
+    KVALog.shared.level = KVALogLevel.trace;
     
-    // KochavaTracker.shared
-    [KochavaTracker.shared configureWithParametersDictionary:trackerParametersDictionary delegate:self];
+    NSLog(@"KVACoreProduct.shared = %@", [KVACoreProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
+
+    [KVATracker.shared startWithAppGUIDString:@"_YOUR_KOCHAVA_APP_GUID_"];
     
     return YES;
 }

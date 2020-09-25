@@ -17,9 +17,15 @@
 
 
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAConfigureWithObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAConfigureWithObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
+#endif
 
 
 
@@ -124,17 +130,6 @@
 
 
 /*!
- @method - kva_asForContextObjectWithContext:
- 
- @brief Converts the object for a given target context.
- 
- @discussion The returned value will be a nullable NSMutableDictionary.
- */
-- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
-
-
-
-/*!
  @method - didGrantDate:
  
  @brief Returns a date indicating when the user did grant consent.
@@ -234,23 +229,6 @@
  @discussion Internal.  This is called autiomatically when the willPrompt method on KVAConsent is called.
  */
 - (void)willPrompt;
-
-
-
-#pragma mark - LIFECYCLE
-
-
-
-/*!
- @method + kva_fromObject:
- 
- @discussion Internal.
- 
- @brief A method to return an instance of consent from another object.
- 
- @return A consent.  A value of nil will be returned if the object is not recognized.
- */
-+ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
 
 
 

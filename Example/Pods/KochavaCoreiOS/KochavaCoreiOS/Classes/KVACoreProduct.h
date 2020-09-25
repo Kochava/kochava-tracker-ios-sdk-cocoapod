@@ -17,9 +17,13 @@
 
 
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAProduct.h>
+#import <KochavaCore/KVASharedPropertyProvider.h>
+#else
 #import "KVAProduct.h"
-
 #import "KVASharedPropertyProvider.h"
+#endif
 
 
 
@@ -44,8 +48,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
-#pragma mark KVACoreProduct.shared (Singleton Shared Instance)
+#pragma mark - SHARED INSTANCE (SINGLETON)
 
 
 

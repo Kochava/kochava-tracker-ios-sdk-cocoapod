@@ -9,7 +9,7 @@
 
 ## KochavaTracker iOS Module
 
-The KochavaTracker module of the Kochava iOS SDK provides install attribution and analytics.
+The KochavaTracker module is an optional module within the Kochava SDK providing install attribution and analytics.
 
 The Kochava SDK is a lightweight and easy to integrate SDK written in Objective-C, providing first-class integration with Kochava’s industry leading mobile attribution and analytics platform.
 
@@ -19,11 +19,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-* iOS 8.0
-
-Prior to version 3.16.0 released in April 2020, library KochavaCore was bundled within module KochavaTracker, which made its integration automatic.  This changed when it was broken out into its own module so that it could be used independently with other modules such as KochavaConsent, KochavaEngagementExtension, and KochavaEntitlements, without requiring the integration of module KochavaTracker.  As a dependency of all modules within the Kochava SDK, you should integrate and update module KochavaCore alongside any other modules which you use.  Package managers such as Cocoapods make this automatic through their dependency management system;  however, when using Direct Downloads such as through Bintray this falls to you.  It is important to always download current versions of each module which you choose to integrate so that compatibility is ensured.
-
-For a typical Kochava Tracker integration, you need only include the Core and Tracker modules.  Other modules may be added depending on your needs.
+* iOS 10.3
 
 ## Dependencies
 
@@ -45,4 +41,4 @@ Kochava, support@kochava.com
 
 ## License
 
-KochavaTrackeriOS is available under the [Kochava Terms of Service](https://www.kochava.com/terms-of-service/). See the LICENSE file for more info.
+KochavaTracker is available under the [Kochava Terms of Service](https://www.kochava.com/terms-of-service/). See the LICENSE file for more info.

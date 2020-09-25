@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KochavaTrackeriOS'
-  s.version          = '3.17.0'
-  s.summary          = 'The KochavaTracker iOS SDK.  Kochava is a leading mobile attribution and analytics platform.'
+  s.version          = '4.0.0'
+  s.summary          = 'The KochavaTracker module of the KochavaTracker iOS SDK.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
 s.description  = <<-DESC
-A lightweight and easy to integrate SDK written in Objective-C, providing first-class integration with Kochava’s installation attribution and analytics platform.
+The KochavaTracker module is an optional module within the Kochava SDK providing install attribution and analytics.
 DESC
 
   s.homepage         = 'http://www.kochava.com'
@@ -28,7 +28,7 @@ DESC
   s.source           = { :git => 'https://github.com/Kochava/kochava-tracker-ios-sdk-cocoapod.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.3'
 
   s.source_files = 'KochavaTrackeriOS/Classes/**/*'
   
@@ -38,12 +38,17 @@ DESC
 
   s.public_header_files = 'KochavaTrackeriOS/Classes/**/*.h'
   s.frameworks   = 'Foundation', 'UIKit', 'AVFoundation', 'AdSupport', 'CoreGraphics', 'CoreLocation', 'CoreTelephony', 'iAd', 'SystemConfiguration', 'WebKit'
-  s.dependency 'KochavaCoreiOS', '~> 3.16'
+  s.dependency 'KochavaCoreiOS', '~> 4.0.0'
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '10.3'
   s.vendored_libraries = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
   s.preserve_paths = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
   s.library = 'KochavaTrackeriOS'
 
   s.swift_versions = '5.0'
+  
+  # Xcode 12 Bug Fix:  https://github.com/CocoaPods/CocoaPods/issues/10065#issuecomment-694268918
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
 end

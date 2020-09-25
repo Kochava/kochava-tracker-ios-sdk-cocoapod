@@ -17,7 +17,7 @@
 
 
 
-@class KochavaEvent;
+@class KVAEvent;
 
 
 
@@ -34,9 +34,9 @@
  
  @brief A method to queue an event with standardized parameters to be sent to the server.
  
- @param event A KochavaEvent configured with the values you want to associate with the event.
+ @param event A KVAEvent configured with the values you want to associate with the event.
  */
-- (void)sendEvent:(nonnull KochavaEvent *)event;
+- (void)sendEvent:(nonnull KVAEvent *)event;
 
 
 

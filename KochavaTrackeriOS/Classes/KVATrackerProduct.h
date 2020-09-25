@@ -18,19 +18,7 @@
 
 
 #ifdef KOCHAVA_FRAMEWORK
-#if TARGET_OS_TV
-#if TARGET_OS_SIMULATOR
-#import <KochavaCoreTVOSSimulator/KochavaCoreTVOSSimulator.h>
-#else
-#import <KochavaCoreTVOSDevice/KochavaCoreTVOSDevice.h>
-#endif
-#else
-#if TARGET_OS_SIMULATOR
-#import <KochavaCoreiOSSimulator/KochavaCoreiOSSimulator.h>
-#else
-#import <KochavaCoreiOSDevice/KochavaCoreiOSDevice.h>
-#endif
-#endif
+#import <KochavaCore/KochavaCore.h>
 #else
 #import "KVAProduct.h"
 #import "KVASharedPropertyProvider.h"
@@ -59,8 +47,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
-#pragma mark KVATrackerProduct.shared (Singleton Shared Instance)
+#pragma mark - SHARED INSTANCE (SINGLETON)
 
 
 

@@ -17,8 +17,13 @@
 
 
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
+#endif
 
 
 
@@ -47,7 +52,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
+#pragma mark - ENUMERATED VALUES
 
 
 
@@ -108,9 +113,9 @@
 /*!
  @property + serverUnrestricted
  
- @brief A context which represents the Server, and is un-restricted by considerations such as whitelist and blacklist.
+ @brief A context which represents the Server, and is un-restricted by considerations such as allowed and denied identifiers.
  
- @discussion This is of particualar relevance with KVANetTransaction(s) where whitelist and/or blacklist information may not (or not yet) be known, such as the Tracker.trInitNetTransaction.
+ @discussion This is of particular relevance with KVANetTransaction(s) where allowed and/or denied identifiers may not (or not yet) be known, such as config retrievals.
  */
 @property (class,strong, nonatomic, nonnull, readonly) KVAContext *serverUnrestricted;
 
@@ -128,36 +133,6 @@
  @discussion Examples:  "host", "log", "persistentStorage", "sdk", "server".
  */
 @property (strong, nonatomic, nonnull) NSString *nameString;
-
-
-
-#pragma mark - CLASS GENERAL
-
-
-
-/*!
- @method + kva_fromObject:
- 
- @brief A method to return a context from another object.
- 
- @return A context.  A value of nil will be returned if the object is not recognized.
- */
-+ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
-
-
-
-#pragma mark - GENERAL
-
-
-
-/*!
- @method - kva_asForContextObjectWithContext:
- 
- @brief Converts the object for a given target context.
- 
- @discussion The returned value will be a nullable NSMutableDictionary.
- */
-- (nullable NSObject *)kva_asForContextObjectWithContext:(nullable KVAContext *)context NS_SWIFT_NAME(kva_asForContextObject(withContext:));
 
 
 

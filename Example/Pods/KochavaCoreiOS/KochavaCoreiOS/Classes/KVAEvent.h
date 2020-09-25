@@ -1,5 +1,5 @@
 //
-//  KochavaEvent.h
+//  KVAEvent.h
 //  KochavaCore
 //
 //  Created by John Bushnell on 9/13/16.
@@ -21,16 +21,13 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #endif
 
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaCore/KVAAsForContextObjectProtocol.h>
+#import <KochavaCore/KVAFromObjectProtocol.h>
+#else
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
-
-
-
-#pragma mark - DEFINE
-
-
-
-#define KVAEvent KochavaEvent
+#endif
 
 
 
@@ -38,13 +35,23 @@
 
 
 
-@class KochavaEvent;
+@class KVAEvent;
 @class KVAConsent;
+@class KVAEventType;
+
+
+
+#pragma mark - PROTOCOL
+
+
+
+@protocol KVAEventSenderProvider;
+@protocol KVADispatchQueueDelegate;
 
 
 
 #if TARGET_OS_TV
-@protocol KochavaEventJSExport <JSExport>
+@protocol KVAEventJSExport <JSExport>
 @property (strong, nonatomic, nullable) NSString *actionString;
 @property (strong, nonatomic, nullable) NSString *adCampaignIdString;
 @property (strong, nonatomic, nullable) NSString *adCampaignNameString;
@@ -74,7 +81,7 @@
 @property (strong, nonatomic, nullable) NSNumber *durationTimeIntervalNumber;
 @property (strong, nonatomic, nullable) NSDate *endDate;
 @property (strong, nonatomic, nullable) NSString *endDateString;
-// @property (readonly) KochavaEventTypeEnum eventTypeEnum;
+@property (strong, nonatomic, nullable, readonly) KVAEventType *eventType;
 @property (strong, nonatomic, nullable) NSDictionary *infoDictionary;
 @property (strong, nonatomic, nullable) NSString *infoString;
 @property (strong, nonatomic, nullable) NSString *itemAddedFromString;
@@ -105,7 +112,7 @@
 @property (strong, nonatomic, nullable) NSString *userIdString;
 @property (strong, nonatomic, nullable) NSString *userNameString;
 @property (strong, nonatomic, nullable) NSString *validatedString;
-+ (nullable instancetype)eventWithEventTypeEnumNameString:(nonnull NSString *)eventTypeEnumNameString;
++ (nullable instancetype)eventWithTypeNameString:(nonnull NSString *)eventTypeNameString NS_SWIFT_NAME(init(typeNameString:));
 @end
 #endif
 
@@ -116,17 +123,17 @@
 
 
 /*!
- @class KochavaEvent
+ @class KVAEvent
  
- @brief The class KochavaEvent provides a means of defining a post-install event, providing standardized parameters.
+ @brief The class KVAEvent provides a means of defining a post-install event, providing standardized parameters.
  
  @discussion Sending post-install events is not a requirement.  To track installation information, you do not need to do anything more than call the constructor for the tracker.  Still, many advertisers want to understand and correlate the relationship between conversion and attribution source information with post-install behaviors.  This can only be done by tracking post-install events.
  
  Once the tracker has been configured, Kochava event tracking methods can be called from anywhere within the application.  Events will be coupled with the information sent by the tracker to report events, based on user device and application information.  Events are not sent immediately to Kochava servers but queued, should the device not have connectivity.
  
- The KochavaEvent class defines an individual post-install event, providing a variety of standardized event names and parameters.  Standard event names may represent a purchase, the completion of a level, an achievement, etc.  Standard parameters may represent a currency, price, level, etc.
+ The KVAEvent class defines an individual post-install event, providing a variety of standardized event names and parameters.  Standard event names may represent a purchase, the completion of a level, an achievement, etc.  Standard parameters may represent a currency, price, level, etc.
  
- The use of standard event names and parameters maximizes parity with external analytics partners and ensures optimal reporting and analytical output via the Kochava platform.  If the data you are sending through post-install events can be sent using standard event names and parameters we recommend you use an instance of class KochavaEvent to do so.
+ The use of standard event names and parameters maximizes parity with external analytics partners and ensures optimal reporting and analytical output via the Kochava platform.  If the data you are sending through post-install events can be sent using standard event names and parameters we recommend you use an instance of class KVAEvent to do so.
  
  Inherits from: NSObject
  
@@ -134,10 +141,10 @@
  
  @copyright 2017 - 2020 Kochava, Inc.
  */
-@interface KochavaEvent : NSObject
+@interface KVAEvent : NSObject
 <
 #if TARGET_OS_TV
-KochavaEventJSExport,
+KVAEventJSExport,
 #endif
 KVAAsForContextObjectProtocol,
 KVAFromObjectProtocol
@@ -145,200 +152,20 @@ KVAFromObjectProtocol
 
 
 
-#pragma mark - NS_ENUM
-#pragma mark KochavaEventTypeEnum
+#pragma mark - CONSTRUCTION
 
 
 
-typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
-{
-    /*!
-     @brief Undefined
-     
-     @discussion This is an enumerated value which signifies that an the event type has not been defined.
-     */
-    KochavaEventTypeEnumUndefined = 0,
-    
-    
-    
-    /*! 
-     @brief Add to Cart
-     
-     @discussion This is an enumerated value which signifies that an item was added to a cart.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumAddToCart = 100,
-    
-    
-    
-    /*! 
-     @brief Add to Wish List
-     
-     @discussion This is an enumerated value which signifies that an item was added to a wish list.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumAddToWishList = 101,
-    
-    
-    
-    /*! 
-     @brief Achievement
-     
-     @discussion This is an enumerated value which signifies that an achievement was achieved.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumAchievement = 102,
-    
-    
-    
-    /*! 
-     @brief Checkout Start
-     
-     @discussion This is an enumerated value which signifies that a checkout was started.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumCheckoutStart = 103,
-    
-    
-    
-    /*!
-     @brief Custom
-     
-     @discussion This is an enumerated value which signifies that a customEventNameString will be supplied.
-     */
-    KochavaEventTypeEnumCustom = 1,
-    
-    
-    
-    /*!
-     @brief Level Complete
-     
-     @discussion This is an enumerated value which signifies that a level was completed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumLevelComplete = 104,
-    
-    
-    
-    /*! 
-     @brief Purchase
-     
-     @discussion This is an enumerated value which signifies that a purchase was completed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumPurchase = 105,
-    
-    
-    
-    /*! 
-     @brief Rating
-     
-     @discussion This is an enumerated value which signifies that an item was rated.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumRating = 106,
-    
-    
-    
-    /*! 
-     @brief Registration Complete
-     
-     @discussion This is an enumerated value which signifies that a registration was completed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumRegistrationComplete = 107,
-
-    
-    
-    /*! 
-     @brief Search
-     
-     @discussion This is an enumerated value which signifies that a search was performed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumSearch = 108,
-    
-    
-    
-    /*! 
-     @brief Tutorial Complete
-     
-     @discussion This is an enumerated value which signifies that a tutorial was completed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumTutorialComplete = 109,
-
-    
-    
-    /*! 
-     @brief View
-     
-     @discussion This is an enumerated value which signifies that an item was viewed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumView = 110,
-    
-    
-    
-    /*!
-     @brief Ad View
-     
-     @discussion This is an enumerated value which signifies that an ad was viewed.  You may use this in any equivalent circumstance.
-     */
-    KochavaEventTypeEnumAdView = 111,
-    
-    
-    
-    /*!
-     @brief Push Received
-     
-     @discussion This is an enumerated value which signifies that a push notification was received.
-     */
-    KochavaEventTypeEnumPushReceived = 112,
-    
-    
-    
-    /*!
-     @brief Push Opened
-     
-     @discussion This is an enumerated value which signifies that a push notification was opened.
-     */
-    KochavaEventTypeEnumPushOpened = 113,
-
-    
-    
-    /*!
-     @brief Consent Granted
-     
-     @discussion This is an enumerated value which signifies that consent was granted.
-     */
-    KochavaEventTypeEnumConsentGranted = 114,
-
-    
-    
-    /*!
-     @brief Deep Link
-     
-     @discussion This is an enumerated value which signifies that there was a deep link.
-     */
-    KochavaEventTypeEnumDeepLink = 115,
-
-    
-    
-    /*!
-     @brief Ad Click
-     
-     @discussion This is an enumerated value which signifies that an ad was clicked.
-     */
-    KochavaEventTypeEnumAdClick = 116,
-
-    
-    
-    /*!
-     @brief Start Trial
-     
-     @discussion This is an enumerated value which signifies that a trial was started.
-     */
-    KochavaEventTypeEnumStartTrial = 117,
-
-    
-    
-    /*!
-     @brief Subscribe
-     
-     @discussion This is an enumerated value which signifies that there was a subscription.
-     */
-    KochavaEventTypeEnumSubscribe = 118,
-};
+/*!
+ @method + eventWithType:
+ 
+ @brief Creates an instance of class KVAEvent.
+ 
+ @param eventType An event type.
+ 
+ @discussion The designated initializer.
+ */
++ (nonnull instancetype)eventWithType:(nonnull KVAEventType *)eventType NS_SWIFT_NAME(init(type:));
 
 
 
@@ -578,7 +405,7 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
  
  @brief A property containing a custom event name string.
  
- @discussion Standardized event names are automatically determined from the event type enum.  If an appropriate event type is not present, you may set the event type to KochavaEventTypeEnumCustom and the customEventNameString property to your custom event name string.  Event names do not need to be pre-registered.  They can be any alphanumeric string value which does not begin with an underscore.  NOTE: Prepending an event name with an underscore is a convention reserved for Kochava system events. (i.e. _INSTALL)
+ @discussion Standardized event names are automatically determined from the event type enum.  If an appropriate event type is not present, you may set the event type to KVAEventType.custom and the customEventNameString property to your custom event name string.  Event names do not need to be pre-registered.  They can be any alphanumeric string value which does not begin with an underscore.  NOTE: Prepending an event name with an underscore is a convention reserved for Kochava system events. (i.e. _INSTALL)
  */
 @property (strong, nonatomic, nullable) NSString *customEventNameString;
 
@@ -662,13 +489,13 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 /*!
- @property eventTypeEnum
+ @property eventType
  
  @brief An event type.
  
  @discussion Readonly.  This value may be set when an event is constucted.
  */
-@property (readonly) KochavaEventTypeEnum eventTypeEnum;
+@property (strong, nonatomic, nullable, readonly) KVAEventType *eventType;
 
 
 
@@ -1019,49 +846,23 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 
-#pragma mark - CLASS GENERAL
+/*!
+ @method - send
+ 
+ @brief Sends the event using the default KVAEventSenderProvider.
+ 
+ @discussion The default is the shared instance of class KVATracker.
+ */
+- (void)send;
 
 
 
 /*!
- @method + customEventWithEventNameString:
+ @method - sendWithSenderArray:
  
- @brief Creates a KochavaEvent object with event type KochavaEventTypeEnumCustom.
- 
- @param customEventNameString A custom event name string.
- 
- @discussion A convenience method.
+ @brief Sends the event with a specifed array of KVAEventSenderProvider(s).
  */
-+ (nullable instancetype)customEventWithEventNameString:(nonnull NSString *)customEventNameString NS_SWIFT_NAME(init(customWithEventNameString:));
-
-
-
-/*!
- @method + eventWithEventTypeEnum:
- 
- @brief Creates a KochavaEvent object.
- 
- @param eventTypeEnum An event type.
- 
- @discussion The designated initializer.
- */
-+ (nullable instancetype)eventWithEventTypeEnum:(KochavaEventTypeEnum)eventTypeEnum;
-
-
-
-#pragma mark - PROTOCOL
-#pragma mark KVAFromObjectProtocol
-
-
-
-/*!
- @method + kva_fromObject:
- 
- @brief Creates and returns an instance from another object.
- 
- @param fromObject An object from which to create the instance.
- */
-+ (nullable instancetype)kva_fromObject:(nullable id)fromObject NS_SWIFT_NAME(kva_fromObject(_:));
+- (void)sendWithSenderArray:(nullable NSArray<KVAEventSenderProvider,  KVADispatchQueueDelegate> *)senderArray;
 
 
 
@@ -1070,7 +871,6 @@ typedef NS_ENUM(NSUInteger, KochavaEventTypeEnum)
 
 
 #endif
-
 
 
 

@@ -32,8 +32,7 @@
 
 
 
-#pragma mark - CLASS PROPERTIES
-#pragma mark KVASystem.shared (Singleton Shared Instance)
+#pragma mark - SHARED INSTANCE (SINGLETON)
 
 
 
@@ -46,6 +45,28 @@
 
 
 
+#pragma mark - CONSTANTS
+
+
+
+/*!
+@constant messagesAppViewControllerDidBecomeActiveSourceString
+
+@brief A constant to use as the source when reporting that a MessagesAppViewController did become active.
+*/
+@property (class, strong, nonatomic, nonnull, readonly) NSString *messagesAppViewControllerDidBecomeActiveSourceString;
+    
+    
+    
+/*!
+@constant messagesAppViewControllerDidResignActiveSourceString
+
+@brief A constant to use as the source when reporting that a MessagesAppViewController did resign active.
+*/
+@property (class, strong, nonatomic, nonnull, readonly) NSString *messagesAppViewControllerDidResignActiveSourceString;
+    
+    
+    
 #pragma mark - PROPERTIES
 
 
@@ -77,6 +98,19 @@
 
 
 /*!
+@method - stateActiveDidBecomeWithSourceString:
+
+@brief A method which can be called to report that the active state should become true.
+
+@discussion Calling this method is generally redundant when the host is an application, as this change is observed automatically.  But this method can and should be called in app extensions, such as iMessage apps, to notify when the state is reported to have become active.
+ 
+@param sourceString A string which describes the source that is originating the state change.
+*/
+- (void)stateActiveDidBecomeWithSourceString:(nonnull NSString *)sourceString;
+
+
+
+/*!
 @method - stateActiveWillResign
 
 @brief A method which can be called to report that the active state should resign true.
@@ -84,6 +118,19 @@
 @discussion Calling this method is generally redundant when the host is an application, as this change is observed automatically.  But this method can and should be called in app extensions, such as iMessage apps, to notify when the state is reported to have resigned active.
 */
 - (void)stateActiveWillResign;
+
+
+
+/*!
+@method - stateActiveWillResignWithSourceString:
+
+@brief A method which can be called to report that the active state should resign true.
+
+@discussion Calling this method is generally redundant when the host is an application, as this change is observed automatically.  But this method can and should be called in app extensions, such as iMessage apps, to notify when the state is reported to have resigned active.
+ 
+@param sourceString A string which describes the source that is originating the state change.
+*/
+- (void)stateActiveWillResignWithSourceString:(nonnull NSString *)sourceString;
 
 
 
