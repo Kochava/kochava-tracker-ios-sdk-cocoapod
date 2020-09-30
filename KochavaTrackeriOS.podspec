@@ -43,7 +43,7 @@ DESC
   s.platform     = :ios, '10.3'
   s.vendored_libraries = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
   s.preserve_paths = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'
-  s.library = 'KochavaTrackeriOS'
+  # s.library = 'KochavaTrackeriOS'
 
   s.swift_versions = '5.0'
   
