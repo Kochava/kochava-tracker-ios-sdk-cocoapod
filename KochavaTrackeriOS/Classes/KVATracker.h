@@ -168,6 +168,15 @@
 
 
 /*!
+ @property - startedBool
+ 
+ @brief A boolean indicating whether or not the tracker has been started.
+ */
+@property (readonly) BOOL startedBool;
+
+
+
+/*!
  @method func start(withAppGUIDString:)
  
  @brief Starts the tracker.

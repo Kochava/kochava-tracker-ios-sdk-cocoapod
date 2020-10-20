@@ -15,6 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "KVAAppGroups.h"
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAConfigureWithObjectProtocol.h"
 #import "KVAConsent.h"

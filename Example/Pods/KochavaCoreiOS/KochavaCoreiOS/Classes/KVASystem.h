@@ -72,6 +72,26 @@
 
 
 /*!
+ @property appClipBool
+ 
+ @brief A boolean indicating if the current host is an app clip.
+ 
+ @discussion This property will return a default value based on whether or not it can be detected that the host is an app clip.  It uses the bundle identifier and looks for the default suffix of ".Clip" (case insensitive).  If it finds that suffix then this value will default to true, otherwise false.  If this assumption is not accurate for the host, this value can be set explicitly.
+ */
+@property (atomic, readwrite) BOOL appClipBool;
+
+
+
+/*!
+ @property appExtensionBool
+ 
+ @brief A boolean indicating if the current host is an app extension.
+ */
+@property (atomic, readonly) BOOL appExtensionBool;
+
+
+
+/*!
  @property stateActiveBool
  
  @brief A boolean indicating if the system's state is active.
