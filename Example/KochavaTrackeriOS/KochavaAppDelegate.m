@@ -26,7 +26,7 @@
     
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    KVALog.shared.level = KVALogLevel.trace;
+    // KVALog.shared.level = KVALogLevel.trace;
     
     NSLog(@"KVACoreProduct.shared = %@", [KVACoreProduct.shared kva_asForContextObjectWithContext:KVAContext.log]);
 

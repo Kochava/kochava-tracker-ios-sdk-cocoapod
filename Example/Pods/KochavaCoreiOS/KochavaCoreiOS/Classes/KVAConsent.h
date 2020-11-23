@@ -46,7 +46,7 @@
  
  @brief The class KVAConsent provides a means of managing user consent in relationship to GDPR.
  
- @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be calculated or gathered, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
+ @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be collected or gathered, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
  
  Inherits from: NSObject
  
@@ -223,7 +223,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief Returns a boolean indicating if consent is granted.
  
- @discussion This considers if the user previously granted consent, as well as the current definition of consent- which may have changed since consent was last given.  This does not consider whether consent is required.  Compare with mayCalculateBool, mayKeepBool, mayPersistBool, and mayShareBool.
+ @discussion This considers if the user previously granted consent, as well as the current definition of consent- which may have changed since consent was last given.  This does not consider whether consent is required.  Compare with mayCollectBool, mayKeepBool, mayPersistBool, and mayShareBool.
  */
 - (BOOL)isGrantedBool;
 
@@ -234,7 +234,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief Returns a boolean indicating if consent is granted, denied, or there is no response.
  
- @discussion This considers if the user previously granted consent, as well as the current definition of the Consent which may have changed since consent was last given.  This does not consider whether consent is required.  See also isGrantedBool.  Compare with mayCalculateBool, mayKeepBool, mayPersistBool, and mayShareBool.
+ @discussion This considers if the user previously granted consent, as well as the current definition of the Consent which may have changed since consent was last given.  This does not consider whether consent is required.  See also isGrantedBool.  Compare with mayCollectBool, mayKeepBool, mayPersistBool, and mayShareBool.
  */
 - (nullable NSNumber *)isGrantedBoolNumber;
 
@@ -254,11 +254,22 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
 /*!
  @method - mayCalculateBool
  
- @brief Returns a boolean indicating if the app may calculate (or gather) data which may be subject to consent.
+ @brief Returns a boolean indicating if the app may calculate (or collect) data which may be subject to consent.
  
  @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayKeepBool, mayPersistBool, and mayShareBool.
  */
-- (BOOL)mayCalculateBool;
+- (BOOL)mayCalculateBool __attribute__((deprecated("Deprecated in 4.2.0.  Please use mayCollectBool instead.")));
+
+
+
+/*!
+ @method - mayCollectBool
+ 
+ @brief Returns a boolean indicating if the app may collect (or calculate) data which may be subject to consent.
+ 
+ @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayKeepBool, mayPersistBool, and mayShareBool.
+ */
+- (BOOL)mayCollectBool;
 
 
 
@@ -267,7 +278,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief Returns a boolean indicating if the app may keep (or retain in memory) data which may be subject to consent.
  
- @discussion Returns true if consent is not required or else the user did not otherwise previously deny consent.  This will return true while consent is not known, as long as the previous response did not deny consent.  This includes when the definition for consent has changed and the user previously granted consent.  Compare with mayCalculateBool, mayPersistBool, and mayShareBool.
+ @discussion Returns true if consent is not required or else the user did not otherwise previously deny consent.  This will return true while consent is not known, as long as the previous response did not deny consent.  This includes when the definition for consent has changed and the user previously granted consent.  Compare with mayCollectBool, mayPersistBool, and mayShareBool.
  */
 - (BOOL)mayKeepBool;
 
@@ -278,7 +289,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief Returns a boolean indicating if the app may persist (or retain in persistent storage) data which may be subject to consent.
  
- @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCalculateBool, mayKeepBool, and mayShareBool.
+ @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCollectBool, mayKeepBool, and mayShareBool.
  */
 - (BOOL)mayPersistBool;
 
@@ -289,7 +300,7 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @brief Returns a boolean indicating if the app may share (or export) data which may be subject to consent.
  
- @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCalculateBool, mayKeepBool, and mayPersistBool.
+ @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayCollectBool, mayKeepBool, and mayPersistBool.
  */
 - (BOOL)mayShareBool;
 

@@ -713,6 +713,17 @@ KVAFromObjectProtocol
 
 
 /*!
+ @property serviceLocallyBool
+ 
+ @brief A boolean which when set will cause the event to be serviced locally when sent.
+ 
+ @discussion When serviced locally the response for the request is provided locally and the request is post the event to the server is never made.  In every other respect the effects are the same.  AdNetwork conversion information is still calculated.  
+ */
+@property BOOL serviceLocallyBool;
+
+
+
+/*!
  @property sourceString
  
  @brief A property that contains a source string.

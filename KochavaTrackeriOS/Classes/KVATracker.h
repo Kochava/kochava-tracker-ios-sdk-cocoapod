@@ -365,7 +365,7 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
  
  @brief An instance of class KVAConsent.
  
- @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be calculated or gathered, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
+ @discussion Data sharing privacy laws such as GDPR require consent to be obtained before certain kinds of personal data may be collected or calculated, kept in memory, persisted or retained in persistent storage, and/or shared with partners.  During the natural lifecycle, there are times where partners may be added and cause the consent status to fall back to an unknown state.  Later the user may again be prompted and the consent status may (or may not) again come to be known.  All of this is predicated upon whether or not consent is required, which is governed by a variety of factors such as location.
  */
 @property (strong, nonatomic, nonnull, readonly) KVAConsent *consent;
 
