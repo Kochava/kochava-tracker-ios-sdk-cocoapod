@@ -3,7 +3,7 @@
 //  KochavaTrackeriOS
 //
 //  Created by John Bushnell on 01/11/2017.
-//  Copyright (c) 2017 Kochava. All rights reserved.
+//  Copyright (c) 2017 - 2021 Kochava. All rights reserved.
 //
 
 

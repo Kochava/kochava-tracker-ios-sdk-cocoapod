@@ -1,8 +1,9 @@
 //
 //  KVAPushNotifications.h
+//  KochavaTracker
 //
 //  Created by John Bushnell on 7/22/19.
-//  Copyright © 2017 - 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2017 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -37,7 +38,7 @@
  
  @author John Bushnell
  
- @copyright 2017 - 2020 Kochava, Inc.
+ @copyright 2017 - 2021 Kochava, Inc.
  */
 @interface KVAPushNotifications : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 

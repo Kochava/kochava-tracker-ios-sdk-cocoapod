@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 10/14/19.
-//  Copyright © 2019 - 2020 Kochava, Inc. All rights reserved.
+//  Copyright © 2019 - 2021 Kochava, Inc. All rights reserved.
 //
 
 
@@ -78,7 +78,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler) (KVADeeplink * _Nonnull dee
  
  @author John Bushnell
  
- @copyright 2017 - 2020 Kochava, Inc.
+ @copyright 2017 - 2021 Kochava, Inc.
  */
 @interface KVADeeplink : NSObject <KVAAsForContextObjectProtocol, KVAFromObjectProtocol>
 

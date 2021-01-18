@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 9/26/16.
-//  Copyright © 2013 - 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2013 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -30,6 +30,7 @@
 #import "KVADeeplink.h"  // for KVADeeplinksProcessorProvider
 #import "KVAFromObjectProtocol.h"
 #import "KVAEventSender.h"
+#import "KVAPrivacyProfile.h"  // for KVAPrivacyProfileRegistrarProvider.
 #import "KVAPushNotificationsToken.h"  // for KVAPushNotificationsTokenAdderRemoverProvider.
 #import "KVASharedPropertyProvider.h"
 #endif
@@ -71,7 +72,7 @@
  
  @author Kochava, Inc.
  
- @copyright 2013 - 2020 Kochava, Inc.
+ @copyright 2013 - 2021 Kochava, Inc.
  */
 @interface KVATracker : NSObject
 
@@ -578,6 +579,47 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
 
 
 
+#pragma mark - feature Privacy
+
+
+
+@class KVAPrivacy;
+
+
+
+@protocol KVAPrivacyProfileRegistrar;
+@protocol KVAPrivacyProfileRegistrarProvider;
+
+
+
+#if TARGET_OS_TV
+@protocol KVATrackerPrivacyJSExport <JSExport>
+@end
+#endif
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (Privacy_Public) <KVAPrivacyProfileRegistrarProvider, KVATrackerPrivacyJSExport>
+#else
+@interface KVATracker (Privacy_Public) <KVAPrivacyProfileRegistrarProvider>
+#endif
+
+
+
+/*!
+ @property privacy
+ 
+ @brief An instance of class KVAPrivacy.
+ */
+@property (strong, nonatomic, nonnull, readonly) KVAPrivacy<KVAPrivacyProfileRegistrar> *privacy;
+
+
+
+@end
+
+
+
 #pragma mark - feature Push Notifications
 
 
@@ -593,14 +635,14 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
 
 
 #if TARGET_OS_TV
-@protocol KVATrackerRemoteNotificationsJSExport <JSExport>
+@protocol KVATrackerPushNotificationsJSExport <JSExport>
 @end
 #endif
 
 
 
 #if TARGET_OS_TV
-@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenAdderRemoverProvider, KVATrackerRemoteNotificationsJSExport>
+@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenAdderRemoverProvider, KVATrackerPushNotificationsJSExport>
 #else
 @interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenAdderRemoverProvider>
 #endif

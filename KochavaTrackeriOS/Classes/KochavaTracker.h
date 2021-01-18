@@ -3,7 +3,7 @@
 //  KochavaTracker
 //
 //  Created by John Bushnell on 4/16/19.
-//  Copyright © 2013 - 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2013 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -24,6 +24,8 @@
 #import "KVAEvent+Standard.h"
 #import "KVAEvents.h"
 #import "KVAIdentityLink.h"
+#import "KVAPrivacy.h"
+#import "KVAPrivacyProfile.h"
 #import "KVAPushNotifications.h"
 #import "KVAPushNotificationsToken.h"
 #import "KVATracker.h"

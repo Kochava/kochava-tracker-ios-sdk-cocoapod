@@ -1,8 +1,9 @@
 //
 //  KVACustomIdentifiers.h
+//  KochavaTracker
 //
 //  Created by John Bushnell on 9/16/20.
-//  Copyright © 2016 - 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2016 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -37,7 +38,7 @@
  
  @author John Bushnell
  
- @copyright 2016 - 2020 Kochava, Inc.
+ @copyright 2016 - 2021 Kochava, Inc.
  */
 @interface KVACustomIdentifiers : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 

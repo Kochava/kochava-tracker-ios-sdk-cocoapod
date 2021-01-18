@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## KochavaCoreiOS
 
-Copyright (c) 2020 Kochava <support@kochava.com>
+Copyright (c) 2021 Kochava <support@kochava.com>
 
 By using this software you consent to Kochava's Terms of Service found here:  https://www.kochava.com/terms-of-service/
 

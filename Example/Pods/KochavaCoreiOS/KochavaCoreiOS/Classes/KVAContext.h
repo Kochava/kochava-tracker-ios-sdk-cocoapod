@@ -3,7 +3,7 @@
 //  KochavaCore
 //
 //  Created by John Bushnell on 3/19/18.
-//  Copyright © 2017 - 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2017 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -46,7 +46,7 @@
  
  @author John Bushnell
  
- @copyright 2018 - 2020 Kochava, Inc.
+ @copyright 2018 - 2021 Kochava, Inc.
  */
 @interface KVAContext : NSObject <KVAAsForContextObjectProtocol, KVAFromObjectProtocol>
 

@@ -1,8 +1,9 @@
 //
 //  KVAIdentityLink.h
+//  KochavaTracker
 //
 //  Created by John Bushnell on 7/2/20.
-//  Copyright © 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2020 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -37,7 +38,7 @@
  
  @author John Bushnell
  
- @copyright 2020 Kochava, Inc.
+ @copyright 2020 - 2021 Kochava, Inc.
  */
 @interface KVAIdentityLink : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 

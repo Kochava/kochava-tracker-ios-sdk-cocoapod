@@ -1,8 +1,9 @@
 //
 //  KVAAppTrackingTransparency.h
+//  KochavaTracker
 //
 //  Created by John Bushnell on 7/13/20.
-//  Copyright © 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2020 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -41,7 +42,7 @@
  
  @author John Bushnell
  
- @copyright 2020 Kochava, Inc.
+ @copyright 2020 - 2021 Kochava, Inc.
  */
 @interface KVAAppTrackingTransparency : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
 

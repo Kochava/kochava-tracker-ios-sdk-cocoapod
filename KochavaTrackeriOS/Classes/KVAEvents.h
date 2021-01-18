@@ -1,8 +1,9 @@
 //
 //  KVAEvents.h
+//  KochavaTracker
 //
 //  Created by John Bushnell on 7/6/20.
-//  Copyright © 2020 Kochava, Inc.  All rights reserved.
+//  Copyright © 2020 - 2021 Kochava, Inc.  All rights reserved.
 //
 
 
@@ -38,7 +39,7 @@
  
  @author John Bushnell
  
- @copyright 2016 - 2020 Kochava, Inc.
+ @copyright 2016 - 2021 Kochava, Inc.
  */
 @interface KVAEvents : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAEventSender, KVAFromObjectProtocol>
 
