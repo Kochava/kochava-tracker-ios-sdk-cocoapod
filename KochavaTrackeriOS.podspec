@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KochavaTrackeriOS'
-  s.version          = '4.3.0'
+  s.version          = '4.3.1'
   s.summary          = 'The KochavaTracker module of the KochavaTracker iOS SDK.'
 
 # This description is used to generate tags and improve search results.
