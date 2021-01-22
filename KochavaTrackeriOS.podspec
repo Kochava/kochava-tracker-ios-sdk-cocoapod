@@ -38,7 +38,7 @@ DESC
 
   s.public_header_files = 'KochavaTrackeriOS/Classes/**/*.h'
   s.frameworks   = 'Foundation', 'UIKit', 'AVFoundation', 'AdSupport', 'CoreGraphics', 'CoreLocation', 'CoreTelephony', 'iAd', 'SystemConfiguration', 'WebKit'
-  s.dependency 'KochavaCoreiOS', '~> 4.3.0'
+  s.dependency 'KochavaCoreiOS', '~> 4.3.1'
 
   s.platform     = :ios, '10.3'
   s.vendored_libraries = 'KochavaTrackeriOS/Libraries/libKochavaCoreiOS.a', 'KochavaTrackeriOS/Libraries/libKochavaTrackeriOS.a'

@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "KochavaCoreiOS": [
-      "~> 4.3.0"
+      "~> 4.3.1"
     ]
   },
   "vendored_libraries": [

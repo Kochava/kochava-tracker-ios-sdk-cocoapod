@@ -10,7 +10,7 @@ By using this software you consent to Kochava's Terms of Service found here:  ht
 
 ## KochavaTrackeriOS
 
-Copyright (c) 2019 - 2020 Kochava <support@kochava.com>
+Copyright (c) 2019 - 2021 Kochava <support@kochava.com>
 
 By using this software you consent to Kochava's Terms of Use found here:  https://www.kochava.com/terms-of-service/
 
