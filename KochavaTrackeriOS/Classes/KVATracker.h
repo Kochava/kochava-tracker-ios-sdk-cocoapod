@@ -228,6 +228,33 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
 
 
 
+#pragma mark - feature Ad Network
+
+
+
+@protocol KVAAdNetworkProtocol;
+
+
+
+
+@interface KVATracker (AdNetwork_Public)
+
+
+/*!
+ @property adNetwork
+ 
+ @brief An instance of class KVAAdNetwork.
+ 
+ @discussion A controller for working with location services.
+ */
+@property (strong, nonatomic, nullable, readonly) id<KVAAdNetworkProtocol> adNetwork;
+
+
+
+@end
+
+
+
 #pragma mark - feature App Limit Ad Tracking
 
 
@@ -555,12 +582,12 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
 
 
 
-@class KVALocationServices;
+@protocol KVALocationServicesProtocol;
+
 
 
 
 @interface KVATracker (LocationServices_Public)
-
 
 
 /*!
@@ -570,7 +597,7 @@ KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
  
  @discussion A controller for working with location services.
  */
-@property (strong, nonatomic, nullable, readonly) KVALocationServices *locationServices;
+@property (strong, nonatomic, nullable, readonly) id<KVALocationServicesProtocol> locationServices;
 
 
 
