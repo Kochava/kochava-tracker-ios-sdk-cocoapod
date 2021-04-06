@@ -17,6 +17,10 @@ The Kochava SDK is a lightweight and easy to integrate SDK written in Objective-
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+## Built on
+
+* Xcode 12.4
+
 ## Requirements
 
 * iOS 10.3
