@@ -93,15 +93,6 @@
 
 
 /*!
- @property + sdkWrapper
- 
- @brief A context which represents an SDK Wrapper.
- */
-@property (class, strong, nonatomic, nonnull, readonly) KVAContext *sdkWrapper;
-
-
-
-/*!
  @property + server
  
  @brief A context which represents the Server.
