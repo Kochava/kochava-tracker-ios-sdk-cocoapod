@@ -123,7 +123,7 @@
  
  @discussion Examples:  "host", "log", "persistentStorage", "sdk", "server".
  */
-@property (strong, nonatomic, nonnull) NSString *nameString;
+@property (strong, nonatomic, nonnull, readonly) NSString *nameString;
 
 
 

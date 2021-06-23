@@ -56,6 +56,58 @@
 
 
 
+#pragma mark - CONSTRUCTORS
+
+
+
+/*!
+ @method + productWithAPIVersionString:buildDateString:bundleIdentifierString:compilerFlagNameStringArray:compilerFlagPredicateSubstitutionVariablesDictionary:nameString:organizationNameString:reverseDomainNameString:versionString:
+ 
+ @brief Constructs an instance of class KVAProduct.
+ 
+ @param apiVersionString An optional API version string.  This property is used to establish API compatibility between products.  API compatibility is assumed to be assured when the value compares to be equal for all products with the same organizationNameString.
+ 
+ @param buildDateString An optional string containing the date when the product was built.  It is recommended that you source this a compile time.  The format is optional, but it is recommended that you provide the date in an ISO 8601 date string.
+ 
+ @param bundleIdentifierString A string containing the bundle identifier associated with this product.  This property may be used to cross-reference this product from a Class.  Logging uses this to take the class for a LogMessage and lookup the associated Product.
+ 
+ @param bundleTypeString The bundle type.  Examples:  "app", "xcframework", "static library".
+ 
+ @param compilerFlagNameStringArray An array containing strings which are the names of compiler flags.
+ 
+ @param compilerFlagPredicateSubstitutionVariablesDictionary A dictionary containing substitution variables for use with an NSPredicate containing compiler flags.
+ 
+ @param moduleNameString The name of the module.  Example:  "KochavaCore".
+ 
+ @param nameString A name string.  Example: "AppleCore".
+ 
+ @param organizationNameString A string containing the name of the organization representing the product.  Example:  "Kochava".
+ 
+ @param reverseDomainNameString A string containing a reverse domain name style representation of the name of the product.  This is used in the definition of keys for persistent storage, dispatch queues, etc.  Example:  "com.kochava.KochavaCore".
+ 
+ @param versionString A version string.
+ 
+ Swift example:
+ @code
+ let product = KVAProduct(
+     apiVersionString: "4",
+     buildDateString: nil,
+     bundleIdentifierString: Bundle(for: type(of: self)).bundleIdentifier,
+     bundleTypeString: "xcframework",
+     compilerFlagNameStringArray: nil,
+     compilerFlagPredicateSubstitutionVariablesDictionary: nil,
+     moduleNameString: "MyModule",
+     nameString: "MyOrganization MyModule",
+     organizationNameString: "My Organization",
+     reverseDomainNameString: "com.myCompany.MyProduct",
+     versionString: "1.0.0"
+ )
+ @endcode
+ */
++ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString bundleTypeString:(nullable NSString *)bundleTypeString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
+
+
+
 #pragma mark - PROPERTIES
 
 
@@ -92,10 +144,10 @@
 /*!
  @property bundleTypeString
 
- @brief The library type.
+ @brief The bundle type.
 
- @discussion Example: "xcframework", "dynamic framework", "static library", "app".
-*/
+ @discussion Examples:  "app", "xcframework", "static library".
+ */
 @property (strong, nonatomic, nonnull, readonly) NSString *bundleTypeString;
 
 
@@ -145,7 +197,7 @@
  
  @brief A name string.
  
- @discussion Example: "KochavaCoreiOS".
+ @discussion Example: "AppleCore".
  */
 @property (strong, nonatomic, nonnull, readonly) NSString *nameString;
 
@@ -231,14 +283,14 @@
 
 
 /*!
-@method - resetWithDeleteLocalDataBool:
+ @method - resetWithDeleteLocalDataBool:
 
-@brief Resets the product.
+ @brief Resets the product.
 
-@discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.
+ @discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.
  
  @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
-*/
+ */
 - (void)resetWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(reset(deleteLocalDataBool:));
 
 
@@ -251,21 +303,8 @@
  @discussion This can be regarded as being equivalent to performing a reset, but may also include hints to avoid performing automatic behavior consistent with being freshly initialized. 
  
  @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
-*/
-- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(shutdown(deleteLocalDataBool:));
-
-
-
-#pragma mark - CLASS GENERAL
-
-
-
-/*!
- @method + productWithAPIVersionString:buildDateString:bundleIdentifierString:compilerFlagNameStringArray:compilerFlagPredicateSubstitutionVariablesDictionary:nameString:organizationNameString:reverseDomainNameString:versionString:
- 
- @brief Creates and returns a product.
  */
-+ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString bundleTypeString:(nullable NSString *)bundleTypeString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
+- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(shutdown(deleteLocalDataBool:));
 
 
 

@@ -53,6 +53,17 @@
 
 
 /*!
+ @property authorizationStatusString
+ 
+ @brief The authorization status expressed as an NSString.
+ 
+ @discussion This is optional and will be nil until a status is known.  For this reason this can be checked as a means of determining if a status has been determined.  Current possible values:  "authorized", "denied", "notDetermined", "restricted", "unknown".
+ */
+@property (strong, nonatomic, nullable, readonly) NSString *authorizationStatusString;
+
+
+
+/*!
  @property authorizationStatusWaitTimeInterval
  
  @brief A time interval to wait for the request for tracking authorization before proceeding to send the install.

@@ -49,10 +49,10 @@
 
 
 /*!
-@property events
+ @property events
 
-@brief A property which conforms to protocol KVAEventSender.
-*/
+ @brief A property which conforms to protocol KVAEventSender.
+ */
 @property (strong, nonatomic, nonnull, readonly) id<KVAEventSender> events;
 
 

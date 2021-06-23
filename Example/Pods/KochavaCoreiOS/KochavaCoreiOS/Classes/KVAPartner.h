@@ -29,14 +29,6 @@
 
 
 
-#pragma mark - CLASS
-
-
-
-@class KVAContext;
-
-
-
 #pragma mark - INTERFACE
 
 
@@ -114,17 +106,6 @@
 
 
 
-/*!
- @property shouldPromptDueToBeingNewBool
- 
- @brief A boolean indicating that the user should be prompted due to the partner being newly added.
- 
- @discussion Internal.
- */
-@property BOOL shouldPromptDueToBeingNewBool;
-
-
-
 #pragma mark - GENERAL
 
 
@@ -141,38 +122,12 @@
 
 
 /*!
- @method - didPromptWithDidGrantBoolNumber:date:
- 
- @brief A method for when the host did prompt for consent.
- 
- @discussion Internal.
- 
- @param didGrantBoolNumber The reponse from the user.  A value of true means consent was granted.  A value of false means consent was denied.
- 
- @param date The date attributed to the response.
+ @method - isGrantedBool
+
+ @brief Returns a boolean indicating if consent is granted.
+
+ @discussion This is a two-state version of isGrantedBoolNumber.  This will return false when isGrantedBoolNumber is nil.
  */
-- (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber date:(nonnull NSDate *)date NS_SWIFT_NAME(didPrompt(didGrantBoolNumber:date:));
-
-
-
-/*!
- @method - isEffectivelyReferringToTheSamePartner
- 
- @brief Returns a boolean which indicates if two KVAPartner instances effectively refer to the same partner.
- 
- @discussion Internal.
- */
-- (BOOL)isEffectivelyReferringToTheSamePartner:(nullable KVAPartner *)anotherPartner NS_SWIFT_NAME(isEffectivelyReferringToTheSamePartner(_:));
-
-
-
-/*!
-@method - isGrantedBool
-
-@brief Returns a boolean indicating if consent is granted.
-
-@discussion This is a two-state version of isGrantedBoolNumber.  This will return false when isGrantedBoolNumber is nil.
-*/
 - (BOOL)isGrantedBool;
 
 
@@ -207,28 +162,6 @@
  @discussion When prompting for consent you can include a list of all partners, but you may wish to list only those partners which may be new or updated.  Alternatively you may wish to denote the two separately.  This method will return a value of true when the partner should be included in a prompt for consent (or otherwise may be denoted separately).
  */
 - (BOOL)shouldBeIncludedInPromptBool;
-
-
-
-/*!
- @method - shouldPromptBool
- 
- @brief Returns a boolean indicating if this partner raises a need to prompt for consent.
- 
- @discussion Internal.  Compare with shouldBeIncludedInPromptBool.
- */
-- (BOOL)shouldPromptBool;
-
-
-
-/*!
- @method - willPrompt
- 
- @brief Called to indicate that the user will be prompted for consent.
- 
- @discussion Internal.  This is called autiomatically when the willPrompt method on KVAConsent is called.
- */
-- (void)willPrompt;
 
 
 

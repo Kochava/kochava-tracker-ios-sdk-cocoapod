@@ -72,12 +72,12 @@ KVAEventStandardJSExport
 
 
 /*!
-@method + sendCustomWithNameString:
+ @method + sendCustomWithNameString:
 
-@brief Creates an instance of class KVAEvent which has a nameString, and then sends it.
+ @brief Creates an instance of class KVAEvent which has a nameString, and then sends it.
 
-@param nameString A string containing the event name.
-*/
+ @param nameString A string containing the event name.
+ */
 + (void)sendCustomWithNameString:(nonnull NSString *)nameString NS_SWIFT_NAME(sendCustom(withNameString:));
 
 
