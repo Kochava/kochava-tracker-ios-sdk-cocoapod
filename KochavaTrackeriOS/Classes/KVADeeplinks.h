@@ -17,6 +17,7 @@
 
 
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KochavaCore.h>
 #else

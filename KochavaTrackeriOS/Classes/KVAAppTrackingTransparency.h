@@ -17,10 +17,12 @@
 
 
 
+#pragma mark System
 #if !TARGET_OS_WATCH && !TARGET_OS_MACCATALYST && !TARGET_OS_OSX
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #endif
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KochavaCore.h>
 #else

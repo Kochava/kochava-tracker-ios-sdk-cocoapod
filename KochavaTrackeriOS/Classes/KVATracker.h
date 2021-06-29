@@ -17,22 +17,30 @@
 
 
 
+#pragma mark System
+#import <Foundation/Foundation.h>  // for #if conditionals.  TARGET_OS_*
 #if TARGET_OS_TV
 #import <JavaScriptCore/JavaScriptCore.h>
 #endif
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KochavaCore.h>
 #else
-#import <Foundation/Foundation.h>  // for #if conditionals.  TARGET_OS_*
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAConfigureWithObjectProtocol.h"
-#import "KVADeeplink.h"  // for KVADeeplinksProcessorProvider
+#import "KVAEventSender.h"  // For KVAEventSenderProvider.
 #import "KVAFromObjectProtocol.h"
-#import "KVAEventSender.h"
+#import "KVASharedPropertyProvider.h"
+#endif
+
+#pragma mark KochavaTracker
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaTracker/KochavaTracker.h>
+#else
+#import "KVADeeplink.h"  // for KVADeeplinksProcessorProvider
 #import "KVAPrivacyProfile.h"  // for KVAPrivacyProfileRegistrarProvider.
 #import "KVAPushNotificationsToken.h"  // for KVAPushNotificationsTokenAdderRemoverProvider.
-#import "KVASharedPropertyProvider.h"
 #endif
 
 

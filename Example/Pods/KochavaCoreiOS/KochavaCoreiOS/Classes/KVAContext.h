@@ -17,6 +17,7 @@
 
 
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KVAAsForContextObjectProtocol.h>
 #import <KochavaCore/KVAFromObjectProtocol.h>
@@ -24,10 +25,6 @@
 #import "KVAAsForContextObjectProtocol.h"
 #import "KVAFromObjectProtocol.h"
 #endif
-
-
-
-#pragma mark - ENUM
 
 
 

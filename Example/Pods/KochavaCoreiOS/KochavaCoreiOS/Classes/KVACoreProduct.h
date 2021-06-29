@@ -17,6 +17,7 @@
 
 
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KVAProduct.h>
 #import <KochavaCore/KVASharedPropertyProvider.h>

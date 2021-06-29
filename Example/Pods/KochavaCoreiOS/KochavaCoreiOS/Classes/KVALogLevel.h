@@ -17,8 +17,10 @@
 
 
 
+#pragma mark System
 #import <os/log.h>
 
+#pragma mark KochavaCore
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaCore/KVAAsForContextObjectProtocol.h>
 #import <KochavaCore/KVAFromObjectProtocol.h>
@@ -156,20 +158,18 @@
 
 
 /*!
- @property os_log_type
+ @property osLogType
  
- @brief The os_log_type.
+ @brief The osLogType.
  
- @discussion When outputting to os_log, this is the os_log_type to use.  Recommendations from Apple keynote https://developer.apple.com/videos/play/wwdc2016/721/
+ @discussion When outputting to os_log, this is the osLogType to use.  Recommendations from Apple keynote https://developer.apple.com/videos/play/wwdc2016/721/
  * Use os_log to log critical details to help debug issues.
  * Use os_log_info for additional info that will be captured during error or fault.
  * Use os_log_debug for high-volume debugging during development.
  * Use os_log_error to cause additional information capture from app.
  * Use os_log_fault to cause additional information capture from system.
- 
- Note:  The type here should be os_log_type_t, but it's technically an iOS 10+ type.  So we currently use uint8_t, which is its base type.  Later when the SDK is distributed as iOS 10+ this can  be re-typed.
  */
-@property uint8_t os_log_type;
+@property os_log_type_t osLogType;
 
 
 
