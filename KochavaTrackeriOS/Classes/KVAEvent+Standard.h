@@ -36,21 +36,45 @@
 
 
 @protocol KVAEventSenderProvider;
-@protocol KVADispatchQueueDelegate;
 
 
 
 #if TARGET_OS_TV
 @protocol KVAEventStandardJSExport <JSExport>
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString NS_SWIFT_NAME(init(customWithNameString:));
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString infoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(init(customWithNameString:infoDictionary:));
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString infoString:(nullable NSString *)infoString NS_SWIFT_NAME(init(customWithNameString:infoString:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString NS_SWIFT_NAME(sendCustom(withNameString:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:senderArray:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:senderArray:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString NS_SWIFT_NAME(sendCustom(withNameString:infoString:));
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:infoString:senderArray:));
++ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString
+    NS_SWIFT_NAME(init(customWithNameString:));
++ (nonnull instancetype)customEventWithNameString:
+    (nonnull NSString *)customEventNameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(init(customWithNameString:infoDictionary:));
++ (nonnull instancetype)customEventWithNameString:
+    (nonnull NSString *)customEventNameString
+    infoString: (nullable NSString *)infoString
+    NS_SWIFT_NAME(init(customWithNameString:infoString:));
++ (void)sendCustomWithNameString:(nonnull NSString *)nameString
+    NS_SWIFT_NAME(sendCustom(withNameString:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:senderArray:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:senderArray:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoString: (nullable NSString *)infoString
+    NS_SWIFT_NAME(sendCustom(withNameString:infoString:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoString: (nullable NSString *)infoString
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:infoString:senderArray:));
 @end
 #endif
 
@@ -80,7 +104,8 @@ KVAEventStandardJSExport
 
  @param nameString A string containing the event name.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString NS_SWIFT_NAME(sendCustom(withNameString:));
++ (void)sendCustomWithNameString:(nonnull NSString *)nameString
+    NS_SWIFT_NAME(sendCustom(withNameString:));
 
 
 
@@ -93,7 +118,10 @@ KVAEventStandardJSExport
 
  @param senderArray Optional.  An array of senders.  These are objects which conform to protocol KVAEventSenderProvider.  If this parameter is not passed the default sender will be used.  The default sender is the shared instance of class KVATracker, which if you are using you may simply your call by using the function of the same name which omits this parameter.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:senderArray:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:senderArray:));
 
 
 
@@ -106,7 +134,10 @@ KVAEventStandardJSExport
  
  @param infoDictionary A dictionary (single dimensional) containing any number of values with keys.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:));
 
 
 
@@ -121,7 +152,11 @@ KVAEventStandardJSExport
  
  @param senderArray Optional.  An array of senders.  These are objects which conform to protocol KVAEventSenderProvider.  If this parameter is not passed the default sender will be used.  The default sender is the shared instance of class KVATracker, which if you are using you may simply your call by using the function of the same name which omits this parameter.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoDictionary:(nullable NSDictionary *)infoDictionary senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:senderArray:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:infoDictionary:senderArray:));
 
 
 
@@ -134,7 +169,10 @@ KVAEventStandardJSExport
  
  @param infoString An info string.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString NS_SWIFT_NAME(sendCustom(withNameString:infoString:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoString: (nullable NSString *)infoString
+    NS_SWIFT_NAME(sendCustom(withNameString:infoString:));
 
 
 
@@ -149,7 +187,11 @@ KVAEventStandardJSExport
  
  @param senderArray Optional.  An array of senders.  These are objects which conform to protocol KVAEventSenderProvider.  If this parameter is not passed the default sender will be used.  The default sender is the shared instance of class KVATracker, which if you are using you may simply your call by using the function of the same name which omits this parameter.
  */
-+ (void)sendCustomWithNameString:(nonnull NSString *)nameString infoString:(nullable NSString *)infoString senderArray:(nullable NSArray<KVAEventSenderProvider, KVADispatchQueueDelegate> *)senderArray NS_SWIFT_NAME(sendCustom(withNameString:infoString:senderArray:));
++ (void)sendCustomWithNameString:
+    (nonnull NSString *)nameString
+    infoString: (nullable NSString *)infoString
+    senderArray: (nullable NSArray<KVAEventSenderProvider> *)senderArray
+    NS_SWIFT_NAME(sendCustom(withNameString:infoString:senderArray:));
 
 
 
@@ -164,7 +206,8 @@ KVAEventStandardJSExport
  
  @param customEventNameString A custom event name string.
  */
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString NS_SWIFT_NAME(init(customWithNameString:));
++ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString
+    NS_SWIFT_NAME(init(customWithNameString:));
 
 
 
@@ -177,7 +220,10 @@ KVAEventStandardJSExport
  
  @param infoDictionary A dictionary (single dimensional) containing any number of values with keys.
  */
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString infoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(init(customWithNameString:infoDictionary:));
++ (nonnull instancetype)customEventWithNameString:
+    (nonnull NSString *)customEventNameString
+    infoDictionary: (nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(init(customWithNameString:infoDictionary:));
 
 
 
@@ -190,7 +236,10 @@ KVAEventStandardJSExport
  
  @param infoString An info string.
  */
-+ (nonnull instancetype)customEventWithNameString:(nonnull NSString *)customEventNameString infoString:(nullable NSString *)infoString NS_SWIFT_NAME(init(customWithNameString:infoString:));
++ (nonnull instancetype)customEventWithNameString:
+    (nonnull NSString *)customEventNameString
+    infoString: (nullable NSString *)infoString
+    NS_SWIFT_NAME(init(customWithNameString:infoString:));
 
 
 

@@ -45,7 +45,12 @@
  
  @brief Defines a block which is intended to hold custom methods which can be used to extend individual instances of an object.
  */
-typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _Nonnull methodNameString, NSDictionary * _Nullable parametersDictionary);
+typedef void (^ KVACustomMethodsBlock)
+(
+    NSObject * _Nonnull object,
+    NSString * _Nonnull methodNameString,
+    NSDictionary * _Nullable parametersDictionary
+);
 
 
 
@@ -64,7 +69,12 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @discussion This method only redacts.  As such, any containers within the returned object will be the same as those provided.  That is to say that if those containers were mutable they will remain mutable.  Also this does not effect a deep copy, optimizing for performance.
  */
-- (nullable id)kva_redactedCopyFromKeyStringRedactedBoolDictionary:(nullable NSDictionary *)keyStringRedactedBoolDictionary key:(nullable NSObject *)key redactionKeySuffixString:(nullable NSString *)redactionKeySuffixString redactedKeyArray:(nullable NSMutableArray *)redactedKeyArray NS_SWIFT_NAME(kva_redactedCopy(fromKeyStringRedactedBoolDictionary:key:redactionKeySuffixString:redactedKeyArray:));
+- (nullable id)kva_redactedCopyFromKeyStringRedactedBoolDictionary:
+    (nullable NSDictionary *)keyStringRedactedBoolDictionary
+    key: (nullable NSObject *)key
+    redactionKeySuffixString: (nullable NSString *)redactionKeySuffixString
+    redactedKeyArray: (nullable NSMutableArray *)redactedKeyArray
+    NS_SWIFT_NAME(kva_redactedCopy(fromKeyStringRedactedBoolDictionary:key:redactionKeySuffixString:redactedKeyArray:));
 
 
 
@@ -79,7 +89,10 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @discussion Although you can test two objects for equality by using the isEqual: method directly, that comparison will fail if both strings are nil.  In contrast, this method will safely return true if both objects are nil.  It will also recognize when one object is nil and the other is not nil that they are not equal.
  */
-+ (BOOL)kva_object:(nullable NSObject *)object isEqualToObject:(nullable NSObject *)anotherObject NS_SWIFT_NAME(kva_object(_:isEqualToObject:));
++ (BOOL)kva_object:
+    (nullable NSObject *)object
+    isEqualToObject: (nullable NSObject *)anotherObject
+    NS_SWIFT_NAME(kva_object(_:isEqualToObject:));
 
 
 
@@ -88,15 +101,19 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @brief Returns a native object for a class from another object.
  
- @param fromObject An object which may or may not be a native class object, with the hope that it may not be but may be convertable to one.  Non-native objects are typically instances of NSDictionary or NSArray which were created from a call to an asForContextObjectWithContext method.  They may also have originated from external sources, such as servers, and often are valid JSON.
+ @param object An object which may or may not be a native class object, with the hope that it may not be but may be convertable to one.  Non-native objects are typically instances of NSDictionary or NSArray which were created from a call to an asForContextObjectWithContext method.  They may also have originated from external sources, such as servers, and often are valid JSON.
 
- @param class The target class.  This parameter is optional.  When omitted the class to use will be inferred from kva_fromObject, if possible.  This typically becomes possible when kva_fromObject is a dictionary which contains a key "$class" which specifies the class, or else when kva_fromObject is an array of objects which can be similarly resolved.  When this parameter is passed, it takes precedence over these specifications, and will enforce the class by attempting to create an object from the specified class.  If kva_fromObject is not truly an object which can be converted to the class, the results may be less than desireable, as you should generally expect to end up with an object of the specified class which is relatively unconfigured (or nil altogether).
+ @param aClass The target class.  This parameter is optional.  When omitted the class to use will be inferred from kva_fromObject, if possible.  This typically becomes possible when kva_fromObject is a dictionary which contains a key "$class" which specifies the class, or else when kva_fromObject is an array of objects which can be similarly resolved.  When this parameter is passed, it takes precedence over these specifications, and will enforce the class by attempting to create an object from the specified class.  If kva_fromObject is not truly an object which can be converted to the class, the results may be less than desireable, as you should generally expect to end up with an object of the specified class which is relatively unconfigured (or nil altogether).
  
  @param elementClass A target class for any elements.  This parameter is optional.  This parameter generally applies to cases of class where the class would have elements, such as arrays and sets.  The rules for how this is used is identical to class, except applied to any elements within the class.
  
  @discussion If an object cannot be converted then kva_fromObject will be returned as-is, making this method safe to be used on any object to see if it can be brought into a native class object.
  */
-+ (nullable id)kva_fromObject:(nullable id)fromObject class:(nullable Class)class elementClass:(nullable Class)elementClass NS_SWIFT_NAME(kva_fromObject(_:class:elementClass:));
++ (nullable id)kva_fromObject:
+    (nullable id)object
+    class: (nullable Class)aClass
+    elementClass: (nullable Class)elementClass
+    NS_SWIFT_NAME(kva_from(object:class:elementClass:));
 
 
 
@@ -114,11 +131,11 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @discussion Occasionally when we receive an object back from the operating system, it has an unexpected class.  It's usually some low-level or undocumented class that is supposed to behave equivalently to the class we expect, but the problem is that these names are not safe to be persisted.  A future operating system could come along with a new underlying class name and have no support for the previous one.  This method santizes for the things we know about.
  */
-+ (nonnull NSString *)kva_sanitizedNameStringForClass:(nullable Class)class;
++ (nonnull NSString *)kva_sanitizedNameStringForClass:(nullable Class)aClass;
 
 
 
-#pragma mark - CONSTRUCTORS
+#pragma mark - CONSTRUCTION
 
 
 
@@ -129,7 +146,10 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @discussion Supports the appending of two objects with deep support for specific types such as NSDictionary and NSArray.  This supports working with JSON objects.
  */
-+ (nullable id)kva_objectAppendingObject1:(nullable id)object1 object2:(nullable id)object2 NS_SWIFT_NAME(kva_objectAppending(object1:object2:));
++ (nullable id)kva_objectAppendingObject1:
+    (nullable id)object1
+    object2: (nullable id)object2
+    NS_SWIFT_NAME(kva_objectAppending(object1:object2:));
 
 
 
@@ -157,7 +177,8 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @param infoDictionary A dictionary containing information about the mutation.
  */
-- (void)kva_didMutateWithInfoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(kva_didMutate(withInfoDictionary:));
+- (void)kva_didMutateWithInfoDictionary:(nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(kva_didMutate(withInfoDictionary:));
 
 
 
@@ -170,7 +191,8 @@ typedef void (^ KVACustomMethodsBlock) (NSObject * _Nonnull object, NSString * _
  
  @param infoDictionary A dictionary containing information about the mutation.
  */
-- (void)kva_didMutate_withoutDispatch_withInfoDictionary:(nullable NSDictionary *)infoDictionary NS_SWIFT_NAME(kva_didMutate_withoutDispatch(withInfoDictionary:));
+- (void)kva_didMutate_withoutDispatch_withInfoDictionary:(nullable NSDictionary *)infoDictionary
+    NS_SWIFT_NAME(kva_didMutate_withoutDispatch(withInfoDictionary:));
 
 
 

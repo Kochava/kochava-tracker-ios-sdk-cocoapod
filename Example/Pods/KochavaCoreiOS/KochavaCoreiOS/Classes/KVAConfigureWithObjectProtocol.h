@@ -34,11 +34,14 @@
  
  @brief Configures (updates) the instance from another object.
  
- @param withObject An object from which to update the instance.  This is expected to be a JSON dictionary, or alternatively a native instance.
+ @param object An object from which to update the instance.  This is expected to be a JSON dictionary, or alternatively a native instance.
  
  @param context The context.
  */
-- (void)kva_configureWith:(nullable id)withObject context:(nullable KVAContext *)context NS_SWIFT_NAME(kva_configure(with:context:));
+- (void)kva_configureWith:
+    (nullable id)object
+    context: (nullable KVAContext *)context
+    NS_SWIFT_NAME(kva_configure(with:context:));
 
 
 

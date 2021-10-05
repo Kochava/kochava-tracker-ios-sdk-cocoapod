@@ -35,29 +35,22 @@
 
 
 
-#pragma mark - PROTOCOLS
+#pragma mark - PROTOCOL
 
 
 
-@protocol KVAPushNotificationsTokenAdder <NSObject>
+@protocol KVAPushNotificationsTokenRegistrar <NSObject>
 
-- (void)addToken:(nonnull KVAPushNotificationsToken *)token NS_SWIFT_NAME(addToken(_:));
-
-@end
-
-
-
-@protocol KVAPushNotificationsTokenRemover <NSObject>
-
-- (void)removeToken:(nullable KVAPushNotificationsToken *)token NS_SWIFT_NAME(removeToken(_:));
+- (void)registerToken:(nonnull KVAPushNotificationsToken *)token
+    NS_SWIFT_NAME(register(token:));
 
 @end
 
 
 
-@protocol KVAPushNotificationsTokenAdderRemoverProvider <NSObject>
+@protocol KVAPushNotificationsTokenRegistrarProvider <NSObject>
 
-@property (strong, nonatomic, nullable, readonly) id<KVAPushNotificationsTokenAdder, KVAPushNotificationsTokenRemover> pushNotifications;
+@property (strong, nonatomic, nullable, readonly) id<KVAPushNotificationsTokenRegistrar> pushNotifications;
 
 @end
 
@@ -85,80 +78,58 @@
 
 
 /*!
- @method + addWithData:
+ @method + registerWithData:
+ 
+ @brief A method which registers a device token.
+ 
+ @param deviceTokenData The device token as provided in NSData.
+ */
++ (void)registerWithData:(nonnull NSData *)deviceTokenData
+    NS_SWIFT_NAME(register(withData:));
+
+
+
+/*!
+ @method + registerWithDataHexString:
+ 
+ @brief A method which registers a device token.
+ 
+ @param deviceTokenDataHexString The device token as provided as a data hex string.
+ */
++ (void)registerWithDataHexString:(nonnull NSString *)deviceTokenDataHexString
+    NS_SWIFT_NAME(register(withDataHexString:));
+
+
+
+/*!
+ @method + registerWithData:registrarArray:
  
  @brief A method which adds a device token.
  
  @param tokenData The device token as provided in NSData.
+ 
+ @param registrarArray An array of KVAPushNotificationsTokenRegistrarProvider to which to add the token.
  */
-+ (void)addWithData:(nonnull NSData *)tokenData NS_SWIFT_NAME(add(withData:));
++ (void)registerWithData:
+    (nonnull NSData *)tokenData
+    registrarArray: (nullable NSArray<KVAPushNotificationsTokenRegistrarProvider> *)registrarArray
+    NS_SWIFT_NAME(register(withData:registrarArray:));
 
 
 
 /*!
- @method + addWithData:adderArray:
+ @method + registerWithDataHexString:registrarArray:
  
  @brief A method which adds a device token.
  
- @param tokenData The device token as provided in NSData.
+ @param deviceTokenDataHexString The device token as provided as a data hex string.
  
- @param adderArray An array of KVAPushNotificationsTokenAdderRemoverProvider to which to add the token.
+ @param registrarArray An array of KVAPushNotificationsTokenRegistrarProvider to which to add the token.
  */
-+ (void)addWithData:(nonnull NSData *)tokenData adderArray:(nullable NSArray<KVAPushNotificationsTokenAdderRemoverProvider> *)adderArray NS_SWIFT_NAME(add(withData:adderArray:));
-
-
-
-/*!
- @method + remove
- 
- @brief A method which removes any assocation for this device with any previously registered device token.
- 
- @discussion This is equivalent to calling method removeWithData and passing nil.
- */
-+ (void)remove NS_SWIFT_NAME(remove());
-
-
-
-/*!
- @method + removeWithData:
- 
- @brief A method which removes any assocation for this device with any previously registered device token.
- 
- @param tokenData The device token as provided in NSData.
- */
-+ (void)removeWithData:(nullable NSData *)tokenData NS_SWIFT_NAME(remove(withData:));
-
-
-
-/*!
- @method + removeWithData:removerArray:
- 
- @brief A method which removes any assocation for this device with any previously registered device token.
- 
- @param tokenData The device token as provided in NSData.
- 
- @param removerArray An array of KVAPushNotificationsTokenAdderRemoverProvider from which to remove the token.
- */
-+ (void)removeWithData:(nullable NSData *)tokenData removerArray:(nullable NSArray<KVAPushNotificationsTokenAdderRemoverProvider> *)removerArray NS_SWIFT_NAME(remove(withData:removerArray:));
-
-
-
-#pragma mark - CONSTRUCTION
-
-
-
-/*!
- @method + pushNotificationsTokenWithData:providedDate:
- 
- @brief Constructs an instance of class KVAPushNotificationsToken.
- 
- @discussion To add or remove a token, see convenience methods add(withData:) and remove(withData:).
-
- @param data The device token as provided in NSData.
-
- @param providedDate The date that the token was provided by the operating system.
- */
-+ (nullable instancetype)pushNotificationsTokenWithData:(nullable NSData *)data providedDate:(nullable NSDate *)providedDate NS_SWIFT_NAME(init(data:providedDate:));
++ (void)registerWithDataHexString:
+    (nonnull NSString *)deviceTokenDataHexString
+    registrarArray: (nullable NSArray<KVAPushNotificationsTokenRegistrarProvider> *)registrarArray
+    NS_SWIFT_NAME(register(withDataHexString:registrarArray:));
 
 
 

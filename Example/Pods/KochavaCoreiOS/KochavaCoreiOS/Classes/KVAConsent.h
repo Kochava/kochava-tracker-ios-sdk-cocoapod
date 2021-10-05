@@ -70,7 +70,10 @@
  
  @discussion This can be used to prompt the user for consent and to enable and/or disable functionality.  Updates include, but are not limited to, when the user travels into or out of an area requiring consent, when new partners are added, and when conditions indicate a need to retry prompting the user.
  */
-typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
+typedef void (^ KVAConsentDidUpdateBlock)
+(
+    KVAConsent * _Nonnull consent
+);
 
 
 
@@ -215,7 +218,8 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @param didGrantBoolNumber The response from the user, as a boolean wrapped in an NSNumber.  A value of true means consent was granted.  A value of false means consent was denied.  A value of nil means the user did not provide a response, and this includes if the user may have dismissed the dialog without indicating one way or another.
  */
-- (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber NS_SWIFT_NAME(didPrompt(didGrantBoolNumber:));
+- (void)didPromptWithDidGrantBoolNumber:(nullable NSNumber *)didGrantBoolNumber
+    NS_SWIFT_NAME(didPrompt(didGrantBoolNumber:));
 
 
 
@@ -259,7 +263,8 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @discussion Returns true if consent is not required or else is granted.  This will immediately return false if the consent requirement(s) have been updated but not an updated consent response has not yet been given from the user.  Compare with mayKeepBool, mayPersistBool, and mayShareBool.
  */
-- (BOOL)mayCalculateBool __attribute__((deprecated("Deprecated in 4.2.0.  Please use mayCollectBool instead.")));
+- (BOOL)mayCalculateBool
+    __attribute__((deprecated("Deprecated in 4.2.0.  Please use mayCollectBool instead.")));
 
 
 
@@ -325,7 +330,8 @@ typedef void (^ KVAConsentDidUpdateBlock) (KVAConsent * _Nonnull consent);
  
  @discussion Optional.  This method can be used if you want to ensure that the prompt for consent will not be made again, even when a subsequent call to didPromptWithDidGrantBoolNumber: is never made, such as in the case of an unexpected termination.  If you call didPromptWithDidGrantBoolNumber: whenever the prompt is dismissed, even if the user did not give a response, then this method does not need to be called.
  */
-- (void)willPrompt NS_SWIFT_NAME(willPrompt());
+- (void)willPrompt
+    NS_SWIFT_NAME(willPrompt());
 
 
 

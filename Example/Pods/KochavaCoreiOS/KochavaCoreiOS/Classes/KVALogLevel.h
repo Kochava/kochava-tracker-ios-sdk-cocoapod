@@ -182,7 +182,9 @@
  
  @brief A method to return if a given logLevel is visible with the given visibleMaximumLogLevel.
  */
-+ (BOOL)logLevel:(nullable KVALogLevel *)logLevel visibleBoolWithVisibleMaximumLogLevel:(nullable KVALogLevel *)visibleMaximumLogLevel;
++ (BOOL)logLevel:
+    (nullable KVALogLevel *)logLevel
+    visibleBoolWithVisibleMaximumLogLevel: (nullable KVALogLevel *)visibleMaximumLogLevel;
 
 
 

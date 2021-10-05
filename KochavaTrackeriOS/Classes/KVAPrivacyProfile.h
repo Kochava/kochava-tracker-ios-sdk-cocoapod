@@ -35,13 +35,14 @@
 
 
 
-#pragma mark - PROTOCOLS
+#pragma mark - PROTOCOL
 
 
 
 @protocol KVAPrivacyProfileRegistrar <NSObject>
 
-- (void)registerProfile:(nonnull KVAPrivacyProfile *)privacyProfile NS_SWIFT_NAME(registerProfile(_:));
+- (void)registerProfile:(nonnull KVAPrivacyProfile *)privacyProfile
+    NS_SWIFT_NAME(register(profile:));
 
 @end
 
@@ -79,28 +80,35 @@
 /*!
  @method + registerWithNameString:payloadKeyStringArray:
  
- @brief A method which registers a device privacyProfile.
+ @brief A method which registers a privacy profile.
  
- @param nameString The name of the privacyProfile.
+ @param nameString The name of the privacy profile.
  
- @param payloadKeyStringArray An array of datapoint identifiers.
+ @param payloadKeyStringArray An array of payload keys (datapoint identifiers).
  */
-+ (void)registerWithNameString:(nonnull NSString *)nameString payloadKeyStringArray:(nullable NSArray<NSString *> *)payloadKeyStringArray NS_SWIFT_NAME(register(withNameString:payloadKeyStringArray:));
++ (void)registerWithNameString:
+    (nonnull NSString *)nameString
+    payloadKeyStringArray: (nullable NSArray<NSString *> *)payloadKeyStringArray
+    NS_SWIFT_NAME(register(withNameString:payloadKeyStringArray:));
 
 
 
 /*!
  @method + registerWithNameString:payloadKeyStringArray:registrarArray:
  
- @brief A method which registers a privacyProfile.
+ @brief A method which registers a privacy profile.
  
- @param nameString The name of the privacyProfile.
+ @param nameString The name of the privacy profile.
  
- @param payloadKeyStringArray An array of datapoint identifiers.
+ @param payloadKeyStringArray An array of payload keys (datapoint identifiers).
 
- @param registrarArray An array of KVAPrivacyProfileRegistrarProvider to which to register the privacyProfile.
+ @param registrarArray An array of KVAPrivacyProfileRegistrarProvider to which to register the privacy profile.
  */
-+ (void)registerWithNameString:(nonnull NSString *)nameString payloadKeyStringArray:(nullable NSArray<NSString *> *)payloadKeyStringArray registrarArray:(nullable NSArray<KVAPrivacyProfileRegistrarProvider> *)registrarArray NS_SWIFT_NAME(register(withNameString:payloadKeyStringArray:registrarArray:));
++ (void)registerWithNameString:
+    (nonnull NSString *)nameString
+    payloadKeyStringArray: (nullable NSArray<NSString *> *)payloadKeyStringArray
+    registrarArray: (nullable NSArray<KVAPrivacyProfileRegistrarProvider> *)registrarArray
+    NS_SWIFT_NAME(register(withNameString:payloadKeyStringArray:registrarArray:));
 
 
 
@@ -120,7 +128,7 @@
 /*!
  @property payloadKeyStringArray
  
- @brief An array of datapoint identifiers.
+ @brief An array of payload keys (datapoint identifiers).
  */
 @property (strong, nonatomic, nullable, readonly) NSArray<NSString *> *payloadKeyStringArray;
 
@@ -129,7 +137,7 @@
 /*!
  @property payloadIdStringArray
  
- @brief An array of payload identifiers.
+ @brief An array of payload identifiers (network transaction types).
  */
 @property (strong, nonatomic, nullable, readonly) NSArray<NSString *> *payloadIdStringArray;
 

@@ -91,7 +91,8 @@
  
  @param completionHandler A completion handler to call once the result has been retrieved.
  */
-- (void)retrieveResultWithCompletionHandler:(void (^_Nullable)(KVAAttributionResult * _Nonnull attributionResult))completionHandler NS_SWIFT_NAME(retrieveResult(withCompletionHandler:));
+- (void)retrieveResultWithCompletionHandler:(void (^_Nullable)(KVAAttributionResult * _Nonnull attributionResult))completionHandler
+    NS_SWIFT_NAME(retrieveResult(withCompletionHandler:));
 
 
 

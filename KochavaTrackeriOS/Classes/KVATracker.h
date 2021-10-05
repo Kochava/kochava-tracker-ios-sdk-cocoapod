@@ -38,9 +38,10 @@
 #ifdef KOCHAVA_FRAMEWORK
 #import <KochavaTracker/KochavaTracker.h>
 #else
-#import "KVADeeplink.h"  // for KVADeeplinksProcessorProvider
+#import "KVADeeplink.h"  // for KVADeeplinksProcessor, KVADeeplinksProcessorProvider
+#import "KVADeeplinks.h"
 #import "KVAPrivacyProfile.h"  // for KVAPrivacyProfileRegistrarProvider.
-#import "KVAPushNotificationsToken.h"  // for KVAPushNotificationsTokenAdderRemoverProvider.
+#import "KVAPushNotificationsToken.h"  // for KVAPushNotificationsTokenRegistrarProvider.
 #endif
 
 
@@ -97,11 +98,17 @@
 #if TARGET_OS_TV
 @protocol KVATrackerGeneralJSExport <JSExport>
 @property (class, readonly, strong, nonnull) KVATracker *shared;
-+ (nonnull instancetype)tracker NS_SWIFT_NAME(tracker());
-+ (nonnull instancetype)trackerWithStorageIdString:(nullable NSString *)storageIdString NS_SWIFT_NAME(init(storageIdString:));
-- (void)invalidate NS_SWIFT_NAME(invalidate());
-- (void)startWithAppGUIDString:(nonnull NSString *)appGUIDString NS_SWIFT_NAME(start(withAppGUIDString:));
-- (void)startWithPartnerNameString:(nonnull NSString *)partnerNameString NS_SWIFT_NAME(start(withPartnerNameString:));
+@property (readonly) BOOL startedBool;
++ (nonnull instancetype)tracker
+    NS_SWIFT_NAME(tracker());
++ (nonnull instancetype)trackerWithStorageIdString:(nullable NSString *)storageIdString
+    NS_SWIFT_NAME(init(storageIdString:));
+- (void)invalidate
+    NS_SWIFT_NAME(invalidate());
+- (void)startWithAppGUIDString:(nonnull NSString *)appGUIDString
+    NS_SWIFT_NAME(start(withAppGUIDString:));
+- (void)startWithPartnerNameString:(nonnull NSString *)partnerNameString
+    NS_SWIFT_NAME(start(withPartnerNameString:));
 @end
 #endif
 
@@ -146,7 +153,8 @@
  
   @discussion This convenience constructor exists for Objective-C.  In Swift you should use default constructor KVATracker().
  */
-+ (nonnull instancetype)tracker NS_SWIFT_NAME(tracker());
++ (nonnull instancetype)tracker
+    NS_SWIFT_NAME(tracker());
 
 
 
@@ -159,14 +167,15 @@
  
  @discussion The storage identifier should be left unset unless you have a reason to not use the default storage space.  See default constructor KVATracker(), or in Objective-C see convenience constructor tracker.
  */
-+ (nonnull instancetype)trackerWithStorageIdString:(nullable NSString *)storageIdString NS_SWIFT_NAME(init(storageIdString:));
++ (nonnull instancetype)trackerWithStorageIdString:(nullable NSString *)storageIdString
+    NS_SWIFT_NAME(init(storageIdString:));
     
 
 
 /*!
- @property - startedBool
+ @property startedBool
  
- @brief A boolean indicating whether or not the tracker has been started.
+ @brief A boolean indicating whether or not the instance has been started.
  */
 @property (readonly) BOOL startedBool;
 
@@ -186,7 +195,8 @@
  KVATracker.shared.start(withAppGUIDString: "_YOUR_KOCHAVA_APP_GUID_")
  @endcode
  */
-- (void)startWithAppGUIDString:(nonnull NSString *)appGUIDString NS_SWIFT_NAME(start(withAppGUIDString:));
+- (void)startWithAppGUIDString:(nonnull NSString *)appGUIDString
+    NS_SWIFT_NAME(start(withAppGUIDString:));
 
 
 
@@ -204,7 +214,8 @@
  KVATracker.shared.start(withPartnerNameString: "_YOUR_KOCHAVA_PARTNER_NAME_")
  @endcode
  */
-- (void)startWithPartnerNameString:(nonnull NSString *)partnerNameString NS_SWIFT_NAME(start(withPartnerNameString:));
+- (void)startWithPartnerNameString:(nonnull NSString *)partnerNameString
+    NS_SWIFT_NAME(start(withPartnerNameString:));
 
 
 
@@ -217,7 +228,8 @@
  
  When you are not using Intelligent Consent Management, this method can be used to signal that the tracker may no longer run following consent having been denied.  When used this way, you may re-configure a tracker if/when consent is granted.
  */
-- (void)invalidate NS_SWIFT_NAME(invalidate());
+- (void)invalidate
+    NS_SWIFT_NAME(invalidate());
 
 
 
@@ -230,7 +242,10 @@
  
  @param valueObject A value object for the advanced instruction.
  */
-- (void)executeAdvancedInstructionWithIdentifierString:(nonnull NSString *)identifierString valueObject:(nullable id)valueObject NS_SWIFT_NAME(executeAdvancedInstruction(withIdentifierString:valueObject:));
+- (void)executeAdvancedInstructionWithIdentifierString:
+    (nonnull NSString *)identifierString
+    valueObject: (nullable id)valueObject
+    NS_SWIFT_NAME(executeAdvancedInstruction(withIdentifierString:valueObject:));
 
 
 
@@ -245,7 +260,10 @@
  
  @discussion This method can be used to make special configurations to the instance.  This method is equivalent to the support provided by KVAConfigureWithObjectProtocol;  however, it is formalized with a dispatch to the Kochava SDK's globalSerial queue and a log message.  It should not be confused with the v3 method to start the tracker, and it does not provide equivalent functionality.  For that see func start(withAppGUIDString:).
  */
-- (void)configureWith:(nullable id)withObject context:(nullable KVAContext *)context NS_SWIFT_NAME(configure(with:context:));
+- (void)configureWith:
+    (nullable id)withObject
+    context: (nullable KVAContext *)context
+    NS_SWIFT_NAME(configure(with:context:));
 
 
 
@@ -261,8 +279,20 @@
 
 
 
+#if TARGET_OS_TV
+@protocol KVATrackerAdNetworkJSExport <JSExport>
+@property (strong, nonatomic, nullable, readonly) id<KVAAdNetworkProtocol> adNetwork;
+@end
+#endif
 
+
+
+#if TARGET_OS_TV
+@interface KVATracker (AdNetwork_Public) <KVATrackerAdNetworkJSExport>
+#else
 @interface KVATracker (AdNetwork_Public)
+#endif
+
 
 
 /*!
@@ -286,7 +316,8 @@
 
 #if TARGET_OS_TV
 @protocol KVATrackerAppLimitAdTrackingJSExport <JSExport>
-@property (readwrite) BOOL appLimitAdTrackingBool NS_SWIFT_NAME(appLimitAdTrackingBool);
+@property (readwrite) BOOL appLimitAdTrackingBool
+    NS_SWIFT_NAME(appLimitAdTrackingBool);
 @end
 #endif
 
@@ -307,7 +338,8 @@
  
  @discussion This feature is related to the Limit Ad Tracking feature which is typically found on an Apple device under Settings, Privacy, Advertising.  In the same way that you can limit ad tracking through that setting, this feature provides a second and independent means for the host app to limit ad tracking by asking the user directly.  A value of false (NO) from either this feature or Apple's will result in the limiting of ad tracking.
  */
-@property (readwrite) BOOL appLimitAdTrackingBool NS_SWIFT_NAME(appLimitAdTrackingBool);
+@property (readwrite) BOOL appLimitAdTrackingBool
+    NS_SWIFT_NAME(appLimitAdTrackingBool);
 
 
 
@@ -478,7 +510,15 @@
 
 
 #if TARGET_OS_TV
-@interface KVATracker (Deeplinks_Public) <KVADeeplinksProcessorProvider>
+@protocol KVATrackerDeeplinksJSExport <JSExport, KVADeeplinksProcessorProvider>
+@property (strong, nonatomic, nonnull, readonly) KVADeeplinks *deeplinks;
+@end
+#endif
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (Deeplinks_Public) <KVADeeplinksProcessorProvider, KVATrackerDeeplinksJSExport>
 #else
 @interface KVATracker (Deeplinks_Public) <KVADeeplinksProcessorProvider>
 #endif
@@ -490,7 +530,7 @@
  
  @brief An instance of class KVADeeplinks.
  */
-@property (strong, nonatomic, nonnull, readonly) KVADeeplinks<KVADeeplinksProcessor> *deeplinks;
+@property (strong, nonatomic, nonnull, readonly) KVADeeplinks *deeplinks;
 
 
 
@@ -547,6 +587,7 @@
 
 #if TARGET_OS_TV
 @protocol KVATrackerEventsJSExport <JSExport, KVAEventSenderProvider>
+@property (strong, nonatomic, nonnull, readonly) KVAEvents<KVAEventSender> *events;
 @end
 #endif
 
@@ -582,7 +623,15 @@
 
 
 #if TARGET_OS_TV
-@interface KVATracker (IdentityLink_Public)
+@protocol KVATrackerIdentityLinkJSExport <JSExport>
+@property (strong, nonatomic, nonnull, readonly) KVAIdentityLink *identityLink;
+@end
+#endif
+
+
+
+#if TARGET_OS_TV
+@interface KVATracker (IdentityLink_Public) <KVATrackerIdentityLinkJSExport>
 #else
 @interface KVATracker (IdentityLink_Public)
 #endif
@@ -611,8 +660,20 @@
 
 
 
+#if TARGET_OS_TV
+@protocol KVATrackerLocationServicesJSExport <JSExport>
+@property (strong, nonatomic, nullable, readonly) id<KVALocationServicesProtocol> locationServices;
+@end
+#endif
 
+
+
+#if TARGET_OS_TV
+@interface KVATracker (LocationServices_Public) <KVATrackerLocationServicesJSExport>
+#else
 @interface KVATracker (LocationServices_Public)
+#endif
+
 
 
 /*!
@@ -646,6 +707,7 @@
 
 #if TARGET_OS_TV
 @protocol KVATrackerPrivacyJSExport <JSExport>
+@property (strong, nonatomic, nonnull, readonly) KVAPrivacy<KVAPrivacyProfileRegistrar> *privacy;
 @end
 #endif
 
@@ -680,23 +742,23 @@
 
 
 
-@protocol KVAPushNotificationsTokenAdder;
-@protocol KVAPushNotificationsTokenRemover;
-@protocol KVAPushNotificationsTokenAdderRemoverProvider;
+@protocol KVAPushNotificationsTokenRegistrar;
+@protocol KVAPushNotificationsTokenRegistrarProvider;
 
 
 
 #if TARGET_OS_TV
 @protocol KVATrackerPushNotificationsJSExport <JSExport>
+@property (strong, nonatomic, nonnull, readonly) KVAPushNotifications<KVAPushNotificationsTokenRegistrar> *pushNotifications;
 @end
 #endif
 
 
 
 #if TARGET_OS_TV
-@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenAdderRemoverProvider, KVATrackerPushNotificationsJSExport>
+@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenRegistrarProvider, KVATrackerPushNotificationsJSExport>
 #else
-@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenAdderRemoverProvider>
+@interface KVATracker (PushNotifications_Public) <KVAPushNotificationsTokenRegistrarProvider>
 #endif
 
 
@@ -706,42 +768,7 @@
  
  @brief An instance of class KVAPushNotifications.
  */
-@property (strong, nonatomic, nonnull, readonly) KVAPushNotifications<KVAPushNotificationsTokenAdder, KVAPushNotificationsTokenRemover> *pushNotifications;
-
-
-
-@end
-
-
-
-#pragma mark - feature SDK Version
-
-
-
-#if TARGET_OS_TV
-@protocol KVATrackerSDKVersionJSExport <JSExport>
-- (nullable NSString *)sdkVersionString;
-@end
-#endif
-
-
-
-#if TARGET_OS_TV
-@interface KVATracker (SDKVersion_Public) <KVATrackerSDKVersionJSExport>
-#else
-@interface KVATracker (SDKVersion_Public)
-#endif
-
-
-
-/*!
- @method - sdkVersionString
- 
- @brief A method to return the sdk version string.
- 
- @discussion The returned value includes the name of the SDK, followed by its semantic version.  When applicable it will be followed by a wrapper SDK version in parentheses.
- */
-- (nullable NSString *)sdkVersionString;
+@property (strong, nonatomic, nonnull, readonly) KVAPushNotifications<KVAPushNotificationsTokenRegistrar> *pushNotifications;
 
 
 

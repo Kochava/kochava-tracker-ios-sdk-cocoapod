@@ -36,7 +36,8 @@
  
  @param event A KVAEvent configured with the values you want to associate with the event.
  */
-- (void)sendEvent:(nonnull KVAEvent *)event;
+- (void)sendEvent:(nonnull KVAEvent *)event
+    NS_SWIFT_NAME(send(event:));
 
 
 

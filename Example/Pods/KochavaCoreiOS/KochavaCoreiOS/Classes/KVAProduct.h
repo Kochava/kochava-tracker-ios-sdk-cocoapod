@@ -57,7 +57,7 @@
 
 
 
-#pragma mark - CONSTRUCTORS
+#pragma mark - CONSTRUCTION
 
 
 
@@ -91,7 +91,7 @@
  Swift example:
  @code
  let product = KVAProduct(
-     apiVersionString: "4",
+     apiVersionString: "1",
      buildDateString: nil,
      bundleIdentifierString: Bundle(for: type(of: self)).bundleIdentifier,
      bundleTypeString: "xcframework",
@@ -105,7 +105,19 @@
  )
  @endcode
  */
-+ (nonnull instancetype)productWithAPIVersionString:(nullable NSString *)apiVersionString buildDateString:(nullable NSString *)buildDateString bundleIdentifierString:(nullable NSString *)bundleIdentifierString bundleTypeString:(nullable NSString *)bundleTypeString compilerFlagNameStringArray:(nullable NSArray<NSString *> *)compilerFlagNameStringArray compilerFlagPredicateSubstitutionVariablesDictionary:(nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary moduleNameString:(nonnull NSString *)moduleNameString nameString:(nonnull NSString *)nameString organizationNameString:(nonnull NSString *)organizationNameString reverseDomainNameString:(nullable NSString *)reverseDomainNameString versionString:(nullable NSString *)versionString;
++ (nonnull instancetype)productWithAPIVersionString:
+    (nullable NSString *)apiVersionString
+    buildDateString: (nullable NSString *)buildDateString
+    bundleIdentifierString: (nullable NSString *)bundleIdentifierString
+    bundleTypeString: (nullable NSString *)bundleTypeString
+    compilerFlagNameStringArray: (nullable NSArray<NSString *> *)compilerFlagNameStringArray
+    compilerFlagPredicateSubstitutionVariablesDictionary: (nullable NSDictionary *)compilerFlagPredicateSubstitutionVariablesDictionary
+    moduleNameString: (nonnull NSString *)moduleNameString
+    nameString: (nonnull NSString *)nameString
+    organizationNameString: (nonnull NSString *)organizationNameString
+    reverseDomainNameString: (nullable NSString *)reverseDomainNameString
+    versionString: (nullable NSString *)versionString
+    NS_SWIFT_NAME(init(apiVersionString:buildDateString:bundleIdentifierString:bundleTypeString:compilerFlagNameStringArray:compilerFlagPredicateSubstitutionVariablesDictionary:moduleNameString:nameString:organizationNameString:reverseDomainNameString:versionString:));
 
 
 
@@ -264,7 +276,8 @@
  
  @brief An optional product which wraps this product.
  */
-@property (strong, nonatomic, nullable, readwrite) KVAProduct *wrapperProduct NS_SWIFT_NAME(wrapperProduct);
+@property (strong, nonatomic, nullable, readwrite) KVAProduct *wrapperProduct
+    NS_SWIFT_NAME(wrapperProduct);
 
 
 
@@ -288,11 +301,29 @@
 
  @brief Resets the product.
 
- @discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.
+ @discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.  This method will complete asynchronously.  Before working with this product again you should wait until the reset has completed.  See method reset(deleteLocalDataBool:completionClosure:).
  
  @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
  */
-- (void)resetWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(reset(deleteLocalDataBool:));
+- (void)resetWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool
+    NS_SWIFT_NAME(reset(deleteLocalDataBool:));
+
+
+
+/*!
+ @method - resetWithDeleteLocalDataBool:completionClosure:
+
+ @brief Resets the product.
+
+ @discussion This involves resetting variables to their original states.  This may include releasing shared instances.  When parameter deleteLocalDataBool is passed true it also includes erasing any keys from persistent storage which are associated with the product.  This method will complete asynchronously.  Before working with this product again you should wait until the reset has completed.
+ 
+ @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
+
+ @param completionClosure A closure which is called upon completion.
+  */
+- (void)resetWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool
+    completionClosure:(void (^ _Nullable)(void))completionClosure
+    NS_SWIFT_NAME(reset(deleteLocalDataBool:completionClosure:));
 
 
 
@@ -301,11 +332,29 @@
 
  @brief Shuts down the product.
 
- @discussion This can be regarded as being equivalent to performing a reset, but may also include hints to avoid performing automatic behavior consistent with being freshly initialized. 
+ @discussion This can be regarded as being equivalent to performing a reset, but may also include hints to avoid performing automatic behavior consistent with being freshly initialized.   This method will complete asynchronously.  Before working with this product again you should wait until the shutdown has completed.  See method shutdown(deleteLocalDataBool:completionClosure:).
  
  @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
  */
-- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool NS_SWIFT_NAME(shutdown(deleteLocalDataBool:));
+- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool
+    NS_SWIFT_NAME(shutdown(deleteLocalDataBool:));
+
+
+
+/*!
+ @method - shutdownWithDeleteLocalDataBool:
+
+ @brief Shuts down the product.
+
+ @discussion This can be regarded as being equivalent to performing a reset, but may also include hints to avoid performing automatic behavior consistent with being freshly initialized.  This method will complete asynchronously.  Before working with this product again you should wait until the shutdown has completed.
+ 
+ @param deleteLocalDataBool A boolean indicating whether or not local data should be deleted.
+
+ @param completionClosure A closure which is called upon completion.
+  */
+- (void)shutdownWithDeleteLocalDataBool:(BOOL)deleteLocalDataBool
+    completionClosure:(void (^ _Nullable)(void))completionClosure
+    NS_SWIFT_NAME(shutdown(deleteLocalDataBool:completionClosure:));
 
 
 

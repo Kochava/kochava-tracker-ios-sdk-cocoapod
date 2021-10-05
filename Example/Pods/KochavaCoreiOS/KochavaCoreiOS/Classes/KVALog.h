@@ -72,6 +72,17 @@
 
 
 /*!
+ @property osLogEnabledBool
+ 
+ @brief A boolean indicating if log messages may be printed using os_log.
+ 
+ @discussion Default true.  When disabled, log messages will fall back to NSLog or Swift's print.  NSLog and Swift's print lack certain features which os_log has, but they may print in environments where os_log is not supported.
+ */
+@property (atomic, readwrite) BOOL osLogEnabledBool;
+
+
+
+/*!
  @property prettyPrintBool
  
  @brief A boolean indicating if log messages should be pretty printed.

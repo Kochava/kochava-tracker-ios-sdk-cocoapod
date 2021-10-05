@@ -48,15 +48,18 @@
 /*!
  @method - registerWithNameString:identifierString:
  
- @brief Registers and identity link.
+ @brief Registers an identity link.
  
  @param nameString The name of the identifier.
  
  @param identifierString The identifier.
  
- Important Note:  When possible, this method should be called as soon as possible after the tracker is started.  This ensures that your identity values are always associated with your install.
+ Important Note:  When used, and when possible, this method should be called before (or as soon as possible after) the tracker is started.  This helps to ensure that your identity values are associated with your install.
  */
-- (void)registerWithNameString:(nonnull NSString *)nameString identifierString:(nonnull NSString *)identifierString NS_SWIFT_NAME(register(withNameString:identifierString:));
+- (void)registerWithNameString:
+    (nonnull NSString *)nameString
+    identifierString: (nonnull NSString *)identifierString
+    NS_SWIFT_NAME(register(withNameString:identifierString:));
 
 
 

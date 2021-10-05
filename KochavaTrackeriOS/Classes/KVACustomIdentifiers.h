@@ -56,7 +56,10 @@
  
  @discussion In order to send a custom identifier it must be whitelisted on your account.
  */
-- (void)registerWithNameString:(nonnull NSString *)nameString identifierString:(nonnull NSString *)identifierString NS_SWIFT_NAME(register(withNameString:identifierString:));
+- (void)registerWithNameString:
+    (nonnull NSString *)nameString
+    identifierString: (nonnull NSString *)identifierString
+    NS_SWIFT_NAME(register(withNameString:identifierString:));
 
 
 

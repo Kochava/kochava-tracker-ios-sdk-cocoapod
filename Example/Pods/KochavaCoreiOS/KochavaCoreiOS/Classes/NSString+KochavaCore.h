@@ -36,6 +36,55 @@
 
 
 
+#pragma mark - CONSTRUCTION
+
+
+
+/*!
+ @method + kva_fromBool:
+ 
+ @brief Constructs a string from a boolean.
+ 
+ @discussion Returns the boolean as "true" or "false".  This is not localized, nor will ever be, and therefore is suitable to be used in JSON and other programmatic interfaces.
+ */
++ (nonnull instancetype)kva_fromBool:(BOOL)aBool;
+
+
+
+/*!
+ @method + kva_stringFromJSONObject:prettyPrintBool:
+ 
+ @brief A method to return a json string serialized from a json object.
+ 
+ @param prettyPrintBool A boolean indicating whether you want the json to be pretty printed.  Pretty printing involves adding carriage returns, indentation, etc.  It generally makes it more human readable but increases the total bytes.
+ 
+ @return A formatted string.
+ */
++ (nullable NSString *)kva_stringFromJSONObject:
+    (nullable id)jsonObject
+    prettyPrintBool: (BOOL)prettyPrintBool
+    NS_SWIFT_NAME(init(kva_fromJSONObject:prettyPrintBool:));
+
+
+
+#pragma mark - CLASS GENERAL
+
+
+
+/*!
+ @method + kva_string:isEqualToString:
+ 
+ @brief A method to compare two strings for equality, which provides for the possibility that either string may be nil.
+ 
+ @discussion Although you can test two strings for equality by using the isEqualToString: method directly, that comparison will fail if both strings are nil.  In contrast, this method will safely return true if both strings are nil.  It will also recognize when one string is nil and the other is not nil that they are not equal.
+ */
++ (BOOL)kva_string:
+    (nullable NSString *)string
+    isEqualToString: (nullable NSString *)anotherString
+    NS_SWIFT_NAME(kva_string(_:isEqualToString:));
+
+
+
 #pragma mark - GENERAL
 
 
@@ -67,35 +116,8 @@
  
  @param maximumLength The maximum length allowed.
  */
-- (nonnull NSString *)kva_withMaximumLength:(NSUInteger)maximumLength NS_SWIFT_NAME(kva_withMaximumLength(_:));
-
-
-
-#pragma mark - CLASS GENERAL
-
-
-
-/*!
- @method + kva_stringFromJSONObject:prettyPrintBool:
- 
- @brief A method to return a json string serialized from a json object.
- 
- @param prettyPrintBool A boolean indicating whether you want the json to be pretty printed.  Pretty printing involves adding carriage returns, indentation, etc.  It generally makes it more human readable but increases the total bytes.
- 
- @return A formatted string.
- */
-+ (nullable NSString *)kva_stringFromJSONObject:(nullable id)jsonObject prettyPrintBool:(BOOL)prettyPrintBool NS_SWIFT_NAME(init(kva_fromJSONObject:prettyPrintBool:));
-
-
-
-/*!
- @method + kva_string:isEqualToString:
- 
- @brief A method to compare two strings for equality, which provides for the possibility that either string may be nil.
- 
- @discussion Although you can test two strings for equality by using the isEqualToString: method directly, that comparison will fail if both strings are nil.  In contrast, this method will safely return true if both strings are nil.  It will also recognize when one string is nil and the other is not nil that they are not equal.
- */
-+ (BOOL)kva_string:(nullable NSString *)string isEqualToString:(nullable NSString *)anotherString NS_SWIFT_NAME(kva_string(_:isEqualToString:));
+- (nonnull NSString *)kva_withMaximumLength:(NSUInteger)maximumLength
+    NS_SWIFT_NAME(kva_withMaximumLength(_:));
 
 
 

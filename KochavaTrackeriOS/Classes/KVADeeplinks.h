@@ -26,6 +26,13 @@
 #import "KVAFromObjectProtocol.h"
 #endif
 
+#pragma mark KochavaTracker
+#ifdef KOCHAVA_FRAMEWORK
+#import <KochavaTracker/KochavaTracker.h>
+#else
+#import "KVADeeplink.h"  // for KVADeeplinksProcessor
+#endif
+
 
 
 #pragma mark - INTERFACE
@@ -41,7 +48,7 @@
  
  @copyright 2017 - 2021 Kochava, Inc.
  */
-@interface KVADeeplinks : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVAFromObjectProtocol>
+@interface KVADeeplinks : NSObject <KVAAsForContextObjectProtocol, KVAConfigureWithObjectProtocol, KVADeeplinksProcessor, KVAFromObjectProtocol>
 
 
 

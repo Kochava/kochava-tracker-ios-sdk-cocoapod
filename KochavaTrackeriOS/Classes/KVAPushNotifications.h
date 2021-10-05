@@ -45,6 +45,19 @@
 
 
 
+#pragma mark - PARAMETERS
+
+
+
+/*!
+ @property enabledBool
+ 
+ @brief A boolean indicating if push notifications is enabled.
+ */
+@property (readwrite) BOOL enabledBool;
+
+
+
 @end
 
 

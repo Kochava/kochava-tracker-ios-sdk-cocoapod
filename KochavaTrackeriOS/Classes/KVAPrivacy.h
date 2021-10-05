@@ -58,15 +58,18 @@
 /*!
  @method - setEnabledBoolForProfileNameString:enabledBool:
  
- @brief Sets a boolean indicating if a specified profile name is enabled.
+ @brief Sets a boolean indicating if the specified profile name is enabled.
  
  @param profileNameString The name of a profile.
  
  @param enabledBool A boolean indicating if enabled.
  
- @discussion See method registerProfile.
+ @discussion See method register(profile:).
  */
-- (void)setEnabledBoolForProfileNameString:(nonnull NSString *)profileNameString enabledBool:(BOOL)enabledBool NS_SWIFT_NAME(setEnabledBool(forProfileNameString:enabledBool:));
+- (void)setEnabledBoolForProfileNameString:
+    (nonnull NSString *)profileNameString
+    enabledBool: (BOOL)enabledBool
+    NS_SWIFT_NAME(setEnabledBool(forProfileNameString:enabledBool:));
 
 
 
@@ -75,7 +78,8 @@
  
  @brief Registers a profile.
  */
-- (void)registerProfile:(nonnull KVAPrivacyProfile *)privacyProfile NS_SWIFT_NAME(registerProfile(_:));
+- (void)registerProfile:(nonnull KVAPrivacyProfile *)privacyProfile
+    NS_SWIFT_NAME(register(profile:));
 
 
 

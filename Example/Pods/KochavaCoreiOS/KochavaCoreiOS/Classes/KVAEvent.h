@@ -48,7 +48,6 @@
 
 
 @protocol KVAEventSenderProvider;
-@protocol KVADispatchQueueDelegate;
 
 
 
@@ -114,7 +113,8 @@
 @property (strong, nonatomic, nullable) NSString *userIdString;
 @property (strong, nonatomic, nullable) NSString *userNameString;
 @property (strong, nonatomic, nullable) NSString *validatedString;
-+ (nullable instancetype)eventWithTypeNameString:(nonnull NSString *)eventTypeNameString NS_SWIFT_NAME(init(typeNameString:));
++ (nonnull instancetype)eventWithTypeNameString:(nonnull NSString *)eventTypeNameString
+    NS_SWIFT_NAME(init(typeNameString:));
 @end
 #endif
 
@@ -167,7 +167,8 @@ KVAFromObjectProtocol
  
  @discussion The designated initializer.
  */
-+ (nonnull instancetype)eventWithType:(nonnull KVAEventType *)eventType NS_SWIFT_NAME(init(type:));
++ (nonnull instancetype)eventWithType:(nonnull KVAEventType *)eventType
+    NS_SWIFT_NAME(init(type:));
 
 
 
@@ -851,15 +852,6 @@ KVAFromObjectProtocol
 
 
 /*!
- @method - eventNameString
- 
- @brief Internal.  A method that returns a string representation of the name of the event.  Marked internal beginning in v3.5.1.  This method is scheduled to become internal in v4.0 of this SDK.
- */
-- (nonnull NSString *)eventNameString;
-
-
-
-/*!
  @method - send
  
  @brief Sends the event using the default KVAEventSenderProvider.
@@ -875,7 +867,7 @@ KVAFromObjectProtocol
  
  @brief Sends the event with a specifed array of KVAEventSenderProvider(s).
  */
-- (void)sendWithSenderArray:(nullable NSArray<KVAEventSenderProvider,  KVADispatchQueueDelegate> *)senderArray;
+- (void)sendWithSenderArray:(nullable NSArray<KVAEventSenderProvider> *)senderArray;
 
 
 
