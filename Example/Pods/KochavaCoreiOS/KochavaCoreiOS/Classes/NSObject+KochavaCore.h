@@ -41,11 +41,11 @@
 
 
 /*!
- @typedef KVACustomMethodsBlock
+ @typedef KVACustomMethodsClosure
  
- @brief Defines a block which is intended to hold custom methods which can be used to extend individual instances of an object.
+ @brief Defines a closure which is intended to hold custom methods which can be used to extend individual instances of an object.
  */
-typedef void (^ KVACustomMethodsBlock)
+typedef void (^ KVACustomMethodsClosure)
 (
     NSObject * _Nonnull object,
     NSString * _Nonnull methodNameString,
@@ -197,7 +197,7 @@ typedef void (^ KVACustomMethodsBlock)
 
 
 /*!
- @method - kva_didMutate_addObserverUsingBlock:
+ @method - kva_didMutate_addObserverUsingClosure:
  
  @brief A method to create an observer to observe when the value of this adapter is taken to have mutated.
  
@@ -205,7 +205,7 @@ typedef void (^ KVACustomMethodsBlock)
  
  @return An observer.
  */
-- (nullable id<NSObject>)kva_didMutate_addObserverUsingBlock:(void (^ _Nullable)(NSNotification * _Nullable notification))block;
+- (nullable id<NSObject>)kva_didMutate_addObserverUsingClosure:(void (^ _Nullable)(NSNotification * _Nullable notification))closure;
 
 
 

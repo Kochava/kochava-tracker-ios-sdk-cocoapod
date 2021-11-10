@@ -42,7 +42,7 @@
 /*!
  @typedef KVADeeplinkProcessCompletionHandler
  
- @brief A block to be called when processing is complete.
+ @brief A closure to be called when processing is complete.
  */
 typedef void (^ KVADeeplinkProcessCompletionHandler)
 (
@@ -114,7 +114,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler)
 
  @param url The deep link url as provided.
 
- @param completionHandler A block to be called when processing is complete.
+ @param completionHandler A closure to be called when processing is complete.
  */
 + (void)processWithURL:
     (nullable NSURL *)url
@@ -132,7 +132,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler)
  
  @param timeoutTimeInterval A time interval after which to timeout and return whatever result we have.
  
- @param completionHandler A block to be called when processing is complete.
+ @param completionHandler A closure to be called when processing is complete.
  */
 + (void)processWithURL:
     (nullable NSURL *)url
@@ -151,7 +151,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler)
 
  @param processor An array of KVADeeplinksProcessorProvider to which to add the token.
 
- @param completionHandler A block to be called when processing is complete.
+ @param completionHandler A closure to be called when processing is complete.
  */
 + (void)processWithURL:
     (nullable NSURL *)url
@@ -172,7 +172,7 @@ typedef void (^ KVADeeplinkProcessCompletionHandler)
 
  @param processor An array of KVADeeplinksProcessorProvider to which to add the token.
  
- @param completionHandler A block to be called when processing is complete.
+ @param completionHandler A closure to be called when processing is complete.
  */
 + (void)processWithURL:
     (nullable NSURL *)url

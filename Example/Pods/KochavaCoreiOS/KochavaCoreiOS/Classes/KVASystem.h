@@ -50,20 +50,20 @@
 
 
 /*!
- @constant messagesAppViewControllerDidBecomeActiveSourceString
+ @constant KVASystem.messagesAppViewControllerDidBecomeActiveSourceString
 
  @brief A constant to use as the source when reporting that a MessagesAppViewController did become active.
  */
-@property (class, strong, nonatomic, nonnull, readonly) NSString *messagesAppViewControllerDidBecomeActiveSourceString;
+@property (class, strong, nonnull, readonly) NSString *messagesAppViewControllerDidBecomeActiveSourceString;
     
     
     
 /*!
- @constant messagesAppViewControllerDidResignActiveSourceString
+ @constant KVASystem.messagesAppViewControllerDidResignActiveSourceString
 
  @brief A constant to use as the source when reporting that a MessagesAppViewController did resign active.
  */
-@property (class, strong, nonatomic, nonnull, readonly) NSString *messagesAppViewControllerDidResignActiveSourceString;
+@property (class, strong, nonnull, readonly) NSString *messagesAppViewControllerDidResignActiveSourceString;
     
     
     
