@@ -93,6 +93,28 @@
 
 
 
+/*!
+ @property printLinesIndividuallyBool
+ 
+ @brief A boolean indicating if log messages should be separated by new line and then printed individually.
+ 
+ @discussion Default false.  This can be used to overcome truncation issues, but it will add message prefixes to the beginning of each line.
+ */
+@property (atomic, readwrite) BOOL printLinesIndividuallyBool;
+
+
+
+/*!
+ @property printPrefixString
+ 
+ @brief A prefix to be added to the beginning of each item printed to the log.
+ 
+ @discussion Default nil.  This can be set to a value such as "KVA: " to make filtering log messages easier.  When this is used in conjunction with var printLinesIndividuallyBool this prefix will be printed at the beginning of each line.
+ */
+@property (strong, atomic, nullable, readwrite) NSString *printPrefixString;
+
+
+
 @end
 
 
